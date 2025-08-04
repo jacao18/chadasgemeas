@@ -1,10 +1,321 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <title>Meu Primeiro Site</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Presentes - Chá de Bebê da Maria Eduarda</title>
+    <!-- Link para a fonte Poppins do Google Fonts para um visual moderno -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos básicos para o corpo e reset de margens/padding */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5; /* Fundo cinza claro */
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Container para centralizar o conteúdo */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        /* Estilo do Cabeçalho */
+        header {
+            background-color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            color: #2c3e50; /* Título escuro */
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        /* Seção de Herói (Informações do Chá/Pessoa) */
+        .hero-section {
+            background-color: #e0f2f7; /* Azul/verde claro */
+            color: #2c3e50;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .hero-section img.profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%; /* Imagem redonda */
+            object-fit: cover;
+            border: 3px solid #6dd5ed; /* Borda da imagem */
+            margin-bottom: 15px;
+        }
+
+        .hero-section h2 {
+            margin: 0 0 5px 0;
+            font-size: 1.6em;
+            color: #007bff; /* Azul primário */
+        }
+
+        .hero-section p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        /* Seção da Lista de Presentes (Grid de Cartões) */
+        .gift-list {
+            display: grid;
+            /* Cria colunas responsivas, mínimo 280px, máximo 1fr (distribui igualmente) */
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px; /* Espaçamento entre os cartões */
+        }
+
+        .gift-item {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden; /* Garante que bordas arredondadas funcionem com a imagem */
+            text-align: center;
+            display: flex;
+            flex-direction: column; /* Conteúdo em coluna */
+            justify-content: space-between; /* Empurra o botão para o final */
+        }
+
+        .gift-item img {
+            width: 100%;
+            height: 180px; /* Altura fixa para as imagens */
+            object-fit: cover; /* Recorta a imagem para cobrir a área */
+            background-color: #eee; /* Cor de fundo para placeholders */
+        }
+
+        .gift-info {
+            padding: 15px;
+            flex-grow: 1; /* Permite que a info ocupe o espaço restante */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .gift-info h3 {
+            font-size: 1.2em;
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+
+        .gift-details {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .gift-details p {
+            margin: 5px 0;
+        }
+
+        .gift-status {
+            font-weight: 600;
+            color: #28a745; /* Verde para disponível */
+            margin-bottom: 15px;
+        }
+        .gift-status.purchased {
+            color: #dc3545; /* Vermelho para comprado */
+        }
+
+        .gift-item button {
+            background-color: #007bff; /* Azul primário para botões */
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            width: calc(100% - 30px); /* Ajusta para padding */
+            margin: 0 15px 15px 15px; /* Margem para coincidir com o padding de .gift-info */
+        }
+
+        .gift-item button:hover {
+            background-color: #0056b3;
+        }
+
+        .gift-item button.purchased-btn {
+            background-color: #6c757d; /* Cinza para botões de itens comprados */
+            cursor: not-allowed;
+        }
+
+        /* Botão de Ação Flutuante (FAB) */
+        .fab {
+            position: fixed; /* Fixa na tela */
+            bottom: 20px;
+            right: 20px;
+            background-color: #28a745; /* Verde para o FAB */
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px; /* Botão arredondado */
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease;
+            z-index: 1000; /* Garante que fique acima de outros elementos */
+            white-space: nowrap; /* Evita que o texto quebre linha */
+        }
+
+        .fab:hover {
+            background-color: #218838;
+        }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            color: #777;
+            font-size: 0.85em;
+            border-top: 1px solid #eee;
+        }
+
+        /* Ajustes Responsivos para telas menores */
+        @media (max-width: 600px) {
+            .gift-list {
+                grid-template-columns: 1fr; /* Apenas uma coluna em telas pequenas */
+            }
+
+            .container {
+                margin: 10px auto;
+            }
+
+            .fab {
+                left: 50%; /* Centraliza o FAB na parte inferior */
+                transform: translateX(-50%);
+                right: unset; /* Remove o right para que o left funcione */
+                bottom: 15px;
+                padding: 12px 20px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Olá, Mundo!</h1>
-    <p>Este é o meu site hospedado no GitHub Pages.</p>
+    <header>
+        <div class="container">
+            <h1>Presentes para o Chá de Fraldas</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero-section">
+            <!-- Imagem de perfil/bebê. Usei um placeholder. -->
+            <img src="https://via.placeholder.com/100" alt="Foto da Bebê" class="profile-pic">
+            <h2>Chá de Bebê da Maria Eduarda!</h2>
+            <p>Data do evento: 20 de Setembro de 2025</p>
+            <p>Seu carinho será muito bem-vindo para a chegada da Maria Eduarda!</p>
+        </section>
+
+        <section class="gift-list">
+            <!-- Item de Presente 1: Disponível -->
+            <div class="gift-item">
+                <img src="https://via.placeholder.com/300x180?text=Fralda+Tamanho+M" alt="Fralda Tamanho M">
+                <div class="gift-info">
+                    <h3>Fralda Pampers Tamanho M</h3>
+                    <div class="gift-details">
+                        <p>Quantidade: <strong>2 Pacotes</strong></p>
+                        <p>Preferência: Marcas Pampers ou Huggies.</p>
+                    </div>
+                    <span class="gift-status">Disponível para Comprar</span>
+                </div>
+                <button>Comprar este Presente</button>
+            </div>
+
+            <!-- Item de Presente 2: Comprado -->
+            <div class="gift-item">
+                <img src="https://via.placeholder.com/300x180?text=Lenço+Umedecido" alt="Lenço Umedecido">
+                <div class="gift-info">
+                    <h3>Lenço Umedecido (Pacote Grande)</h3>
+                    <div class="gift-details">
+                        <p>Quantidade: <strong>1 Pacote</strong></p>
+                        <p>Qualquer marca.</p>
+                    </div>
+                    <span class="gift-status purchased">Comprado por alguém 🎉</span>
+                </div>
+                <button class="purchased-btn" disabled>Presente Já Comprado</button>
+            </div>
+
+            <!-- Item de Presente 3: Disponível -->
+            <div class="gift-item">
+                <img src="https://via.placeholder.com/300x180?text=Pomada+Assadura" alt="Pomada para Assadura">
+                <div class="gift-info">
+                    <h3>Pomada para Assadura Bepantol Baby</h3>
+                    <div class="gift-details">
+                        <p>Quantidade: <strong>1 Unidade</strong></p>
+                        <p>Marca: Bepantol Baby.</p>
+                    </div>
+                    <span class="gift-status">Disponível para Comprar</span>
+                </div>
+                <button>Comprar este Presente</button>
+            </div>
+
+            <!-- Item de Presente 4: Disponível -->
+            <div class="gift-item">
+                <img src="https://via.placeholder.com/300x180?text=Sabonete+Líquido" alt="Sabonete Líquido Bebê">
+                <div class="gift-info">
+                    <h3>Sabonete Líquido da Cabeça aos Pés</h3>
+                    <div class="gift-details">
+                        <p>Quantidade: <strong>1 Frasco (grande)</strong></p>
+                        <p>Marca: Granado ou Johnson's Baby.</p>
+                    </div>
+                    <span class="gift-status">Disponível para Comprar</span>
+                </div>
+                <button>Comprar este Presente</button>
+            </div>
+
+            <!-- Item de Presente 5: Comprado -->
+            <div class="gift-item">
+                <img src="https://via.placeholder.com/300x180?text=Algodão" alt="Algodão">
+                <div class="gift-info">
+                    <h3>Algodão em Bolas</h3>
+                    <div class="gift-details">
+                        <p>Quantidade: <strong>1 Pacote</strong></p>
+                        <p>Para higiene do bebê.</p>
+                    </div>
+                    <span class="gift-status purchased">Comprado por alguém 🎉</span>
+                </div>
+                <button class="purchased-btn" disabled>Presente Já Comprado</button>
+            </div>
+
+            <!-- Item de Presente 6: Disponível -->
+            <div class="gift-item">
+                <img src="https://via.placeholder.com/300x180?text=Fralda+Tamanho+P" alt="Fralda Tamanho P">
+                <div class="gift-info">
+                    <h3>Fralda Pampers Tamanho P</h3>
+                    <div class="gift-details">
+                        <p>Quantidade: <strong>1 Pacote</strong></p>
+                        <p>Início, para recém-nascido.</p>
+                    </div>
+                    <span class="gift-status">Disponível para Comprar</span>
+                </div>
+                <button>Comprar este Presente</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Botão de Ação Flutuante -->
+    <a href="#" class="fab">
+        Ajude a Maria Eduarda a ganhar seu presente!
+    </a>
+
+    <footer>
+        <p>&copy; 2023 Chá de Bebê da Maria Eduarda. Todos os direitos reservados. Design inspirado em Ifaldas.</p>
+    </footer>
 </body>
 </html>
