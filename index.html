@@ -14,7 +14,7 @@
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f2f5; /* Fundo cinza claro */
+            background-color: #fef8fa; /* Rosa muito claro, quase branco */
             color: #333;
             line-height: 1.6;
         }
@@ -31,25 +31,25 @@
             background-color: #ffffff;
             padding: 20px 0;
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(255,220,220,0.3); /* Sombra rosada suave */
             margin-bottom: 20px;
         }
 
         header h1 {
-            color: #2c3e50; /* Título escuro */
+            color: #d8477f; /* Rosa médio escuro */
             margin: 0;
             font-size: 1.8em;
         }
 
         /* Seção de Herói (Informações do Chá/Pessoa) */
         .hero-section {
-            background-color: #e0f2f7; /* Azul/verde claro */
+            background-color: #fff0f3; /* Rosa claro e suave */
             color: #2c3e50;
             padding: 30px 20px;
             text-align: center;
             border-radius: 8px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(255,220,220,0.1);
         }
 
         .hero-section img.profile-pic {
@@ -57,14 +57,14 @@
             height: 100px;
             border-radius: 50%; /* Imagem redonda */
             object-fit: cover;
-            border: 3px solid #6dd5ed; /* Borda da imagem */
+            border: 3px solid #ff88a3; /* Borda rosa mais vibrante */
             margin-bottom: 15px;
         }
 
         .hero-section h2 {
             margin: 0 0 5px 0;
             font-size: 1.6em;
-            color: #007bff; /* Azul primário */
+            color: #e75480; /* Rosa mais vibrante */
         }
 
         .hero-section p {
@@ -84,7 +84,7 @@
         .gift-item {
             background-color: #ffffff;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(255,220,220,0.2); /* Sombra rosada */
             overflow: hidden; /* Garante que bordas arredondadas funcionem com a imagem */
             text-align: center;
             display: flex;
@@ -96,7 +96,7 @@
             width: 100%;
             height: 180px; /* Altura fixa para as imagens */
             object-fit: cover; /* Recorta a imagem para cobrir a área */
-            background-color: #eee; /* Cor de fundo para placeholders */
+            background-color: #fce4ec; /* Rosa bem claro para placeholders */
         }
 
         .gift-info {
@@ -125,15 +125,15 @@
 
         .gift-status {
             font-weight: 600;
-            color: #28a745; /* Verde para disponível */
+            color: #e75480; /* Rosa para disponível */
             margin-bottom: 15px;
         }
         .gift-status.purchased {
-            color: #dc3545; /* Vermelho para comprado */
+            color: #8d2d4d; /* Rosa mais escuro para comprado */
         }
 
         .gift-item button {
-            background-color: #007bff; /* Azul primário para botões */
+            background-color: #e75480; /* Rosa vibrante para botões */
             color: white;
             border: none;
             padding: 12px 20px;
@@ -146,11 +146,11 @@
         }
 
         .gift-item button:hover {
-            background-color: #0056b3;
+            background-color: #d14c72; /* Rosa um pouco mais escuro no hover */
         }
 
         .gift-item button.purchased-btn {
-            background-color: #6c757d; /* Cinza para botões de itens comprados */
+            background-color: #bbbbbb; /* Cinza para botões de itens comprados */
             cursor: not-allowed;
         }
 
@@ -159,20 +159,20 @@
             position: fixed; /* Fixa na tela */
             bottom: 20px;
             right: 20px;
-            background-color: #28a745; /* Verde para o FAB */
+            background-color: #e75480; /* Rosa para o FAB */
             color: white;
             padding: 15px 25px;
             border-radius: 50px; /* Botão arredondado */
             text-decoration: none;
             font-weight: 600;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 8px rgba(255,180,180,0.3); /* Sombra rosada */
             transition: background-color 0.3s ease;
             z-index: 1000; /* Garante que fique acima de outros elementos */
             white-space: nowrap; /* Evita que o texto quebre linha */
         }
 
         .fab:hover {
-            background-color: #218838;
+            background-color: #d14c72; /* Rosa mais escuro no hover */
         }
 
         /* Rodapé */
@@ -182,7 +182,7 @@
             margin-top: 40px;
             color: #777;
             font-size: 0.85em;
-            border-top: 1px solid #eee;
+            border-top: 1px solid #ffdde1; /* Borda rosa bem clara */
         }
 
         /* Ajustes Responsivos para telas menores */
@@ -209,27 +209,27 @@
 <body>
     <header>
         <div class="container">
-            <h1>Presentes para o Chá de Fraldas</h1>
+            <h1>Presentes para o Chá de Bebê</h1>
         </div>
     </header>
 
     <main class="container">
         <section class="hero-section">
-            <!-- Imagem de perfil/bebê. Usei um placeholder. -->
-            <img src="https://via.placeholder.com/100" alt="Foto da Bebê" class="profile-pic">
-            <h2>Chá de Bebê da Maria Eduarda!</h2>
+            <!-- Imagem de perfil/bebê. Usei um placeholder genérico. -->
+            <img src="https://via.placeholder.com/100/ffb6c1/ffffff?text=Bebê" alt="Foto da Bebê Maria Eduarda" class="profile-pic">
+            <h2>Bem-vindos ao Chá de Bebê da Maria Eduarda!</h2>
             <p>Data do evento: 20 de Setembro de 2025</p>
-            <p>Seu carinho será muito bem-vindo para a chegada da Maria Eduarda!</p>
+            <p>Sua presença e carinho são o maior presente para a chegada da nossa pequena Maria Eduarda!</p>
         </section>
 
         <section class="gift-list">
-            <!-- Item de Presente 1: Disponível -->
+            <!-- Item de Presente 1: Fralda Tamanho M -->
             <div class="gift-item">
-                <img src="https://via.placeholder.com/300x180?text=Fralda+Tamanho+M" alt="Fralda Tamanho M">
+                <img src="https://via.placeholder.com/300x180/ffe4e1/8d2d4d?text=Fralda+Tam+M" alt="Fralda Tamanho M">
                 <div class="gift-info">
                     <h3>Fralda Pampers Tamanho M</h3>
                     <div class="gift-details">
-                        <p>Quantidade: <strong>2 Pacotes</strong></p>
+                        <p>Quantidade: <strong>2 Pacotes (Mega/Jumbo)</strong></p>
                         <p>Preferência: Marcas Pampers ou Huggies.</p>
                     </div>
                     <span class="gift-status">Disponível para Comprar</span>
@@ -237,23 +237,23 @@
                 <button>Comprar este Presente</button>
             </div>
 
-            <!-- Item de Presente 2: Comprado -->
+            <!-- Item de Presente 2: Lenço Umedecido -->
             <div class="gift-item">
-                <img src="https://via.placeholder.com/300x180?text=Lenço+Umedecido" alt="Lenço Umedecido">
+                <img src="https://via.placeholder.com/300x180/ffdddd/8d2d4d?text=Lenço+Umedecido" alt="Lenço Umedecido">
                 <div class="gift-info">
                     <h3>Lenço Umedecido (Pacote Grande)</h3>
                     <div class="gift-details">
                         <p>Quantidade: <strong>1 Pacote</strong></p>
                         <p>Qualquer marca.</p>
                     </div>
-                    <span class="gift-status purchased">Comprado por alguém 🎉</span>
+                    <span class="gift-status purchased">Comprado por alguém ��</span>
                 </div>
                 <button class="purchased-btn" disabled>Presente Já Comprado</button>
             </div>
 
-            <!-- Item de Presente 3: Disponível -->
+            <!-- Item de Presente 3: Pomada Assadura -->
             <div class="gift-item">
-                <img src="https://via.placeholder.com/300x180?text=Pomada+Assadura" alt="Pomada para Assadura">
+                <img src="https://via.placeholder.com/300x180/fff0f3/8d2d4d?text=Pomada+Assadura" alt="Pomada para Assadura">
                 <div class="gift-info">
                     <h3>Pomada para Assadura Bepantol Baby</h3>
                     <div class="gift-details">
@@ -265,9 +265,9 @@
                 <button>Comprar este Presente</button>
             </div>
 
-            <!-- Item de Presente 4: Disponível -->
+            <!-- Item de Presente 4: Sabonete Líquido -->
             <div class="gift-item">
-                <img src="https://via.placeholder.com/300x180?text=Sabonete+Líquido" alt="Sabonete Líquido Bebê">
+                <img src="https://via.placeholder.com/300x180/ffc0cb/8d2d4d?text=Sabonete+Líquido" alt="Sabonete Líquido Bebê">
                 <div class="gift-info">
                     <h3>Sabonete Líquido da Cabeça aos Pés</h3>
                     <div class="gift-details">
@@ -279,11 +279,11 @@
                 <button>Comprar este Presente</button>
             </div>
 
-            <!-- Item de Presente 5: Comprado -->
+            <!-- Item de Presente 5: Algodão em Bolas -->
             <div class="gift-item">
-                <img src="https://via.placeholder.com/300x180?text=Algodão" alt="Algodão">
+                <img src="https://via.placeholder.com/300x180/ffeaea/8d2d4d?text=Algodão+Bolas" alt="Algodão em Bolas">
                 <div class="gift-info">
-                    <h3>Algodão em Bolas</h3>
+                    <h3>Algodão em Bolas (Grande)</h3>
                     <div class="gift-details">
                         <p>Quantidade: <strong>1 Pacote</strong></p>
                         <p>Para higiene do bebê.</p>
@@ -293,13 +293,13 @@
                 <button class="purchased-btn" disabled>Presente Já Comprado</button>
             </div>
 
-            <!-- Item de Presente 6: Disponível -->
+            <!-- Item de Presente 6: Fralda Tamanho P -->
             <div class="gift-item">
-                <img src="https://via.placeholder.com/300x180?text=Fralda+Tamanho+P" alt="Fralda Tamanho P">
+                <img src="https://via.placeholder.com/300x180/ffdcdc/8d2d4d?text=Fralda+Tam+P" alt="Fralda Tamanho P">
                 <div class="gift-info">
                     <h3>Fralda Pampers Tamanho P</h3>
                     <div class="gift-details">
-                        <p>Quantidade: <strong>1 Pacote</strong></p>
+                        <p>Quantidade: <strong>1 Pacote (até 6kg)</strong></p>
                         <p>Início, para recém-nascido.</p>
                     </div>
                     <span class="gift-status">Disponível para Comprar</span>
@@ -315,7 +315,7 @@
     </a>
 
     <footer>
-        <p>&copy; 2023 Chá de Bebê da Maria Eduarda. Todos os direitos reservados. Design inspirado em Ifaldas.</p>
+        <p>&copy; 2023 Chá de Bebê da Maria Eduarda. Desenvolvido com carinho. Design inspirado em Ifaldas.</p>
     </footer>
 </body>
 </html>
