@@ -170,14 +170,20 @@
 
         .gift-info h3 {
             font-size: 1.2em;
-            margin: 0 0 10px 0;
+            margin: 0 0 5px 0; /* Ajustado para dar espaço ao preço */
             color: #333;
+        }
+
+        .gift-price { /* Novo estilo para o preço */
+            font-size: 1em;
+            font-weight: 600;
+            color: #e75480; /* Rosa mais vibrante para o preço */
+            margin-bottom: 10px;
         }
 
         .gift-details {
             font-size: 0.9em;
             color: #666;
-            /* Margin-bottom ajustada para refletir a remoção do status */
             margin-bottom: 0;
             min-height: 2em; /* Adicionado para evitar que os cards "pulem" se o texto for curto */
             display: flex;
@@ -188,10 +194,6 @@
         .gift-details p {
             margin: 5px 0;
         }
-
-        /* Removidas as classes gift-status e purchased, pois a disponibilidade não é mais exibida */
-        /* .gift-status { font-weight: 600; color: #e75480; margin-bottom: 15px; } */
-        /* .gift-status.purchased { color: #8d2d4d; } */
 
         .gift-item button {
             background-color: #e75480; /* Rosa vibrante para botões */
@@ -215,26 +217,28 @@
             cursor: not-allowed;
         }
 
-        /* Botão de Ação Flutuante (FAB) */
+        /* REMOVIDO: Botão de Ação Flutuante (FAB) */
+        /*
         .fab {
-            position: fixed; /* Fixa na tela */
+            position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: #e75480; /* Rosa para o FAB */
+            background-color: #e75480;
             color: white;
             padding: 15px 25px;
-            border-radius: 50px; /* Botão arredondado */
+            border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            box-shadow: 0 4px 8px rgba(255,180,180,0.3); /* Sombra rosada */
+            box-shadow: 0 4px 8px rgba(255,180,180,0.3);
             transition: background-color 0.3s ease;
-            z-index: 1000; /* Garante que fique acima de outros elementos */
-            white-space: nowrap; /* Evita que o texto quebre linha */
+            z-index: 1000;
+            white-space: nowrap;
         }
 
         .fab:hover {
-            background-color: #d14c72; /* Rosa mais escuro no hover */
+            background-color: #d14c72;
         }
+        */
 
         /* Rodapé */
         footer {
@@ -273,14 +277,17 @@
                 margin: 10px auto;
             }
 
+            /* REMOVIDO: FAB Responsivo */
+            /*
             .fab {
-                left: 50%; /* Centraliza o FAB na parte inferior */
+                left: 50%;
                 transform: translateX(-50%);
-                right: unset; /* Remove o right para que o left funcione */
+                right: unset;
                 bottom: 15px;
                 padding: 12px 20px;
                 font-size: 0.9em;
             }
+            */
 
             nav ul {
                 flex-direction: column; /* Itens em coluna em telas pequenas */
@@ -307,7 +314,7 @@
     <main class="container">
         <section class="hero-section">
             <!-- Imagem de perfil/bebê. Usei um placeholder genérico. -->
-            <img src="https://via.placeholder.com/100/ffb6c1/ffffff?text=Bebê" alt="Foto da Bebê Maria Eduarda" class="profile-pic">
+            <img src="https://via.placeholder.com/100/ffb6c1/ffffff?text=Bebê" alt="Foto da Bebê Marina e Clara" class="profile-pic">
             <h2>Lista de presentes</h2>
             <!-- Seção de ordenação movida para dentro do hero-section e ajustada -->
             <div class="sort-controls">
@@ -322,10 +329,11 @@
 
         <!-- A lista de presentes agora é um elemento irmão da seção hero-section -->
         <section class="gift-list">
-            <div class="gift-item" data-price="105">
-                <img src="https://github.com/jacao18/chadasgemeas/forro.jpg"
+            <div class="gift-item" data-price="105.00">
+                <img src="forro.jpg" alt="Forros para fraldas Ecológicas">
                 <div class="gift-info">
                     <h3>Forros para fraldas Ecológicas</h3>
+                    <p class="gift-price">Preço estimado: R\$ 105,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -336,6 +344,7 @@
                 <img src="https://via.placeholder.com/300x180/ffdddd/8d2d4d?text=Lenço+Umedecido" alt="Lenço Umedecido">
                 <div class="gift-info">
                     <h3>Lenço Umedecido (Pacote Grande)</h3>
+                    <p class="gift-price">Preço estimado: R\$ 25,00</p>
                     <div class="gift-details">
                         <p>Qualquer marca.</p>
                     </div>
@@ -347,6 +356,7 @@
                 <img src="https://via.placeholder.com/300x180/fff0f3/8d2d4d?text=Pomada+Assadura" alt="Pomada para Assadura">
                 <div class="gift-info">
                     <h3>Pomada para Assadura Bepantol Baby</h3>
+                    <p class="gift-price">Preço estimado: R\$ 40,00</p>
                     <div class="gift-details">
                         <p>Marca: Bepantol Baby.</p>
                     </div>
@@ -358,6 +368,7 @@
                 <img src="https://via.placeholder.com/300x180/ffc0cb/8d2d4d?text=Sabonete+Líquido" alt="Sabonete Líquido Bebê">
                 <div class="gift-info">
                     <h3>Sabonete Líquido da Cabeça aos Pés</h3>
+                    <p class="gift-price">Preço estimado: R\$ 30,00</p>
                     <div class="gift-details">
                         <p>Marca: Granado ou Johnson's Baby.</p>
                     </div>
@@ -369,6 +380,7 @@
                 <img src="https://via.placeholder.com/300x180/ffeaea/8d2d4d?text=Algodão+Bolas" alt="Algodão em Bolas">
                 <div class="gift-info">
                     <h3>Algodão em Bolas (Grande)</h3>
+                    <p class="gift-price">Preço estimado: R\$ 15,00</p>
                     <div class="gift-details">
                         <p>Para higiene do bebê.</p>
                     </div>
@@ -380,6 +392,7 @@
                 <img src="https://via.placeholder.com/300x180/ffdcdc/8d2d4d?text=Fralda+Tam+P" alt="Fralda Tamanho P">
                 <div class="gift-info">
                     <h3>Fralda Pampers Tamanho P</h3>
+                    <p class="gift-price">Preço estimado: R\$ 70,00</p>
                     <div class="gift-details">
                         <p>Início, para recém-nascido.</p>
                     </div>
@@ -388,7 +401,6 @@
             </div>
         </section>
     </main>
-
 
     <footer>
         <p>&copy; 2025 Chá das gêmeas Clara e Marina. Desenvolvido com carinho.</p>
@@ -405,10 +417,9 @@
                 const sortOrder = sortSelect.value; // 'asc', 'desc' ou 'none'
 
                 if (sortOrder === 'none') {
-                    // Se a opção for 'Padrão', reverte para a ordem original do HTML
-                    // Uma maneira simples é re-append os itens na ordem original do array
-                    // Uma forma mais robusta seria guardar a ordem inicial e restaurar.
-                    // Para este exemplo, apenas re-adicionamos, o que geralmente mantém a ordem original se eles não foram movidos.
+                    // Para restaurar a ordem "original" sem guardar um estado,
+                    // a melhor forma aqui é simplesmente re-append os itens no DOM
+                    // na mesma ordem em que foram coletados inicialmente no array giftItems.
                     giftItems.forEach(item => {
                         giftListContainer.appendChild(item);
                     });
