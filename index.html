@@ -177,21 +177,21 @@
         .gift-details {
             font-size: 0.9em;
             color: #666;
-            margin-bottom: 15px;
+            /* Margin-bottom ajustada para refletir a remoção do status */
+            margin-bottom: 0;
+            min-height: 2em; /* Adicionado para evitar que os cards "pulem" se o texto for curto */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .gift-details p {
             margin: 5px 0;
         }
 
-        .gift-status {
-            font-weight: 600;
-            color: #e75480; /* Rosa para disponível */
-            margin-bottom: 15px;
-        }
-        .gift-status.purchased {
-            color: #8d2d4d; /* Rosa mais escuro para comprado */
-        }
+        /* Removidas as classes gift-status e purchased, pois a disponibilidade não é mais exibida */
+        /* .gift-status { font-weight: 600; color: #e75480; margin-bottom: 15px; } */
+        /* .gift-status.purchased { color: #8d2d4d; } */
 
         .gift-item button {
             background-color: #e75480; /* Rosa vibrante para botões */
@@ -203,7 +203,7 @@
             font-size: 1em;
             transition: background-color 0.3s ease;
             width: calc(100% - 30px); /* Ajusta para padding */
-            margin: 0 15px 15px 15px; /* Margem para coincidir com o padding de .gift-info */
+            margin: 15px 15px 15px 15px; /* Margem para coincidir com o padding de .gift-info, e adicionado top margin */
         }
 
         .gift-item button:hover {
@@ -248,9 +248,6 @@
 
         /* Ajustes Responsivos para telas menores */
         @media (max-width: 768px) {
-            /* Remove main-content-layout pois não é mais usado para flex */
-            /* .main-content-layout { flex-direction: column; } */
-
             .sort-controls {
                 width: calc(100% - 40px); /* Ocupa a largura total menos o padding */
                 display: block; /* Volta a ser block para ocupar a largura total */
@@ -325,18 +322,15 @@
 
         <!-- A lista de presentes agora é um elemento irmão da seção hero-section -->
         <section class="gift-list">
-            <!-- ATENÇÃO: Adicionei o atributo data-price a cada div gift-item -->
             <div class="gift-item" data-price="80.00">
                 <img src="https://via.placeholder.com/300x180/ffe4e1/8d2d4d?text=Fralda+Tam+M" alt="Fralda Tamanho M">
                 <div class="gift-info">
                     <h3>Fralda Pampers Tamanho M</h3>
                     <div class="gift-details">
-                        <p>Quantidade: <strong>2 Pacotes (Mega/Jumbo)</strong></p>
                         <p>Preferência: Marcas Pampers ou Huggies.</p>
                     </div>
-                    <span class="gift-status">Disponível para Comprar</span>
                 </div>
-                <button>Comprar este Presente</button>
+                <button>Presentear</button>
             </div>
 
             <div class="gift-item" data-price="25.00">
@@ -344,12 +338,10 @@
                 <div class="gift-info">
                     <h3>Lenço Umedecido (Pacote Grande)</h3>
                     <div class="gift-details">
-                        <p>Quantidade: <strong>1 Pacote</strong></p>
                         <p>Qualquer marca.</p>
                     </div>
-                    <span class="gift-status purchased">Comprado por alguém 🎉</span>
                 </div>
-                <button class="purchased-btn" disabled>Presente Já Comprado</button>
+                <button class="purchased-btn" disabled>Presentear</button>
             </div>
 
             <div class="gift-item" data-price="40.00">
@@ -357,12 +349,10 @@
                 <div class="gift-info">
                     <h3>Pomada para Assadura Bepantol Baby</h3>
                     <div class="gift-details">
-                        <p>Quantidade: <strong>1 Unidade</strong></p>
                         <p>Marca: Bepantol Baby.</p>
                     </div>
-                    <span class="gift-status">Disponível para Comprar</span>
                 </div>
-                <button>Comprar este Presente</button>
+                <button>Presentear</button>
             </div>
 
             <div class="gift-item" data-price="30.00">
@@ -370,12 +360,10 @@
                 <div class="gift-info">
                     <h3>Sabonete Líquido da Cabeça aos Pés</h3>
                     <div class="gift-details">
-                        <p>Quantidade: <strong>1 Frasco (grande)</strong></p>
                         <p>Marca: Granado ou Johnson's Baby.</p>
                     </div>
-                    <span class="gift-status">Disponível para Comprar</span>
                 </div>
-                <button>Comprar este Presente</button>
+                <button>Presentear</button>
             </div>
 
             <div class="gift-item" data-price="15.00">
@@ -383,12 +371,10 @@
                 <div class="gift-info">
                     <h3>Algodão em Bolas (Grande)</h3>
                     <div class="gift-details">
-                        <p>Quantidade: <strong>1 Pacote</strong></p>
                         <p>Para higiene do bebê.</p>
                     </div>
-                    <span class="gift-status purchased">Comprado por alguém 🎉</span>
                 </div>
-                <button class="purchased-btn" disabled>Presente Já Comprado</button>
+                <button class="purchased-btn" disabled>Presentear</button>
             </div>
 
             <div class="gift-item" data-price="70.00">
@@ -396,17 +382,18 @@
                 <div class="gift-info">
                     <h3>Fralda Pampers Tamanho P</h3>
                     <div class="gift-details">
-                        <p>Quantidade: <strong>1 Pacote (até 6kg)</strong></p>
                         <p>Início, para recém-nascido.</p>
                     </div>
-                    <span class="gift-status">Disponível para Comprar</span>
                 </div>
-                <button>Comprar este Presente</button>
+                <button>Presentear</button>
             </div>
         </section>
     </main>
 
-
+    <!-- Botão de Ação Flutuante -->
+    <a href="#" class="fab">
+        Ajude as gêmeas a ganharem seus presentes!
+    </a>
 
     <footer>
         <p>&copy; 2025 Chá das gêmeas Clara e Marina. Desenvolvido com carinho.</p>
@@ -425,6 +412,8 @@
                 if (sortOrder === 'none') {
                     // Se a opção for 'Padrão', reverte para a ordem original do HTML
                     // Uma maneira simples é re-append os itens na ordem original do array
+                    // Uma forma mais robusta seria guardar a ordem inicial e restaurar.
+                    // Para este exemplo, apenas re-adicionamos, o que geralmente mantém a ordem original se eles não foram movidos.
                     giftItems.forEach(item => {
                         giftListContainer.appendChild(item);
                     });
