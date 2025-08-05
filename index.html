@@ -102,8 +102,45 @@
             color: #555;
         }
 
+        /* Layout para a barra lateral de ordenação e lista de presentes */
+        .main-content-layout {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start; /* Alinha os itens ao topo */
+        }
+
+        /* Estilos da barra lateral de ordenação */
+        .sort-controls {
+            flex: 0 0 200px; /* Largura fixa para a barra lateral */
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(255,220,220,0.2);
+            text-align: left;
+        }
+
+        .sort-controls label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #d8477f;
+        }
+
+        .sort-controls select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ffdde1; /* Borda rosa clara */
+            border-radius: 4px;
+            background-color: #fff;
+            color: #333;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
         /* Seção da Lista de Presentes (Grid de Cartões) */
         .gift-list {
+            flex-grow: 1; /* Ocupa o espaço restante */
             display: grid;
             /* Cria colunas responsivas, mínimo 280px, máximo 1fr (distribui igualmente) */
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -215,9 +252,17 @@
         }
 
         /* Ajustes Responsivos para telas menores */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
+            .main-content-layout {
+                flex-direction: column; /* Pilha a barra lateral e a lista em telas pequenas */
+            }
+            .sort-controls {
+                width: auto; /* Ocupa a largura total */
+                flex: none; /* Remove a largura fixa */
+            }
+
             .gift-list {
-                grid-template-columns: 1fr; /* Apenas uma coluna em telas pequenas */
+                grid-template-columns: 1fr; /* Apenas uma coluna em telas muito pequenas */
             }
 
             .container {
@@ -262,95 +307,152 @@
             <h2>Lista de presentes</h2>
         </section>
 
-        <section class="gift-list">
-            <!-- Item de Presente 1: Fralda Tamanho M -->
-            <div class="gift-item">
-                <img src="https://via.placeholder.com/300x180/ffe4e1/8d2d4d?text=Fralda+Tam+M" alt="Fralda Tamanho M">
-                <div class="gift-info">
-                    <h3>Fralda Pampers Tamanho M</h3>
-                    <div class="gift-details">
-                        <p>Quantidade: <strong>2 Pacotes (Mega/Jumbo)</strong></p>
-                        <p>Preferência: Marcas Pampers ou Huggies.</p>
-                    </div>
-                    <span class="gift-status">Disponível para Comprar</span>
-                </div>
-                <button>Comprar este Presente</button>
-            </div>
+        <!-- Novo layout para barra lateral e lista de presentes -->
+        <div class="main-content-layout">
+            <aside class="sort-controls">
+                <label for="sortPrice">Ordenar por Preço:</label>
+                <select id="sortPrice">
+                    <option value="none">Padrão</option>
+                    <option value="asc">Menor Preço</option>
+                    <option value="desc">Maior Preço</option>
+                </select>
+            </aside>
 
-            <!-- Item de Presente 2: Lenço Umedecido -->
-            <div class="gift-item">
-                <img src="https://via.placeholder.com/300x180/ffdddd/8d2d4d?text=Lenço+Umedecido" alt="Lenço Umedecido">
-                <div class="gift-info">
-                    <h3>Lenço Umedecido (Pacote Grande)</h3>
-                    <div class="gift-details">
-                        <p>Quantidade: <strong>1 Pacote</strong></p>
-                        <p>Qualquer marca.</p>
+            <section class="gift-list">
+                <!-- ATENÇÃO: Adicionei o atributo data-price a cada div gift-item -->
+                <div class="gift-item" data-price="80.00">
+                    <img src="https://via.placeholder.com/300x180/ffe4e1/8d2d4d?text=Fralda+Tam+M" alt="Fralda Tamanho M">
+                    <div class="gift-info">
+                        <h3>Fralda Pampers Tamanho M</h3>
+                        <div class="gift-details">
+                            <p>Quantidade: <strong>2 Pacotes (Mega/Jumbo)</strong></p>
+                            <p>Preferência: Marcas Pampers ou Huggies.</p>
+                        </div>
+                        <span class="gift-status">Disponível para Comprar</span>
                     </div>
-                    <span class="gift-status purchased">Comprado por alguém 🎉</span>
+                    <button>Comprar este Presente</button>
                 </div>
-                <button class="purchased-btn" disabled>Presente Já Comprado</button>
-            </div>
 
-            <!-- Item de Presente 3: Pomada Assadura -->
-            <div class="gift-item">
-                <img src="https://via.placeholder.com/300x180/fff0f3/8d2d4d?text=Pomada+Assadura" alt="Pomada para Assadura">
-                <div class="gift-info">
-                    <h3>Pomada para Assadura Bepantol Baby</h3>
-                    <div class="gift-details">
-                        <p>Quantidade: <strong>1 Unidade</strong></p>
-                        <p>Marca: Bepantol Baby.</p>
+                <div class="gift-item" data-price="25.00">
+                    <img src="https://via.placeholder.com/300x180/ffdddd/8d2d4d?text=Lenço+Umedecido" alt="Lenço Umedecido">
+                    <div class="gift-info">
+                        <h3>Lenço Umedecido (Pacote Grande)</h3>
+                        <div class="gift-details">
+                            <p>Quantidade: <strong>1 Pacote</strong></p>
+                            <p>Qualquer marca.</p>
+                        </div>
+                        <span class="gift-status purchased">Comprado por alguém ��</span>
                     </div>
-                    <span class="gift-status">Disponível para Comprar</span>
+                    <button class="purchased-btn" disabled>Presente Já Comprado</button>
                 </div>
-                <button>Comprar este Presente</button>
-            </div>
 
-            <!-- Item de Presente 4: Sabonete Líquido -->
-            <div class="gift-item">
-                <img src="https://via.placeholder.com/300x180/ffc0cb/8d2d4d?text=Sabonete+Líquido" alt="Sabonete Líquido Bebê">
-                <div class="gift-info">
-                    <h3>Sabonete Líquido da Cabeça aos Pés</h3>
-                    <div class="gift-details">
-                        <p>Quantidade: <strong>1 Frasco (grande)</strong></p>
-                        <p>Marca: Granado ou Johnson's Baby.</p>
+                <div class="gift-item" data-price="40.00">
+                    <img src="https://via.placeholder.com/300x180/fff0f3/8d2d4d?text=Pomada+Assadura" alt="Pomada para Assadura">
+                    <div class="gift-info">
+                        <h3>Pomada para Assadura Bepantol Baby</h3>
+                        <div class="gift-details">
+                            <p>Quantidade: <strong>1 Unidade</strong></p>
+                            <p>Marca: Bepantol Baby.</p>
+                        </div>
+                        <span class="gift-status">Disponível para Comprar</span>
                     </div>
-                    <span class="gift-status">Disponível para Comprar</span>
+                    <button>Comprar este Presente</button>
                 </div>
-                <button>Comprar este Presente</button>
-            </div>
 
-            <!-- Item de Presente 5: Algodão em Bolas -->
-            <div class="gift-item">
-                <img src="https://via.placeholder.com/300x180/ffeaea/8d2d4d?text=Algodão+Bolas" alt="Algodão em Bolas">
-                <div class="gift-info">
-                    <h3>Algodão em Bolas (Grande)</h3>
-                    <div class="gift-details">
-                        <p>Quantidade: <strong>1 Pacote</strong></p>
-                        <p>Para higiene do bebê.</p>
+                <div class="gift-item" data-price="30.00">
+                    <img src="https://via.placeholder.com/300x180/ffc0cb/8d2d4d?text=Sabonete+Líquido" alt="Sabonete Líquido Bebê">
+                    <div class="gift-info">
+                        <h3>Sabonete Líquido da Cabeça aos Pés</h3>
+                        <div class="gift-details">
+                            <p>Quantidade: <strong>1 Frasco (grande)</strong></p>
+                            <p>Marca: Granado ou Johnson's Baby.</p>
+                        </div>
+                        <span class="gift-status">Disponível para Comprar</span>
                     </div>
-                    <span class="gift-status purchased">Comprado por alguém 🎉</span>
+                    <button>Comprar este Presente</button>
                 </div>
-                <button class="purchased-btn" disabled>Presente Já Comprado</button>
-            </div>
 
-            <!-- Item de Presente 6: Fralda Tamanho P -->
-            <div class="gift-item">
-                <img src="https://via.placeholder.com/300x180/ffdcdc/8d2d4d?text=Fralda+Tam+P" alt="Fralda Tamanho P">
-                <div class="gift-info">
-                    <h3>Fralda Pampers Tamanho P</h3>
-                    <div class="gift-details">
-                        <p>Quantidade: <strong>1 Pacote (até 6kg)</strong></p>
-                        <p>Início, para recém-nascido.</p>
+                <div class="gift-item" data-price="15.00">
+                    <img src="https://via.placeholder.com/300x180/ffeaea/8d2d4d?text=Algodão+Bolas" alt="Algodão em Bolas">
+                    <div class="gift-info">
+                        <h3>Algodão em Bolas (Grande)</h3>
+                        <div class="gift-details">
+                            <p>Quantidade: <strong>1 Pacote</strong></p>
+                            <p>Para higiene do bebê.</p>
+                        </div>
+                        <span class="gift-status purchased">Comprado por alguém 🎉</span>
                     </div>
-                    <span class="gift-status">Disponível para Comprar</span>
+                    <button class="purchased-btn" disabled>Presente Já Comprado</button>
                 </div>
-                <button>Comprar este Presente</button>
-            </div>
-        </section>
+
+                <div class="gift-item" data-price="70.00">
+                    <img src="https://via.placeholder.com/300x180/ffdcdc/8d2d4d?text=Fralda+Tam+P" alt="Fralda Tamanho P">
+                    <div class="gift-info">
+                        <h3>Fralda Pampers Tamanho P</h3>
+                        <div class="gift-details">
+                            <p>Quantidade: <strong>1 Pacote (até 6kg)</strong></p>
+                            <p>Início, para recém-nascido.</p>
+                        </div>
+                        <span class="gift-status">Disponível para Comprar</span>
+                    </div>
+                    <button>Comprar este Presente</button>
+                </div>
+            </section>
+        </div>
     </main>
+
+    <!-- Botão de Ação Flutuante -->
+    <a href="#" class="fab">
+        Ajude as gêmeas a ganharem seus presentes!
+    </a>
 
     <footer>
         <p>&copy; 2025 Chá das gêmeas Clara e Marina. Desenvolvido com carinho.</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sortSelect = document.getElementById('sortPrice');
+            const giftListContainer = document.querySelector('.gift-list');
+            // Converta a NodeList para um Array para poder usar o método sort()
+            const giftItems = Array.from(giftListContainer.querySelectorAll('.gift-item'));
+
+            function sortGifts() {
+                const sortOrder = sortSelect.value; // 'asc', 'desc' ou 'none'
+
+                if (sortOrder === 'none') {
+                    // Se a opção for 'Padrão', reverte para a ordem original do HTML
+                    // Uma maneira simples é re-append os itens na ordem original do array
+                    giftItems.forEach(item => {
+                        giftListContainer.appendChild(item);
+                    });
+                    return;
+                }
+
+                // Ordena os itens do array com base no atributo data-price
+                giftItems.sort((a, b) => {
+                    const priceA = parseFloat(a.dataset.price);
+                    const priceB = parseFloat(b.dataset.price);
+
+                    if (sortOrder === 'asc') {
+                        return priceA - priceB; // Menor preço primeiro
+                    } else {
+                        return priceB - priceA; // Maior preço primeiro
+                    }
+                });
+
+                // Re-apende os itens ordenados ao contêiner na DOM
+                // Isso remove os itens de suas posições atuais e os adiciona na nova ordem
+                giftItems.forEach(item => {
+                    giftListContainer.appendChild(item);
+                });
+            }
+
+            // Adiciona o event listener para quando o valor do select mudar
+            if (sortSelect) {
+                sortSelect.addEventListener('change', sortGifts);
+            }
+        });
+    </script>
 </body>
 </html>
