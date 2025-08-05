@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chá das gêmeas Marina e Clara</title>
 
-    <!-- Linha para adicionar o Favicon (ícone de coração de copas) - CORRIGIDO -->
+    <!-- Linha para adicionar o Favicon (ícone de coração de copas) -->
     <link rel="icon" type="image/svg+xml" href="https://upload.wikimedia.org/wikipedia/commons/4/4e/Simple_Red_Heart.svg">
 
     <!-- Link para a fonte Poppins do Google Fonts para um visual moderno -->
@@ -151,6 +151,7 @@
             display: flex;
             flex-direction: column; /* Conteúdo em coluna */
             justify-content: space-between; /* Empurra o botão para o final */
+            border: 1px solid #ffc0cb; /* NOVA BORDA para cada item */
         }
 
         .gift-item img {
@@ -169,7 +170,7 @@
         }
 
         .gift-info h3 {
-            font-size: 1.2em;
+            font-size: 1em; /* FONTE DIMINUÍDA */
             margin: 0 0 5px 0; /* Ajustado para dar espaço ao preço */
             color: #333;
         }
@@ -217,29 +218,6 @@
             cursor: not-allowed;
         }
 
-        /* REMOVIDO: Botão de Ação Flutuante (FAB) */
-        /*
-        .fab {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #e75480;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            box-shadow: 0 4px 8px rgba(255,180,180,0.3);
-            transition: background-color 0.3s ease;
-            z-index: 1000;
-            white-space: nowrap;
-        }
-
-        .fab:hover {
-            background-color: #d14c72;
-        }
-        */
-
         /* Rodapé */
         footer {
             text-align: center;
@@ -277,18 +255,6 @@
                 margin: 10px auto;
             }
 
-            /* REMOVIDO: FAB Responsivo */
-            /*
-            .fab {
-                left: 50%;
-                transform: translateX(-50%);
-                right: unset;
-                bottom: 15px;
-                padding: 12px 20px;
-                font-size: 0.9em;
-            }
-            */
-
             nav ul {
                 flex-direction: column; /* Itens em coluna em telas pequenas */
                 gap: 10px; /* Espaçamento menor entre itens empilhados */
@@ -313,7 +279,7 @@
 
     <main class="container">
         <section class="hero-section">
-            <img src="eco.jpg">
+            <img src="eco.jpg" alt="Ilustração de bebê em tema ecológico" class="profile-pic">
             <h2>Lista de presentes</h2>
             <!-- Seção de ordenação movida para dentro do hero-section e ajustada -->
             <div class="sort-controls">
@@ -332,7 +298,7 @@
                 <img src="forro.jpg" alt="Forros para fraldas Ecológicas">
                 <div class="gift-info">
                     <h3>Forros para fraldas Ecológicas</h3>
-                    <p class="gift-price">R$ 105,00</p>
+                    <p class="gift-price">R\$ 105,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -343,7 +309,7 @@
                 <img src="fraldas.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
-                    <p class="gift-price">R$ 135,00</p>
+                    <p class="gift-price">R\$ 135,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -354,7 +320,7 @@
                 <img src="fraldas2.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
-                    <p class="gift-price">R$ 135,00</p>
+                    <p class="gift-price">R\$ 135,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -365,7 +331,7 @@
                 <img src="absorventes.jpg" alt="Kit de absorventes para fralda ecológica">
                 <div class="gift-info">
                     <h3>Kit de absorventes para fralda ecológica</h3>
-                    <p class="gift-price">R$ 123,00</p>
+                    <p class="gift-price">R\$ 123,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -376,7 +342,7 @@
                 <img src="baba-eletronica.jpg" alt="Baba eletrônica">
                 <div class="gift-info">
                     <h3>Baba eletrônica</h3>
-                    <p class="gift-price">R$ 249,00</p>
+                    <p class="gift-price">R\$ 249,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -387,7 +353,7 @@
                 <img src="mamadeiras.jpg" alt="Kit mamadeiras anticólicas">
                 <div class="gift-info">
                     <h3>Kit mamadeiras anticólicas</h3>
-                    <p class="gift-price">R$ 149,00</p>
+                    <p class="gift-price">R\$ 149,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -398,7 +364,7 @@
                 <img src="bolsa.jpg" alt="Bolsa maternidade">
                 <div class="gift-info">
                     <h3>Bolsa maternidade</h3>
-                    <p class="gift-price">R$ 129,00</p>
+                    <p class="gift-price">R\$ 129,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -409,7 +375,7 @@
                 <img src="fraldas3.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
-                    <p class="gift-price">R$ 135,00</p>
+                    <p class="gift-price">R\$ 135,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -420,7 +386,7 @@
                 <img src="carrinho.jpg" alt="Carrinho de bebe com bebe conforto">
                 <div class="gift-info">
                     <h3>Carrinho de bebe com bebe conforto</h3>
-                    <p class="gift-price">R$ 1896,00</p>
+                    <p class="gift-price">R\$ 1896,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -431,7 +397,7 @@
                 <img src="carrinho.jpg" alt="Carrinho de bebe com bebe conforto">
                 <div class="gift-info">
                     <h3>Carrinho de bebe com bebe conforto</h3>
-                    <p class="gift-price">R$ 1896,00</p>
+                    <p class="gift-price">R\$ 1896,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -442,7 +408,7 @@
                 <img src="higiene.jpg" alt="Kit de higiene para bebês">
                 <div class="gift-info">
                     <h3>Kit de higiene para bebês</h3>
-                    <p class="gift-price">R$ 118,00</p>
+                    <p class="gift-price">R\$ 118,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -453,7 +419,7 @@
                 <img src="toalhas.jpg" alt="Kit 8 toalhas de bebê">
                 <div class="gift-info">
                     <h3>Kit 8 toalhas de bebê</h3>
-                    <p class="gift-price">R$ 103,00</p>
+                    <p class="gift-price">R\$ 103,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -464,7 +430,7 @@
                 <img src="mamadeiras.jpg" alt="Kit mamadeiras anticólicas">
                 <div class="gift-info">
                     <h3>Kit mamadeiras anticólicas</h3>
-                    <p class="gift-price">R$ 149,00</p>
+                    <p class="gift-price">R\$ 149,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -475,7 +441,7 @@
                 <img src="higiene.jpg" alt="Kit lenços de higiene para bebês">
                 <div class="gift-info">
                     <h3>Kit lenços de higiene para bebês</h3>
-                    <p class="gift-price">R$ 122,00</p>
+                    <p class="gift-price">R\$ 122,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -486,7 +452,7 @@
                 <img src="forro.jpg" alt="Forros para fraldas Ecológicas">
                 <div class="gift-info">
                     <h3>Forros para fraldas Ecológicas</h3>
-                    <p class="gift-price">R$ 105,00</p>
+                    <p class="gift-price">R\$ 105,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -497,7 +463,7 @@
                 <img src="fraldas4.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
-                    <p class="gift-price">R$ 135,00</p>
+                    <p class="gift-price">R\$ 135,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -508,7 +474,7 @@
                 <img src="absorventes.jpg" alt="Kit de absorventes para fralda ecológica">
                 <div class="gift-info">
                     <h3>Kit de absorventes para fralda ecológica</h3>
-                    <p class="gift-price">R$ 123,00</p>
+                    <p class="gift-price">R\$ 123,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -519,7 +485,7 @@
                 <img src="bolsa.jpg" alt="Bolsa maternidade">
                 <div class="gift-info">
                     <h3>Bolsa maternidade</h3>
-                    <p class="gift-price">R$ 129,00</p>
+                    <p class="gift-price">R\$ 129,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -530,7 +496,7 @@
                 <img src="bomba.jpg" alt="Bomba de tirar leite materno">
                 <div class="gift-info">
                     <h3>Bomba de tirar leite materno</h3>
-                    <p class="gift-price">R$ 129,00</p>
+                    <p class="gift-price">R\$ 129,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -541,7 +507,7 @@
                 <img src="fraldas.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
-                    <p class="gift-price">R$ 135,00</p>
+                    <p class="gift-price">R\$ 135,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -552,7 +518,7 @@
                 <img src="banheira.jpg" alt="Banheira de banho para bebê">
                 <div class="gift-info">
                     <h3>Banheira de banho para bebê</h3>
-                    <p class="gift-price">R$ 239,00</p>
+                    <p class="gift-price">R\$ 239,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -563,7 +529,7 @@
                 <img src="aquecedor.jpg" alt="Aquecedor e esterilizador para mamadeiras">
                 <div class="gift-info">
                     <h3>Aquecedor e esterilizador para mamadeiras</h3>
-                    <p class="gift-price">R$ 244,00</p>
+                    <p class="gift-price">R\$ 244,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -574,7 +540,7 @@
                 <img src="fraldas10.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
-                    <p class="gift-price">R$ 135,00</p>
+                    <p class="gift-price">R\$ 135,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -585,7 +551,7 @@
                 <img src="almofada.jpg" alt="Almofada de amamentação para gêmeos">
                 <div class="gift-info">
                     <h3>Almofada de amamentação para gêmeos</h3>
-                    <p class="gift-price">R$ 145,00</p>
+                    <p class="gift-price">R\$ 145,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -596,7 +562,7 @@
                 <img src="baba-eletronica.jpg" alt="Baba eletrônica">
                 <div class="gift-info">
                     <h3>Baba eletrônica</h3>
-                    <p class="gift-price">R$ 249,00</p>
+                    <p class="gift-price">R\$ 249,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -607,7 +573,7 @@
                 <img src="aspirador.jpg" alt="Kit aspirador nasal bebê - 2 unidades">
                 <div class="gift-info">
                     <h3>Kit aspirador nasal</h3>
-                    <p class="gift-price">R$ 118,00</p>
+                    <p class="gift-price">R\$ 118,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -618,7 +584,7 @@
                 <img src="vidros.jpg" alt="Kit 24 vidros para armazenar leite materno">
                 <div class="gift-info">
                     <h3>Kit 24 vidros para armazenar leite materno</h3>
-                    <p class="gift-price">R$ 125,00</p>
+                    <p class="gift-price">R\$ 125,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -629,7 +595,7 @@
                 <img src="fraldas5.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
-                    <p class="gift-price">R$ 135,00</p>
+                    <p class="gift-price">R\$ 135,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -640,7 +606,7 @@
                 <img src="fraldas6.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
-                    <p class="gift-price">R$ 135,00</p>
+                    <p class="gift-price">R\$ 135,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -651,7 +617,7 @@
                 <img src="fraldas7.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
-                    <p class="gift-price">R$ 135,00</p>
+                    <p class="gift-price">R\$ 135,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -662,7 +628,7 @@
                 <img src="fraldas8.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
-                    <p class="gift-price">R$ 135,00</p>
+                    <p class="gift-price">R\$ 135,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
@@ -673,18 +639,14 @@
                 <img src="fraldas9.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
-                    <p class="gift-price">R$ 135,00</p>
+                    <p class="gift-price">R\$ 135,00</p>
                     <div class="gift-details">
                     </div>
                 </div>
                 <button>Presentear</button>
             </div>
-
-
-            
         </section>
     </main>
-
 
     <footer>
         <p>&copy; 2025 Chá das gêmeas Clara e Marina. Desenvolvido com carinho.</p>
