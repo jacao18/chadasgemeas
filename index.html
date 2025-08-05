@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Presentes - Chá de Bebê da Maria Eduarda</title>
+    <title>Chá das gêmeas Marina e Clara</title>
     <!-- Link para a fonte Poppins do Google Fonts para um visual moderno -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,16 +29,41 @@
         /* Estilo do Cabeçalho */
         header {
             background-color: #ffffff;
-            padding: 20px 0;
+            padding: 20px 0 10px 0; /* Ajuste o padding inferior para o menu */
             text-align: center;
             box-shadow: 0 2px 4px rgba(255,220,220,0.3); /* Sombra rosada suave */
             margin-bottom: 20px;
         }
 
         header h1 {
-            color: #d8477f; /* Rosa médio escuro */
-            margin: 0;
+            color: #d8477f; /* Título rosa médio escuro */
+            margin: 0 0 15px 0; /* Espaço abaixo do título antes do menu */
             font-size: 1.8em;
+        }
+
+        /* Estilo do Menu de Navegação */
+        nav ul {
+            list-style: none; /* Remove marcadores da lista */
+            padding: 0;
+            margin: 0;
+            display: flex; /* Itens em linha */
+            justify-content: center; /* Centraliza os itens */
+            gap: 25px; /* Espaçamento entre os itens do menu */
+            flex-wrap: wrap; /* Quebra linha se a tela for muito pequena */
+        }
+
+        nav ul li a {
+            text-decoration: none; /* Remove sublinhado */
+            color: #d8477f; /* Cor do texto do link rosa médio */
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #ffe0e6; /* Rosa clarinho no hover */
+            color: #c03d72; /* Rosa um pouco mais escuro no hover */
         }
 
         /* Seção de Herói (Informações do Chá/Pessoa) */
@@ -203,6 +228,11 @@
                 padding: 12px 20px;
                 font-size: 0.9em;
             }
+
+            nav ul {
+                flex-direction: column; /* Itens em coluna em telas pequenas */
+                gap: 10px; /* Espaçamento menor entre itens empilhados */
+            }
         }
     </style>
 </head>
@@ -210,6 +240,13 @@
     <header>
         <div class="container">
             <h1>Presentes para o Chá de Bebê</h1>
+            <nav>
+                <ul>
+                    <li><a href="#mural">Mural de Recados</a></li>
+                    <li><a href="#presenca">Confirmar Presença</a></li>
+                    <li><a href="#evento">Evento</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
@@ -246,7 +283,7 @@
                         <p>Quantidade: <strong>1 Pacote</strong></p>
                         <p>Qualquer marca.</p>
                     </div>
-                    <span class="gift-status purchased">Comprado por alguém ��</span>
+                    <span class="gift-status purchased">Comprado por alguém 🎉</span>
                 </div>
                 <button class="purchased-btn" disabled>Presente Já Comprado</button>
             </div>
@@ -308,11 +345,6 @@
             </div>
         </section>
     </main>
-
-    <!-- Botão de Ação Flutuante -->
-    <a href="#" class="fab">
-        Ajude a Maria Eduarda a ganhar seu presente!
-    </a>
 
     <footer>
         <p>&copy; 2023 Chá de Bebê da Maria Eduarda. Desenvolvido com carinho. Design inspirado em Ifaldas.</p>
