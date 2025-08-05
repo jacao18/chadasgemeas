@@ -13,13 +13,38 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Definindo a paleta de cores como variáveis CSS */
+        :root {
+            --palette-pink: #FFCCCC; /* Rosa Claro */
+            --palette-peach: #FFDEAD; /* Pêssego */
+            --palette-yellow: #FFFFCC; /* Amarelo Claro */
+            --palette-mint: #CCFFE6; /* Verde Menta */
+            --palette-blue: #CCE0FF; /* Azul Claro */
+
+            /* Cores derivadas para acentos e texto */
+            --color-background-soft: var(--palette-mint); /* Fundo principal da página */
+            --color-section-background: var(--palette-blue); /* Fundo de seções como hero */
+            --color-card-background: #FFFFFF; /* Branco para cartões e modais */
+
+            --color-primary-accent: #FF99B3; /* Rosa mais forte para botões, preços, ânforas */
+            --color-primary-accent-hover: #FF809F; /* Rosa mais escuro para hover */
+            --color-secondary-accent: var(--palette-yellow); /* Fundo de controles de ordenação, instruções de pagamento */
+
+            --color-border-light: var(--palette-blue); /* Bordas e linhas finas */
+            --color-placeholder-image: var(--palette-peach); /* Cor para placeholders de imagem */
+
+            --color-text-dark: #333; /* Texto principal escuro para legibilidade */
+            --color-text-medium: #666; /* Texto secundário/sutil */
+            --color-text-light: #FDFDFD; /* Texto para fundos escuros (quase branco) */
+        }
+
         /* Estilos básicos para o corpo e reset de margens/padding */
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #FDFDFD; /* Muito claro, quase branco, para base */
-            color: #333; /* Cor de texto principal escura para legibilidade */
+            background-color: var(--color-background-soft); /* Verde Menta */
+            color: var(--color-text-dark); /* Cor de texto principal escura para legibilidade */
             line-height: 1.6;
         }
 
@@ -32,15 +57,15 @@
 
         /* Estilo do Cabeçalho */
         header {
-            background-color: #FFFFFF; /* Branco puro */
+            background-color: var(--color-card-background); /* Branco puro */
             padding: 20px 0 10px 0;
             text-align: center;
-            box-shadow: 0 2px 4px rgba(206,233,225,0.3); /* Sombra suave do verde menta */
+            box-shadow: 0 2px 4px rgba(204,224,255,0.3); /* Sombra suave do azul claro */
             margin-bottom: 20px;
         }
 
         header h1 {
-            color: #D8477F; /* Título rosa médio escuro - mantido para contraste */
+            color: var(--color-primary-accent); /* Rosa Acento */
             margin: 0 0 15px 0;
             font-size: 1.8em;
         }
@@ -58,7 +83,7 @@
 
         nav ul li a {
             text-decoration: none; /* Remove sublinhado */
-            color: #D8477F; /* Cor do texto do link rosa médio - mantido para contraste */
+            color: var(--color-primary-accent); /* Rosa Acento */
             font-weight: 600;
             padding: 5px 10px;
             border-radius: 5px;
@@ -66,19 +91,19 @@
         }
 
         nav ul li a:hover {
-            background-color: #FFD1DC; /* Rosa clarinho no hover (da nova paleta) */
-            color: #C03D72; /* Rosa um pouco mais escuro no hover */
+            background-color: var(--palette-pink); /* Rosa Claríssimo */
+            color: var(--color-primary-accent-hover); /* Rosa Acento Hover */
         }
 
         /* Seção de Herói (Informações do Chá/Pessoa) */
         .hero-section {
-            background-color: #CEE9E1; /* Verde menta claro e suave (da nova paleta) */
-            color: #333; /* Texto escuro para contraste */
+            background-color: var(--color-section-background); /* Azul Claro */
+            color: var(--color-text-dark); /* Texto escuro para contraste */
             padding: 30px 20px;
             text-align: center;
             border-radius: 8px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(206,233,225,0.2); /* Sombra suave do verde menta */
+            box-shadow: 0 2px 4px rgba(204,224,255,0.2); /* Sombra suave do azul claro */
             position: relative; /* Para posicionar o botão do carrinho */
         }
 
@@ -87,107 +112,106 @@
             height: 100px;
             border-radius: 50%; /* Imagem redonda */
             object-fit: cover;
-            border: 3px solid #D8477F; /* Borda rosa vibrante - mantida para destaque */
+            border: 3px solid var(--color-primary-accent); /* Borda rosa acento */
             margin-bottom: 15px;
         }
 
         .hero-section h2 {
             margin: 0 0 5px 0;
             font-size: 1.6em;
-            color: #6F8B83; /* Título em tom de verde/azul escuro da paleta */
+            color: var(--color-text-dark); /* Cor de texto principal */
         }
 
         .hero-section p {
             margin: 0;
             font-size: 0.9em;
-            color: #555;
+            color: var(--color-text-medium);
         }
 
         /* Estilos da seção de ordenação - AGORA DENTRO DO HERO-SECTION */
-        .sort-controls { /* Agora é um div */
-            background-color: #FBFEE0; /* Amarelo claro (da nova paleta) */
-            padding: 10px 20px; /* Padding ajustado */
+        .sort-controls {
+            background-color: var(--color-secondary-accent); /* Amarelo Claro */
+            padding: 10px 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(251,254,224,0.1); /* Sombra suave do amarelo */
-            margin: 20px auto 0 auto; /* Margem superior e centralização */
-            display: inline-block; /* Para ocupar apenas o espaço necessário e permitir margin: auto */
-            max-width: fit-content; /* Ajusta a largura ao conteúdo */
+            box-shadow: 0 2px 8px rgba(255,255,204,0.1); /* Sombra suave do amarelo */
+            margin: 20px auto 0 auto;
+            display: inline-block;
+            max-width: fit-content;
         }
 
         .sort-controls label {
-            display: inline-block; /* Para ficar na mesma linha que o select */
-            margin-bottom: 0; /* Remove margem inferior padrão de block */
-            margin-right: 10px; /* Espaçamento entre label e select */
+            display: inline-block;
+            margin-bottom: 0;
+            margin-right: 10px;
             font-weight: 600;
-            color: #6F8B83; /* Cor de texto em tom de verde/azul escuro */
+            color: var(--color-text-dark); /* Cor de texto principal */
         }
 
         .sort-controls select {
-            width: auto; /* Deixa o select usar sua largura natural */
+            width: auto;
             padding: 8px;
-            border: 1px solid #CDE2F6; /* Borda azul clara (da nova paleta) */
+            border: 1px solid var(--color-border-light); /* Borda azul clara */
             border-radius: 4px;
             background-color: #fff;
-            color: #333;
+            color: var(--color-text-dark);
             font-family: 'Poppins', sans-serif;
             font-size: 1em;
             cursor: pointer;
-            display: inline-block; /* Para ficar na mesma linha que o label */
+            display: inline-block;
         }
 
         /* Seção da Lista de Presentes (Grid de Cartões) */
         .gift-list {
             display: grid;
-            /* Cria colunas responsivas, mínimo 280px, máximo 1fr (distribui igualmente) */
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px; /* Espaçamento entre os cartões */
         }
 
         .gift-item {
-            background-color: #FFFFFF; /* Branco puro */
+            background-color: var(--color-card-background); /* Branco puro */
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(205,226,246,0.2); /* Sombra suave do azul claro */
-            overflow: hidden; /* Garante que bordas arredondadas funcionem com a imagem */
+            box-shadow: 0 2px 8px rgba(204,224,255,0.2); /* Sombra suave do azul claro */
+            overflow: hidden;
             text-align: center;
             display: flex;
-            flex-direction: column; /* Conteúdo em coluna */
-            justify-content: space-between; /* Empurra o botão para o final */
-            border: 1px solid #CDE2F6; /* NOVA BORDA azul clara (da nova paleta) */
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid var(--color-border-light); /* Borda azul clara */
         }
 
         .gift-item img {
             width: 100%;
-            height: 180px; /* Altura fixa para as imagens */
-            object-fit: cover; /* Recorta a imagem para cobrir a área */
-            background-color: #FEEBCA; /* Pêssego bem claro para placeholders (da nova paleta) */
+            height: 180px;
+            object-fit: cover;
+            background-color: var(--color-placeholder-image); /* Pêssego para placeholders */
         }
 
         .gift-info {
             padding: 15px;
-            flex-grow: 1; /* Permite que a info ocupe o espaço restante */
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
         .gift-info h3 {
-            font-size: 1em; /* FONTE DIMINUÍDA */
-            margin: 0 0 5px 0; /* Ajustado para dar espaço ao preço */
-            color: #333;
+            font-size: 1em;
+            margin: 0 0 5px 0;
+            color: var(--color-text-dark);
         }
 
-        .gift-price { /* Novo estilo para o preço */
+        .gift-price {
             font-size: 1em;
             font-weight: 600;
-            color: #D8477F; /* Rosa vibrante para o preço - mantido */
+            color: var(--color-primary-accent); /* Rosa Acento */
             margin-bottom: 10px;
         }
 
         .gift-details {
             font-size: 0.9em;
-            color: #666;
+            color: var(--color-text-medium);
             margin-bottom: 0;
-            min-height: 2em; /* Adicionado para evitar que os cards "pulem" se o texto for curto */
+            min-height: 2em;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -198,43 +222,43 @@
         }
 
         .gift-item button {
-            background-color: #D8477F; /* Rosa vibrante para botões - mantido */
-            color: white;
+            background-color: var(--color-primary-accent); /* Rosa Acento */
+            color: var(--color-text-light); /* Branco para texto de botão */
             border: none;
             padding: 12px 20px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 1em;
             transition: background-color 0.3s ease;
-            width: calc(100% - 30px); /* Ajusta para padding */
-            margin: 15px 15px 15px 15px; /* Margem para coincidir com o padding de .gift-info, e adicionado top margin */
+            width: calc(100% - 30px);
+            margin: 15px 15px 15px 15px;
         }
 
         .gift-item button:hover {
-            background-color: #C03D72; /* Rosa um pouco mais escuro no hover */
+            background-color: var(--color-primary-accent-hover); /* Rosa Acento Hover */
         }
 
         /* Estilo para o botão "Ver Carrinho" */
         #viewCartButton {
-            background-color: #6F8B83; /* Verde/azul escuro para contraste */
-            color: white;
+            background-color: var(--color-primary-accent); /* Rosa Acento */
+            color: var(--color-text-light); /* Branco para texto */
             border: none;
             padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 0.9em;
-            position: absolute; /* Posição absoluta */
-            top: 20px; /* Canto superior direito */
+            position: absolute;
+            top: 20px;
             right: 20px;
             transition: background-color 0.3s ease;
-            z-index: 100; /* Garante que fique acima de outros elementos */
+            z-index: 100;
         }
         #viewCartButton:hover {
-            background-color: #5A7067; /* Um pouco mais escuro para hover */
+            background-color: var(--color-primary-accent-hover); /* Rosa Acento Hover */
         }
         #cartItemCount {
-            background-color: #D8477F; /* Rosa vibrante */
-            color: white;
+            background-color: var(--color-primary-accent); /* Rosa Acento */
+            color: var(--color-text-light); /* Branco para texto */
             font-size: 0.7em;
             padding: 2px 6px;
             border-radius: 50%;
@@ -245,7 +269,7 @@
 
         /* Estilos da Modal do Carrinho */
         .cart-modal-overlay {
-            display: none; /* Escondido por padrão */
+            display: none;
             position: fixed;
             z-index: 1000;
             left: 0;
@@ -253,13 +277,13 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0,0,0,0.5); /* Fundo semi-transparente */
+            background-color: rgba(0,0,0,0.5);
             justify-content: center;
             align-items: center;
         }
 
         .cart-modal-content {
-            background-color: #FDFDFD; /* Branco puro */
+            background-color: var(--color-card-background); /* Branco puro */
             margin: auto;
             padding: 20px;
             border-radius: 10px;
@@ -270,10 +294,10 @@
         }
 
         .cart-modal-content h2 {
-            color: #D8477F; /* Rosa vibrante */
+            color: var(--color-primary-accent); /* Rosa Acento */
             margin-top: 0;
             text-align: center;
-            margin-bottom: 20px; /* Adicionado espaço abaixo do título */
+            margin-bottom: 20px;
         }
 
         .cart-modal-content .close-button {
@@ -304,7 +328,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px 0;
-            border-bottom: 1px solid #CDE2F6; /* Azul claro */
+            border-bottom: 1px solid var(--color-border-light); /* Azul Claro */
         }
 
         #cart-items-list li:last-child {
@@ -317,88 +341,89 @@
         }
         #cart-items-list .item-info h4 {
             margin: 0;
-            color: #333;
+            color: var(--color-text-dark);
             font-size: 1em;
         }
         #cart-items-list .item-info p {
             margin: 0;
-            color: #666;
+            color: var(--color-text-medium);
             font-size: 0.85em;
         }
 
         #cart-items-list .item-quantity input {
             width: 40px;
             padding: 5px;
-            border: 1px solid #CDE2F6; /* Azul claro */
+            border: 1px solid var(--color-border-light); /* Azul Claro */
             border-radius: 4px;
             text-align: center;
             font-family: 'Poppins', sans-serif;
-            margin-right: 5px; /* Espaçamento entre input e botão de remover */
+            margin-right: 5px;
         }
 
         #cart-items-list .item-remove-button {
             background-color: transparent;
-            color: #D8477F; /* Rosa vibrante */
+            color: var(--color-primary-accent); /* Rosa Acento */
             border: none;
             cursor: pointer;
             font-size: 1.2em;
             margin-left: 10px;
         }
         #cart-items-list .item-remove-button:hover {
-            color: #C03D72; /* Rosa um pouco mais escuro */
+            color: var(--color-primary-accent-hover); /* Rosa Acento Hover */
         }
 
         #cart-total {
             text-align: right;
             font-size: 1.2em;
             font-weight: 600;
-            color: #D8477F; /* Rosa vibrante */
+            color: var(--color-primary-accent); /* Rosa Acento */
             margin-top: 20px;
-            border-top: 1px solid #CDE2F6; /* Azul claro */
+            border-top: 1px solid var(--color-border-light); /* Azul Claro */
             padding-top: 10px;
         }
 
-        #checkout-button, #whatsapp-button, #pix-copy-button { /* Múltiplos botões para estilização */
-            background-color: #D8477F; /* Rosa vibrante */
-            color: white;
+        #checkout-button, #whatsapp-button, #pix-copy-button {
+            background-color: var(--color-primary-accent); /* Rosa Acento */
+            color: var(--color-text-light);
             border: none;
             padding: 12px 20px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 1.1em;
             width: 100%;
-            margin-top: 15px; /* Ajuste para espaçamento entre botões */
+            margin-top: 15px;
             transition: background-color 0.3s ease;
-            display: block; /* Garante que os botões fiquem empilhados */
-            text-align: center; /* Para o texto do botão ficar centralizado */
-            text-decoration: none; /* Para links, se forem usados como botões */
+            display: block;
+            text-align: center;
+            text-decoration: none;
         }
         #checkout-button:hover {
-            background-color: #C03D72; /* Rosa mais escuro */
+            background-color: var(--color-primary-accent-hover); /* Rosa Acento Hover */
         }
         #whatsapp-button {
-            background-color: #25D366; /* Verde WhatsApp */
+            background-color: #25D366; /* Verde WhatsApp (mantido para reconhecimento) */
         }
         #whatsapp-button:hover {
             background-color: #1DA851;
         }
         #pix-copy-button {
-            background-color: #6A9BCC; /* Azul médio para "Copiar PIX" (da nova paleta) */
+            background-color: var(--palette-blue); /* Azul Claro da paleta */
+            color: var(--color-text-dark); /* Texto escuro no botão claro */
         }
         #pix-copy-button:hover {
-            background-color: #5A87B0; /* Azul um pouco mais escuro */
+            background-color: #AACCFF; /* Um pouco mais escuro para hover no azul */
         }
 
         .payment-instructions {
             margin-top: 20px;
             padding: 15px;
-            border: 1px dashed #CDE2F6; /* Azul claro */
+            border: 1px dashed var(--color-border-light); /* Azul Claro */
             border-radius: 8px;
-            background-color: #F0FDF8; /* Muito leve menta/azul quase branco */
+            background-color: var(--palette-yellow); /* Amarelo Claro para instruções */
             text-align: left;
         }
         .payment-instructions h3 {
-            color: #6F8B83; /* Verde/azul escuro */
+            color: var(--color-text-dark);
             margin-top: 0;
             font-size: 1.2em;
             text-align: center;
@@ -408,52 +433,51 @@
             margin-bottom: 10px;
         }
         .payment-instructions strong {
-            color: #D8477F; /* Rosa vibrante */
+            color: var(--color-primary-accent); /* Rosa Acento */
         }
         .payment-instructions .pix-key {
-            background-color: #FEEBCA; /* Pêssego claro */
+            background-color: var(--color-placeholder-image); /* Pêssego */
             padding: 8px;
             border-radius: 5px;
             font-weight: bold;
-            color: #333;
+            color: var(--color-text-dark);
             display: block;
             margin-top: 10px;
             text-align: center;
-            word-break: break-all; /* Para chaves muito longas */
+            word-break: break-all;
         }
-
 
         /* Rodapé */
         footer {
             text-align: center;
             padding: 30px 20px;
             margin-top: 40px;
-            color: #777;
+            color: var(--color-text-medium);
             font-size: 0.85em;
-            border-top: 1px solid #CDE2F6; /* Borda azul clara */
+            border-top: 1px solid var(--color-border-light); /* Borda azul clara */
         }
 
         /* Ajustes Responsivos para telas menores */
         @media (max-width: 768px) {
             .sort-controls {
-                width: calc(100% - 40px); /* Ocupa a largura total menos o padding */
-                display: block; /* Volta a ser block para ocupar a largura total */
-                text-align: center; /* Centraliza o conteúdo dentro dele */
-                margin-left: auto; /* Garante centralização quando é block */
-                margin-right: auto; /* Garante centralização quando é block */
+                width: calc(100% - 40px);
+                display: block;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
             }
             .sort-controls label {
-                display: block; /* Empilha label e select em telas pequenas */
+                display: block;
                 margin-right: 0;
                 margin-bottom: 10px;
             }
             .sort-controls select {
-                width: 100%; /* Select ocupa 100% da largura disponível */
-                display: block; /* Transforma select em block */
+                width: 100%;
+                display: block;
             }
 
             .gift-list {
-                grid-template-columns: 1fr; /* Apenas uma coluna em telas muito pequenas */
+                grid-template-columns: 1fr;
             }
 
             .container {
@@ -461,33 +485,33 @@
             }
 
             nav ul {
-                flex-direction: column; /* Itens em coluna em telas pequenas */
-                gap: 10px; /* Espaçamento menor entre itens empilhados */
+                flex-direction: column;
+                gap: 10px;
             }
 
             #viewCartButton {
-                position: static; /* Volta para o fluxo normal em telas pequenas */
-                margin-top: 15px; /* Espaço abaixo da lista de presentes */
+                position: static;
+                margin-top: 15px;
                 width: calc(100% - 40px);
             }
             .hero-section {
-                padding-bottom: 70px; /* Aumenta o padding para o botão do carrinho não ficar muito colado */
+                padding-bottom: 70px;
             }
             .cart-modal-content {
-                width: 95%; /* Ocupa mais espaço em telas pequenas */
+                width: 95%;
             }
             #cart-items-list li {
-                flex-direction: column; /* Empilha info, quantidade e remover em telas menores */
+                flex-direction: column;
                 align-items: flex-start;
             }
             #cart-items-list .item-quantity {
                 width: 100%;
                 display: flex;
-                justify-content: flex-end; /* Alinha input e botão à direita */
+                justify-content: flex-end;
                 margin-top: 10px;
             }
             #cart-items-list .item-quantity input {
-                width: 60px; /* Aumenta o input de quantidade */
+                width: 60px;
             }
         }
     </style>
