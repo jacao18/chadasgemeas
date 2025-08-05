@@ -18,8 +18,8 @@
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #fef8fa; /* Rosa muito claro, quase branco */
-            color: #333;
+            background-color: #FDFDFD; /* Muito claro, quase branco, para base */
+            color: #333; /* Cor de texto principal escura para legibilidade */
             line-height: 1.6;
         }
 
@@ -32,16 +32,16 @@
 
         /* Estilo do Cabeçalho */
         header {
-            background-color: #ffffff;
-            padding: 20px 0 10px 0; /* Ajuste o padding inferior para o menu */
+            background-color: #FFFFFF; /* Branco puro */
+            padding: 20px 0 10px 0;
             text-align: center;
-            box-shadow: 0 2px 4px rgba(255,220,220,0.3); /* Sombra rosada suave */
+            box-shadow: 0 2px 4px rgba(206,233,225,0.3); /* Sombra suave do verde menta */
             margin-bottom: 20px;
         }
 
         header h1 {
-            color: #d8477f; /* Título rosa médio escuro */
-            margin: 0 0 15px 0; /* Espaço abaixo do título antes do menu */
+            color: #D8477F; /* Título rosa médio escuro - mantido para contraste */
+            margin: 0 0 15px 0;
             font-size: 1.8em;
         }
 
@@ -58,7 +58,7 @@
 
         nav ul li a {
             text-decoration: none; /* Remove sublinhado */
-            color: #d8477f; /* Cor do texto do link rosa médio */
+            color: #D8477F; /* Cor do texto do link rosa médio - mantido para contraste */
             font-weight: 600;
             padding: 5px 10px;
             border-radius: 5px;
@@ -66,19 +66,19 @@
         }
 
         nav ul li a:hover {
-            background-color: #ffe0e6; /* Rosa clarinho no hover */
-            color: #c03d72; /* Rosa um pouco mais escuro no hover */
+            background-color: #FFD1DC; /* Rosa clarinho no hover (da nova paleta) */
+            color: #C03D72; /* Rosa um pouco mais escuro no hover */
         }
 
         /* Seção de Herói (Informações do Chá/Pessoa) */
         .hero-section {
-            background-color: #fff0f3; /* Rosa claro e suave */
-            color: #2c3e50;
+            background-color: #CEE9E1; /* Verde menta claro e suave (da nova paleta) */
+            color: #333; /* Texto escuro para contraste */
             padding: 30px 20px;
             text-align: center;
             border-radius: 8px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(255,220,220,0.1);
+            box-shadow: 0 2px 4px rgba(206,233,225,0.2); /* Sombra suave do verde menta */
             position: relative; /* Para posicionar o botão do carrinho */
         }
 
@@ -87,14 +87,14 @@
             height: 100px;
             border-radius: 50%; /* Imagem redonda */
             object-fit: cover;
-            border: 3px solid #ff88a3; /* Borda rosa mais vibrante */
+            border: 3px solid #D8477F; /* Borda rosa vibrante - mantida para destaque */
             margin-bottom: 15px;
         }
 
         .hero-section h2 {
             margin: 0 0 5px 0;
             font-size: 1.6em;
-            color: #e75480; /* Rosa mais vibrante */
+            color: #6F8B83; /* Título em tom de verde/azul escuro da paleta */
         }
 
         .hero-section p {
@@ -105,10 +105,10 @@
 
         /* Estilos da seção de ordenação - AGORA DENTRO DO HERO-SECTION */
         .sort-controls { /* Agora é um div */
-            background-color: #ffffff;
+            background-color: #FBFEE0; /* Amarelo claro (da nova paleta) */
             padding: 10px 20px; /* Padding ajustado */
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(255,220,220,0.1); /* Sombra mais suave */
+            box-shadow: 0 2px 8px rgba(251,254,224,0.1); /* Sombra suave do amarelo */
             margin: 20px auto 0 auto; /* Margem superior e centralização */
             display: inline-block; /* Para ocupar apenas o espaço necessário e permitir margin: auto */
             max-width: fit-content; /* Ajusta a largura ao conteúdo */
@@ -119,13 +119,13 @@
             margin-bottom: 0; /* Remove margem inferior padrão de block */
             margin-right: 10px; /* Espaçamento entre label e select */
             font-weight: 600;
-            color: #d8477f;
+            color: #6F8B83; /* Cor de texto em tom de verde/azul escuro */
         }
 
         .sort-controls select {
             width: auto; /* Deixa o select usar sua largura natural */
             padding: 8px;
-            border: 1px solid #ffdde1; /* Borda rosa clara */
+            border: 1px solid #CDE2F6; /* Borda azul clara (da nova paleta) */
             border-radius: 4px;
             background-color: #fff;
             color: #333;
@@ -144,22 +144,22 @@
         }
 
         .gift-item {
-            background-color: #ffffff;
+            background-color: #FFFFFF; /* Branco puro */
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(255,220,220,0.2); /* Sombra rosada */
+            box-shadow: 0 2px 8px rgba(205,226,246,0.2); /* Sombra suave do azul claro */
             overflow: hidden; /* Garante que bordas arredondadas funcionem com a imagem */
             text-align: center;
             display: flex;
             flex-direction: column; /* Conteúdo em coluna */
             justify-content: space-between; /* Empurra o botão para o final */
-            border: 1px solid #ffc0cb; /* NOVA BORDA para cada item */
+            border: 1px solid #CDE2F6; /* NOVA BORDA azul clara (da nova paleta) */
         }
 
         .gift-item img {
             width: 100%;
             height: 180px; /* Altura fixa para as imagens */
             object-fit: cover; /* Recorta a imagem para cobrir a área */
-            background-color: #fce4ec; /* Rosa bem claro para placeholders */
+            background-color: #FEEBCA; /* Pêssego bem claro para placeholders (da nova paleta) */
         }
 
         .gift-info {
@@ -179,7 +179,7 @@
         .gift-price { /* Novo estilo para o preço */
             font-size: 1em;
             font-weight: 600;
-            color: #e75480; /* Rosa mais vibrante para o preço */
+            color: #D8477F; /* Rosa vibrante para o preço - mantido */
             margin-bottom: 10px;
         }
 
@@ -198,7 +198,7 @@
         }
 
         .gift-item button {
-            background-color: #e75480; /* Rosa vibrante para botões */
+            background-color: #D8477F; /* Rosa vibrante para botões - mantido */
             color: white;
             border: none;
             padding: 12px 20px;
@@ -211,12 +211,12 @@
         }
 
         .gift-item button:hover {
-            background-color: #d14c72; /* Rosa um pouco mais escuro no hover */
+            background-color: #C03D72; /* Rosa um pouco mais escuro no hover */
         }
 
         /* Estilo para o botão "Ver Carrinho" */
         #viewCartButton {
-            background-color: #8d2d4d; /* Cor mais escura para contraste */
+            background-color: #6F8B83; /* Verde/azul escuro para contraste */
             color: white;
             border: none;
             padding: 10px 15px;
@@ -230,10 +230,10 @@
             z-index: 100; /* Garante que fique acima de outros elementos */
         }
         #viewCartButton:hover {
-            background-color: #6a223a;
+            background-color: #5A7067; /* Um pouco mais escuro para hover */
         }
         #cartItemCount {
-            background-color: #e75480;
+            background-color: #D8477F; /* Rosa vibrante */
             color: white;
             font-size: 0.7em;
             padding: 2px 6px;
@@ -259,18 +259,18 @@
         }
 
         .cart-modal-content {
-            background-color: #fef8fa;
+            background-color: #FDFDFD; /* Branco puro */
             margin: auto;
             padding: 20px;
             border-radius: 10px;
             width: 80%;
             max-width: 600px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             position: relative;
         }
 
         .cart-modal-content h2 {
-            color: #d8477f;
+            color: #D8477F; /* Rosa vibrante */
             margin-top: 0;
             text-align: center;
             margin-bottom: 20px; /* Adicionado espaço abaixo do título */
@@ -304,7 +304,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px 0;
-            border-bottom: 1px solid #ffdde1;
+            border-bottom: 1px solid #CDE2F6; /* Azul claro */
         }
 
         #cart-items-list li:last-child {
@@ -329,7 +329,7 @@
         #cart-items-list .item-quantity input {
             width: 40px;
             padding: 5px;
-            border: 1px solid #ffdde1;
+            border: 1px solid #CDE2F6; /* Azul claro */
             border-radius: 4px;
             text-align: center;
             font-family: 'Poppins', sans-serif;
@@ -338,28 +338,28 @@
 
         #cart-items-list .item-remove-button {
             background-color: transparent;
-            color: #e75480;
+            color: #D8477F; /* Rosa vibrante */
             border: none;
             cursor: pointer;
             font-size: 1.2em;
             margin-left: 10px;
         }
         #cart-items-list .item-remove-button:hover {
-            color: #d14c72;
+            color: #C03D72; /* Rosa um pouco mais escuro */
         }
 
         #cart-total {
             text-align: right;
             font-size: 1.2em;
             font-weight: 600;
-            color: #d8477f;
+            color: #D8477F; /* Rosa vibrante */
             margin-top: 20px;
-            border-top: 1px solid #ffdde1;
+            border-top: 1px solid #CDE2F6; /* Azul claro */
             padding-top: 10px;
         }
 
         #checkout-button, #whatsapp-button, #pix-copy-button { /* Múltiplos botões para estilização */
-            background-color: #d8477f;
+            background-color: #D8477F; /* Rosa vibrante */
             color: white;
             border: none;
             padding: 12px 20px;
@@ -373,8 +373,8 @@
             text-align: center; /* Para o texto do botão ficar centralizado */
             text-decoration: none; /* Para links, se forem usados como botões */
         }
-        #checkout-button:hover, #whatsapp-button:hover, #pix-copy-button:hover {
-            background-color: #c03d72;
+        #checkout-button:hover {
+            background-color: #C03D72; /* Rosa mais escuro */
         }
         #whatsapp-button {
             background-color: #25D366; /* Verde WhatsApp */
@@ -383,22 +383,22 @@
             background-color: #1DA851;
         }
         #pix-copy-button {
-            background-color: #00BFFF; /* Azul claro para "Copiar PIX" */
+            background-color: #6A9BCC; /* Azul médio para "Copiar PIX" (da nova paleta) */
         }
         #pix-copy-button:hover {
-            background-color: #009ACD;
+            background-color: #5A87B0; /* Azul um pouco mais escuro */
         }
 
         .payment-instructions {
             margin-top: 20px;
             padding: 15px;
-            border: 1px dashed #e75480;
+            border: 1px dashed #CDE2F6; /* Azul claro */
             border-radius: 8px;
-            background-color: #fff0f3;
+            background-color: #F0FDF8; /* Muito leve menta/azul quase branco */
             text-align: left;
         }
         .payment-instructions h3 {
-            color: #d8477f;
+            color: #6F8B83; /* Verde/azul escuro */
             margin-top: 0;
             font-size: 1.2em;
             text-align: center;
@@ -408,10 +408,10 @@
             margin-bottom: 10px;
         }
         .payment-instructions strong {
-            color: #8d2d4d;
+            color: #D8477F; /* Rosa vibrante */
         }
         .payment-instructions .pix-key {
-            background-color: #ffe0e6;
+            background-color: #FEEBCA; /* Pêssego claro */
             padding: 8px;
             border-radius: 5px;
             font-weight: bold;
@@ -430,7 +430,7 @@
             margin-top: 40px;
             color: #777;
             font-size: 0.85em;
-            border-top: 1px solid #ffdde1; /* Borda rosa bem clara */
+            border-top: 1px solid #CDE2F6; /* Borda azul clara */
         }
 
         /* Ajustes Responsivos para telas menores */
@@ -901,7 +901,7 @@
                     <button id="pix-copy-button">Copiar Chave PIX</button>
                     <p style="margin-top: 15px; font-weight: 600;">Após o pagamento, por favor, clique no botão abaixo para nos enviar a lista via WhatsApp, para que possamos agradecer e dar baixa no presente!</p>
                 </div>
-                <a id="whatsapp-button" href="#" target="_blank">Enviar Lista via WhatsApp</a>
+                <a id="whatsapp-button" href="#" >Enviar Lista via WhatsApp</a>
                 <button id="backToCartButton">Voltar ao Carrinho</button>
             </div>
 
