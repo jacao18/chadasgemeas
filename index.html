@@ -79,6 +79,7 @@
             border-radius: 8px;
             margin-bottom: 20px;
             box-shadow: 0 2px 4px rgba(255,220,220,0.1);
+            position: relative; /* Para posicionar o botão do carrinho */
         }
 
         .hero-section img.profile-pic {
@@ -213,10 +214,214 @@
             background-color: #d14c72; /* Rosa um pouco mais escuro no hover */
         }
 
-        .gift-item button.purchased-btn {
-            background-color: #bbbbbb; /* Cinza para botões de itens comprados */
-            cursor: not-allowed;
+        /* Estilo para o botão "Ver Carrinho" */
+        #viewCartButton {
+            background-color: #8d2d4d; /* Cor mais escura para contraste */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            position: absolute; /* Posição absoluta */
+            top: 20px; /* Canto superior direito */
+            right: 20px;
+            transition: background-color 0.3s ease;
+            z-index: 100; /* Garante que fique acima de outros elementos */
         }
+        #viewCartButton:hover {
+            background-color: #6a223a;
+        }
+        #cartItemCount {
+            background-color: #e75480;
+            color: white;
+            font-size: 0.7em;
+            padding: 2px 6px;
+            border-radius: 50%;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+
+        /* Estilos da Modal do Carrinho */
+        .cart-modal-overlay {
+            display: none; /* Escondido por padrão */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5); /* Fundo semi-transparente */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-modal-content {
+            background-color: #fef8fa;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .cart-modal-content h2 {
+            color: #d8477f;
+            margin-top: 0;
+            text-align: center;
+            margin-bottom: 20px; /* Adicionado espaço abaixo do título */
+        }
+
+        .cart-modal-content .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+
+        .cart-modal-content .close-button:hover,
+        .cart-modal-content .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #cart-items-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        #cart-items-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ffdde1;
+        }
+
+        #cart-items-list li:last-child {
+            border-bottom: none;
+        }
+
+        #cart-items-list .item-info {
+            flex-grow: 1;
+            text-align: left;
+        }
+        #cart-items-list .item-info h4 {
+            margin: 0;
+            color: #333;
+            font-size: 1em;
+        }
+        #cart-items-list .item-info p {
+            margin: 0;
+            color: #666;
+            font-size: 0.85em;
+        }
+
+        #cart-items-list .item-quantity input {
+            width: 40px;
+            padding: 5px;
+            border: 1px solid #ffdde1;
+            border-radius: 4px;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            margin-right: 5px; /* Espaçamento entre input e botão de remover */
+        }
+
+        #cart-items-list .item-remove-button {
+            background-color: transparent;
+            color: #e75480;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+            margin-left: 10px;
+        }
+        #cart-items-list .item-remove-button:hover {
+            color: #d14c72;
+        }
+
+        #cart-total {
+            text-align: right;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #d8477f;
+            margin-top: 20px;
+            border-top: 1px solid #ffdde1;
+            padding-top: 10px;
+        }
+
+        #checkout-button, #whatsapp-button, #pix-copy-button { /* Múltiplos botões para estilização */
+            background-color: #d8477f;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            width: 100%;
+            margin-top: 15px; /* Ajuste para espaçamento entre botões */
+            transition: background-color 0.3s ease;
+            display: block; /* Garante que os botões fiquem empilhados */
+            text-align: center; /* Para o texto do botão ficar centralizado */
+            text-decoration: none; /* Para links, se forem usados como botões */
+        }
+        #checkout-button:hover, #whatsapp-button:hover, #pix-copy-button:hover {
+            background-color: #c03d72;
+        }
+        #whatsapp-button {
+            background-color: #25D366; /* Verde WhatsApp */
+        }
+        #whatsapp-button:hover {
+            background-color: #1DA851;
+        }
+        #pix-copy-button {
+            background-color: #00BFFF; /* Azul claro para "Copiar PIX" */
+        }
+        #pix-copy-button:hover {
+            background-color: #009ACD;
+        }
+
+        .payment-instructions {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px dashed #e75480;
+            border-radius: 8px;
+            background-color: #fff0f3;
+            text-align: left;
+        }
+        .payment-instructions h3 {
+            color: #d8477f;
+            margin-top: 0;
+            font-size: 1.2em;
+            text-align: center;
+        }
+        .payment-instructions p {
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+        .payment-instructions strong {
+            color: #8d2d4d;
+        }
+        .payment-instructions .pix-key {
+            background-color: #ffe0e6;
+            padding: 8px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+            word-break: break-all; /* Para chaves muito longas */
+        }
+
 
         /* Rodapé */
         footer {
@@ -259,6 +464,31 @@
                 flex-direction: column; /* Itens em coluna em telas pequenas */
                 gap: 10px; /* Espaçamento menor entre itens empilhados */
             }
+
+            #viewCartButton {
+                position: static; /* Volta para o fluxo normal em telas pequenas */
+                margin-top: 15px; /* Espaço abaixo da lista de presentes */
+                width: calc(100% - 40px);
+            }
+            .hero-section {
+                padding-bottom: 70px; /* Aumenta o padding para o botão do carrinho não ficar muito colado */
+            }
+            .cart-modal-content {
+                width: 95%; /* Ocupa mais espaço em telas pequenas */
+            }
+            #cart-items-list li {
+                flex-direction: column; /* Empilha info, quantidade e remover em telas menores */
+                align-items: flex-start;
+            }
+            #cart-items-list .item-quantity {
+                width: 100%;
+                display: flex;
+                justify-content: flex-end; /* Alinha input e botão à direita */
+                margin-top: 10px;
+            }
+            #cart-items-list .item-quantity input {
+                width: 60px; /* Aumenta o input de quantidade */
+            }
         }
     </style>
 </head>
@@ -281,6 +511,10 @@
         <section class="hero-section">
             <img src="eco.jpg" alt="Ilustração de bebê em tema ecológico" class="profile-pic">
             <h2>Lista de presentes</h2>
+            <!-- Botão Ver Carrinho -->
+            <button id="viewCartButton">
+                Ver Carrinho (<span id="cartItemCount">0</span>)
+            </button>
             <!-- Seção de ordenação movida para dentro do hero-section e ajustada -->
             <div class="sort-controls">
                 <label for="sortPrice">Ordenar por:</label>
@@ -294,7 +528,7 @@
 
         <!-- A lista de presentes agora é um elemento irmão da seção hero-section -->
         <section class="gift-list">
-            <div class="gift-item" data-price="105.00">
+            <div class="gift-item" data-id="forros-ecologicos" data-name="Forros para fraldas Ecológicas" data-price="105.00">
                 <img src="forro.jpg" alt="Forros para fraldas Ecológicas">
                 <div class="gift-info">
                     <h3>Forros para fraldas Ecológicas</h3>
@@ -302,10 +536,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="135.00">
+            <div class="gift-item" data-id="fraldas-eco-kit4-1" data-name="Kit 4 fraldas ecológicas reutilizáveis" data-price="135.00">
                 <img src="fraldas.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
@@ -313,10 +547,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="135.00">
+            <div class="gift-item" data-id="fraldas-eco-kit4-2" data-name="Kit 4 fraldas ecológicas reutilizáveis (estampa 2)" data-price="135.00">
                 <img src="fraldas2.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
@@ -324,10 +558,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="123.00">
+            <div class="gift-item" data-id="absorventes-fralda-eco" data-name="Kit de absorventes para fralda ecológica" data-price="123.00">
                 <img src="absorventes.jpg" alt="Kit de absorventes para fralda ecológica">
                 <div class="gift-info">
                     <h3>Kit de absorventes para fralda ecológica</h3>
@@ -335,10 +569,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="249.00">
+            <div class="gift-item" data-id="baba-eletronica-1" data-name="Baba eletrônica" data-price="249.00">
                 <img src="baba-eletronica.jpg" alt="Baba eletrônica">
                 <div class="gift-info">
                     <h3>Baba eletrônica</h3>
@@ -346,10 +580,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="149.00">
+            <div class="gift-item" data-id="mamadeiras-antico-1" data-name="Kit mamadeiras anticólicas" data-price="149.00">
                 <img src="mamadeiras.jpg" alt="Kit mamadeiras anticólicas">
                 <div class="gift-info">
                     <h3>Kit mamadeiras anticólicas</h3>
@@ -357,10 +591,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="129.00">
+            <div class="gift-item" data-id="bolsa-maternidade-1" data-name="Bolsa maternidade" data-price="129.00">
                 <img src="bolsa.jpg" alt="Bolsa maternidade">
                 <div class="gift-info">
                     <h3>Bolsa maternidade</h3>
@@ -368,10 +602,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="135.00">
+            <div class="gift-item" data-id="fraldas-eco-kit4-3" data-name="Kit 4 fraldas ecológicas reutilizáveis (estampa 3)" data-price="135.00">
                 <img src="fraldas3.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
@@ -379,10 +613,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="1896.00">
+            <div class="gift-item" data-id="carrinho-bebe-1" data-name="Carrinho de bebe com bebe conforto (duplo)" data-price="1896.00">
                 <img src="carrinho.jpg" alt="Carrinho de bebe com bebe conforto">
                 <div class="gift-info">
                     <h3>Carrinho de bebe com bebe conforto</h3>
@@ -390,10 +624,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-             <div class="gift-item" data-price="1896.00">
+             <div class="gift-item" data-id="carrinho-bebe-2" data-name="Carrinho de bebe com bebe conforto (duplo)" data-price="1896.00">
                 <img src="carrinho.jpg" alt="Carrinho de bebe com bebe conforto">
                 <div class="gift-info">
                     <h3>Carrinho de bebe com bebe conforto</h3>
@@ -401,10 +635,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-             <div class="gift-item" data-price="118.00">
+             <div class="gift-item" data-id="kit-higiene-bebes-1" data-name="Kit de higiene para bebês" data-price="118.00">
                 <img src="higiene.jpg" alt="Kit de higiene para bebês">
                 <div class="gift-info">
                     <h3>Kit de higiene para bebês</h3>
@@ -412,10 +646,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="103.00">
+            <div class="gift-item" data-id="kit-toalhas-bebe" data-name="Kit 8 toalhas de bebê" data-price="103.00">
                 <img src="toalhas.jpg" alt="Kit 8 toalhas de bebê">
                 <div class="gift-info">
                     <h3>Kit 8 toalhas de bebê</h3>
@@ -423,10 +657,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="149.00">
+            <div class="gift-item" data-id="mamadeiras-antico-2" data-name="Kit mamadeiras anticólicas" data-price="149.00">
                 <img src="mamadeiras.jpg" alt="Kit mamadeiras anticólicas">
                 <div class="gift-info">
                     <h3>Kit mamadeiras anticólicas</h3>
@@ -434,10 +668,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="122.00">
+            <div class="gift-item" data-id="kit-lencos-higiene" data-name="Kit lenços de higiene para bebês" data-price="122.00">
                 <img src="higiene.jpg" alt="Kit lenços de higiene para bebês">
                 <div class="gift-info">
                     <h3>Kit lenços de higiene para bebês</h3>
@@ -445,10 +679,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-             <div class="gift-item" data-price="105.00">
+             <div class="gift-item" data-id="forros-ecologicos-2" data-name="Forros para fraldas Ecológicas" data-price="105.00">
                 <img src="forro.jpg" alt="Forros para fraldas Ecológicas">
                 <div class="gift-info">
                     <h3>Forros para fraldas Ecológicas</h3>
@@ -456,10 +690,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="135.00">
+            <div class="gift-item" data-id="fraldas-eco-kit4-4" data-name="Kit 4 fraldas ecológicas reutilizáveis (estampa 4)" data-price="135.00">
                 <img src="fraldas4.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
@@ -467,10 +701,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="123.00">
+            <div class="gift-item" data-id="absorventes-fralda-eco-2" data-name="Kit de absorventes para fralda ecológica" data-price="123.00">
                 <img src="absorventes.jpg" alt="Kit de absorventes para fralda ecológica">
                 <div class="gift-info">
                     <h3>Kit de absorventes para fralda ecológica</h3>
@@ -478,10 +712,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="129.00">
+            <div class="gift-item" data-id="bolsa-maternidade-2" data-name="Bolsa maternidade" data-price="129.00">
                 <img src="bolsa.jpg" alt="Bolsa maternidade">
                 <div class="gift-info">
                     <h3>Bolsa maternidade</h3>
@@ -489,10 +723,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="129.00">
+            <div class="gift-item" data-id="bomba-leite-materno" data-name="Bomba de tirar leite materno" data-price="129.00">
                 <img src="bomba.jpg" alt="Bomba de tirar leite materno">
                 <div class="gift-info">
                     <h3>Bomba de tirar leite materno</h3>
@@ -500,10 +734,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="135.00">
+            <div class="gift-item" data-id="fraldas-eco-kit4-5" data-name="Kit 4 fraldas ecológicas reutilizáveis (estampa 5)" data-price="135.00">
                 <img src="fraldas.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
@@ -511,10 +745,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="239.00">
+            <div class="gift-item" data-id="banheira-bebe" data-name="Banheira de banho para bebê" data-price="239.00">
                 <img src="banheira.jpg" alt="Banheira de banho para bebê">
                 <div class="gift-info">
                     <h3>Banheira de banho para bebê</h3>
@@ -522,10 +756,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="244.00">
+            <div class="gift-item" data-id="aquecedor-esterilizador" data-name="Aquecedor e esterilizador para mamadeiras" data-price="244.00">
                 <img src="aquecedor.jpg" alt="Aquecedor e esterilizador para mamadeiras">
                 <div class="gift-info">
                     <h3>Aquecedor e esterilizador para mamadeiras</h3>
@@ -533,10 +767,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="135.00">
+            <div class="gift-item" data-id="fraldas-eco-kit4-6" data-name="Kit 4 fraldas ecológicas reutilizáveis (estampa 6)" data-price="135.00">
                 <img src="fraldas10.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
@@ -544,10 +778,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="145.00">
+            <div class="gift-item" data-id="almofada-amamentacao-gemeos" data-name="Almofada de amamentação para gêmeos" data-price="145.00">
                 <img src="almofada.jpg" alt="Almofada de amamentação para gêmeos">
                 <div class="gift-info">
                     <h3>Almofada de amamentação para gêmeos</h3>
@@ -555,10 +789,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="249.00">
+            <div class="gift-item" data-id="baba-eletronica-2" data-name="Baba eletrônica" data-price="249.00">
                 <img src="baba-eletronica.jpg" alt="Baba eletrônica">
                 <div class="gift-info">
                     <h3>Baba eletrônica</h3>
@@ -566,10 +800,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="118.00">
+            <div class="gift-item" data-id="aspirador-nasal" data-name="Kit aspirador nasal bebê - 2 unidades" data-price="118.00">
                 <img src="aspirador.jpg" alt="Kit aspirador nasal bebê - 2 unidades">
                 <div class="gift-info">
                     <h3>Kit aspirador nasal</h3>
@@ -577,10 +811,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="125.00">
+            <div class="gift-item" data-id="vidros-armazenar-leite" data-name="Kit 24 vidros para armazenar leite materno" data-price="125.00">
                 <img src="vidros.jpg" alt="Kit 24 vidros para armazenar leite materno">
                 <div class="gift-info">
                     <h3>Kit 24 vidros para armazenar leite materno</h3>
@@ -588,10 +822,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="135.00">
+            <div class="gift-item" data-id="fraldas-eco-kit4-7" data-name="Kit 4 fraldas ecológicas reutilizáveis (estampa 7)" data-price="135.00">
                 <img src="fraldas5.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
@@ -599,10 +833,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="135.00">
+            <div class="gift-item" data-id="fraldas-eco-kit4-8" data-name="Kit 4 fraldas ecológicas reutilizáveis (estampa 8)" data-price="135.00">
                 <img src="fraldas6.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
@@ -610,10 +844,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="135.00">
+            <div class="gift-item" data-id="fraldas-eco-kit4-9" data-name="Kit 4 fraldas ecológicas reutilizáveis (estampa 9)" data-price="135.00">
                 <img src="fraldas7.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
@@ -621,10 +855,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="135.00">
+            <div class="gift-item" data-id="fraldas-eco-kit4-10" data-name="Kit 4 fraldas ecológicas reutilizáveis (estampa 10)" data-price="135.00">
                 <img src="fraldas8.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
@@ -632,10 +866,10 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
 
-            <div class="gift-item" data-price="135.00">
+            <div class="gift-item" data-id="fraldas-eco-kit4-11" data-name="Kit 4 fraldas ecológicas reutilizáveis (estampa 11)" data-price="135.00">
                 <img src="fraldas9.jpg" alt="Kit 4 fraldas ecológicas reutilizáveis">
                 <div class="gift-info">
                     <h3>Kit 4 fraldas ecológicas reutilizáveis</h3>
@@ -643,10 +877,37 @@
                     <div class="gift-details">
                     </div>
                 </div>
-                <button>Presentear</button>
+                <button class="add-to-cart-btn">Presentear</button>
             </div>
         </section>
     </main>
+
+    <!-- Modal do Carrinho -->
+    <div id="cartModal" class="cart-modal-overlay">
+        <div class="cart-modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="cart-modal-title">Seu Carrinho de Presentes</h2>
+            <ul id="cart-items-list">
+                <!-- Itens do carrinho serão inseridos aqui pelo JavaScript -->
+            </ul>
+            <p id="cart-total">Total: R\$ 0,00</p>
+
+            <!-- Novos elementos para instruções de pagamento e botões -->
+            <div id="paymentDetails" style="display: none;">
+                <div class="payment-instructions">
+                    <h3>Como Presentear (via PIX)</h3>
+                    <p>Por favor, faça um PIX no valor total de <strong><span id="finalAmount">R\$ 0,00</span></strong> para a chave:</p>
+                    <p class="pix-key" id="pixKeyDisplay"></p>
+                    <button id="pix-copy-button">Copiar Chave PIX</button>
+                    <p style="margin-top: 15px; font-weight: 600;">Após o pagamento, por favor, clique no botão abaixo para nos enviar a lista via WhatsApp, para que possamos agradecer e dar baixa no presente!</p>
+                </div>
+                <a id="whatsapp-button" href="#" target="_blank">Enviar Lista via WhatsApp</a>
+                <button id="backToCartButton">Voltar ao Carrinho</button>
+            </div>
+
+            <button id="checkout-button">Finalizar Compra</button>
+        </div>
+    </div>
 
     <footer>
         <p>&copy; 2025 Chá das gêmeas Clara e Marina. Desenvolvido com carinho.</p>
@@ -656,36 +917,229 @@
         document.addEventListener('DOMContentLoaded', function() {
             const sortSelect = document.getElementById('sortPrice');
             const giftListContainer = document.querySelector('.gift-list');
-            // Converta a NodeList para um Array para poder usar o método sort()
-            const giftItems = Array.from(giftListContainer.querySelectorAll('.gift-item'));
+            const giftItems = Array.from(giftListContainer.querySelectorAll('.gift-item')); // Array original para ordenação
+            const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+            const viewCartButton = document.getElementById('viewCartButton');
+            const cartItemCountSpan = document.getElementById('cartItemCount');
+            const cartModal = document.getElementById('cartModal');
+            const closeModalButton = document.querySelector('.cart-modal-content .close-button');
+            const cartModalTitle = document.getElementById('cart-modal-title'); // Novo
+            const cartItemsList = document.getElementById('cart-items-list');
+            const cartTotalSpan = document.getElementById('cart-total');
+            const checkoutButton = document.getElementById('checkout-button');
 
+            const paymentDetailsDiv = document.getElementById('paymentDetails'); // Novo
+            const finalAmountSpan = document.getElementById('finalAmount'); // Novo
+            const pixKeyDisplay = document.getElementById('pixKeyDisplay'); // Novo
+            const pixCopyButton = document.getElementById('pix-copy-button'); // Novo
+            const whatsappButton = document.getElementById('whatsapp-button'); // Novo
+            const backToCartButton = document.getElementById('backToCartButton'); // Novo
+
+            const PIX_KEY = "sua_chave_pix_aqui"; // <<<<< MUITO IMPORTANTE: SUBSTITUA PELA SUA CHAVE PIX REAL (CPF, EMAIL, CELULAR, CHAVE ALEATÓRIA)
+            const WHATSAPP_NUMBER = "55XXYYYYYYYYY"; // <<<<< MUITO IMPORTANTE: SUBSTITUA PELO NÚMERO DE WHATSAPP REAL (55 + DDD + NÚMERO)
+
+            let cart = JSON.parse(localStorage.getItem('giftCart')) || [];
+
+            // --- Funções do Carrinho ---
+            function saveCart() {
+                localStorage.setItem('giftCart', JSON.stringify(cart));
+            }
+
+            function updateCartCount() {
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartItemCountSpan.textContent = totalItems;
+                // Ajuste: Sempre mostre o botão do carrinho, mesmo que esteja vazio.
+                // Isso dá uma indicação de que o recurso existe.
+                // viewCartButton.style.display = totalItems > 0 ? 'inline-block' : 'none';
+            }
+
+            function renderCart() {
+                cartItemsList.innerHTML = '';
+                let total = 0;
+
+                if (cart.length === 0) {
+                    cartItemsList.innerHTML = '<li style="text-align: center; color: #888;">Seu carrinho está vazio.</li>';
+                    checkoutButton.disabled = true; // Desabilita o botão se o carrinho estiver vazio
+                } else {
+                    checkoutButton.disabled = false; // Habilita o botão se houver itens
+                    cart.forEach(item => {
+                        const listItem = document.createElement('li');
+                        listItem.innerHTML = `
+                            <div class="item-info">
+                                <h4>${item.name}</h4>
+                                <p>R\$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')}</p>
+                            </div>
+                            <div class="item-quantity">
+                                <input type="number" min="1" value="${item.quantity}" data-id="${item.id}">
+                            </div>
+                            <button class="item-remove-button" data-id="${item.id}">&#x2715;</button>
+                        `;
+                        cartItemsList.appendChild(listItem);
+                        total += item.price * item.quantity;
+                    });
+                }
+                cartTotalSpan.textContent = `Total: R\$ ${total.toFixed(2).replace('.', ',')}`;
+                updateCartCount();
+                saveCart();
+
+                // Esconde a parte de pagamento e mostra o carrinho normal
+                cartModalTitle.textContent = "Seu Carrinho de Presentes";
+                cartItemsList.style.display = 'block';
+                cartTotalSpan.style.display = 'block';
+                checkoutButton.style.display = 'block';
+                paymentDetailsDiv.style.display = 'none';
+            }
+
+            function addToCart(item) {
+                const existingItemIndex = cart.findIndex(cartItem => cartItem.id === item.id);
+
+                if (existingItemIndex > -1) {
+                    cart[existingItemIndex].quantity += 1;
+                } else {
+                    cart.push({ ...item, quantity: 1 });
+                }
+                updateCartCount(); // Atualiza apenas o contador no botão
+                saveCart();
+                alert(`${item.name} foi adicionado(a) ao carrinho!`); // Feedback para o usuário
+            }
+
+            function updateQuantity(id, newQuantity) {
+                const itemIndex = cart.findIndex(item => item.id === id);
+                if (itemIndex > -1) {
+                    if (newQuantity <= 0) {
+                        cart.splice(itemIndex, 1); // Remove se a quantidade for 0 ou menos
+                    } else {
+                        cart[itemIndex].quantity = newQuantity;
+                    }
+                    renderCart(); // Re-renderiza o carrinho para mostrar as mudanças
+                }
+            }
+
+            function removeItem(id) {
+                cart = cart.filter(item => item.id !== id);
+                renderCart(); // Re-renderiza o carrinho para mostrar as mudanças
+            }
+
+            // --- Event Listeners ---
+
+            // Botões "Presentear"
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const giftItemDiv = this.closest('.gift-item');
+                    const item = {
+                        id: giftItemDiv.dataset.id,
+                        name: giftItemDiv.dataset.name,
+                        price: parseFloat(giftItemDiv.dataset.price)
+                    };
+                    addToCart(item);
+                });
+            });
+
+            // Botão "Ver Carrinho"
+            viewCartButton.addEventListener('click', () => {
+                renderCart(); // Renderiza o carrinho ao abrir
+                cartModal.style.display = 'flex'; // Exibe a modal
+            });
+
+            // Botão "Fechar Modal"
+            closeModalButton.addEventListener('click', () => {
+                cartModal.style.display = 'none'; // Esconde a modal
+            });
+
+            // Fechar modal clicando fora dela
+            window.addEventListener('click', (event) => {
+                if (event.target === cartModal) {
+                    cartModal.style.display = 'none';
+                }
+            });
+
+            // Atualizar quantidade ou remover item do carrinho na modal
+            cartItemsList.addEventListener('change', (event) => {
+                if (event.target.tagName === 'INPUT' && event.target.type === 'number') {
+                    const itemId = event.target.dataset.id;
+                    const newQuantity = parseInt(event.target.value, 10);
+                    updateQuantity(itemId, newQuantity);
+                }
+            });
+
+            cartItemsList.addEventListener('click', (event) => {
+                if (event.target.classList.contains('item-remove-button')) {
+                    const itemId = event.target.dataset.id;
+                    removeItem(itemId);
+                }
+            });
+
+            // Lógica para o botão "Finalizar Compra" (AGORA É O PRIMEIRO PASSO DO CHECKOUT)
+            checkoutButton.addEventListener('click', () => {
+                if (cart.length === 0) {
+                    alert('Seu carrinho está vazio!');
+                    return;
+                }
+
+                const totalValue = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const formattedTotal = totalValue.toFixed(2).replace('.', ',');
+
+                // Atualiza os elementos da modal para mostrar as instruções de pagamento
+                cartModalTitle.textContent = "Finalizar Pedido";
+                cartItemsList.style.display = 'none'; // Esconde a lista de itens
+                cartTotalSpan.style.display = 'none'; // Esconde o total aqui, será mostrado nas instruções
+                checkoutButton.style.display = 'none'; // Esconde o botão "Finalizar Compra"
+
+                finalAmountSpan.textContent = `R\$ ${formattedTotal}`;
+                pixKeyDisplay.textContent = PIX_KEY;
+
+                // Prepara a mensagem do WhatsApp
+                let whatsappMessage = `Olá! Gostaria de presentear as gêmeas com os seguintes itens do chá:\n\n`;
+                cart.forEach(item => {
+                    whatsappMessage += `- ${item.name} (x${item.quantity}) - R\$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')}\n`;
+                });
+                whatsappMessage += `\nTotal Geral: R\$ ${formattedTotal}`;
+                whatsappMessage += `\n\nJá realizei o pagamento via PIX.`; // Mensagem indicando que o pagamento foi feito
+                whatsappMessage += `\n\nMuito obrigado(a)!`;
+
+                whatsappButton.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
+
+                paymentDetailsDiv.style.display = 'block'; // Mostra as instruções de pagamento
+            });
+
+            // Botão "Copiar Chave PIX"
+            pixCopyButton.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(PIX_KEY);
+                    alert('Chave PIX copiada para a área de transferência!');
+                } catch (err) {
+                    console.error('Falha ao copiar PIX:', err);
+                    alert('Erro ao copiar a chave PIX. Por favor, copie manualmente: ' + PIX_KEY);
+                }
+            });
+
+            // Botão "Voltar ao Carrinho"
+            backToCartButton.addEventListener('click', () => {
+                renderCart(); // Volta para a visualização do carrinho
+            });
+
+            // --- Funções de Ordenação (já existentes) ---
             function sortGifts() {
-                const sortOrder = sortSelect.value; // 'asc', 'desc' ou 'none'
-
+                const sortOrder = sortSelect.value;
                 if (sortOrder === 'none') {
-                    // Para restaurar a ordem "original" sem guardar um estado,
-                    // a melhor forma aqui é simplesmente re-append os itens no DOM
-                    // na mesma ordem em que foram coletados inicialmente no array giftItems.
+                    // Restaurar a ordem original
                     giftItems.forEach(item => {
                         giftListContainer.appendChild(item);
                     });
                     return;
                 }
 
-                // Ordena os itens do array com base no atributo data-price
                 giftItems.sort((a, b) => {
                     const priceA = parseFloat(a.dataset.price);
                     const priceB = parseFloat(b.dataset.price);
 
                     if (sortOrder === 'asc') {
-                        return priceA - priceB; // Menor preço primeiro
+                        return priceA - priceB;
                     } else {
-                        return priceB - priceA; // Maior preço primeiro
+                        return priceB - priceA;
                     }
                 });
 
-                // Re-apende os itens ordenados ao contêiner na DOM
-                // Isso remove os itens de suas posições atuais e os adiciona na nova ordem
                 giftItems.forEach(item => {
                     giftListContainer.appendChild(item);
                 });
@@ -695,6 +1149,12 @@
             if (sortSelect) {
                 sortSelect.addEventListener('change', sortGifts);
             }
+
+            // --- Inicialização ---
+            updateCartCount(); // Atualiza o contador de itens no carrinho ao carregar a página
+            // Ajusta o display do botão "Ver Carrinho" com base na contagem inicial (se o CSS o esconde por padrão)
+            // Agora ele será sempre visível, então esta linha pode ser removida se o CSS base não esconder.
+            // viewCartButton.style.display = 'inline-block'; // Garante que o botão esteja visível.
         });
     </script>
 </body>
