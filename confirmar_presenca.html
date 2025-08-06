@@ -269,19 +269,19 @@
 
         // SEU OBJETO firebaseConfig - SUBSTITUA POR AQUELE QUE VOCÊ COPIOU DO CONSOLE DO FIREBASE!
         const firebaseConfig = {
-             apiKey: "SEU_API_KEY",
-             authDomain: "SEU_AUTH_DOMAIN",
-             projectId: "SEU_PROJECT_ID",
-             storageBucket: "SEU_STORAGE_BUCKET",
-             messagingSenderId: "SEU_MESSAGING_SENDER_ID",
-             appId: "SEU_APP_ID"
+          apiKey: "AIzaSyAG0w9X-YaHQoaf8pKMCbPzZMXiNKjp6Ys",
+          authDomain: "bd-cha-das-gemeas.firebaseapp.com",
+          projectId: "bd-cha-das-gemeas",
+          storageBucket: "bd-cha-das-gemeas.firebasestorage.app",
+          messagingSenderId: "315225196297",
+          appId: "1:315225196297:web:d4e4fb508de590c32135d8"
         };
 
         // Inicializa o Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app); // Obtém a instância do Firestore
 
-        const WHATSAPP_NUMBER = "55XXYYYYYYYYY"; // <<<<< MUITO IMPORTANTE: SUBSTITUA PELO SEU NÚMERO DE WHATSAPP REAL (55 + DDD + NÚMERO)
+        const WHATSAPP_NUMBER = "5551982101092"; // <<<<< MUITO IMPORTANTE: SUBSTITUA PELO SEU NÚMERO DE WHATSAPP REAL (55 + DDD + NÚMERO)
 
         document.addEventListener('DOMContentLoaded', function() {
             const rsvpForm = document.getElementById('rsvpForm');
