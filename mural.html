@@ -181,12 +181,23 @@
         }
 
         .message-card {
-            background-color: var(--palette-pink); /* Rosa Claro para o fundo do cartão */
             padding: 15px;
             border-radius: 8px;
             box-shadow: 0 1px 4px rgba(0,0,0,0.08);
             border: 1px solid var(--color-border-light); /* Azul Claro */
+            position: relative; /* Para posicionar o botão de excluir */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
+
+        /* Cores de fundo alternativas para os cartões de mensagem */
+        .message-card.color-0 { background-color: var(--palette-pink); }
+        .message-card.color-1 { background-color: var(--palette-peach); }
+        .message-card.color-2 { background-color: var(--palette-yellow); }
+        .message-card.color-3 { background-color: var(--palette-mint); }
+        .message-card.color-4 { background-color: var(--palette-blue); }
+
 
         .message-card .message-author {
             font-weight: 700;
@@ -199,6 +210,7 @@
             color: var(--color-text-dark);
             font-size: 0.95em;
             margin-bottom: 10px;
+            flex-grow: 1; /* Permite que o texto ocupe espaço restante */
         }
 
         .message-card .message-date {
@@ -208,6 +220,22 @@
             border-top: 1px dashed var(--color-border-light);
             padding-top: 8px;
             margin-top: 8px;
+        }
+
+        .delete-message-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: none;
+            border: none;
+            color: var(--color-text-medium);
+            font-size: 1.2em;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s ease;
+        }
+        .delete-message-btn:hover {
+            color: var(--color-primary-accent); /* Rosa Acento */
         }
 
         /* Rodapé */
@@ -293,7 +321,16 @@
             const authorNameInput = document.getElementById('authorName');
             const messageTextInput = document.getElementById('messageText');
             const messagesListDiv = document.getElementById('messagesList');
-            const noMessagesYet = messagesListDiv.querySelector('.no-messages-yet'); // Captura o elemento inicial "ainda não há mensagens"
+            const noMessagesYet = messagesListDiv.querySelector('.no-messages-yet'); 
+            
+            // Array de cores para alternar o fundo dos cartões de mensagem
+            const messageCardColors = [
+                'color-0', // var(--palette-pink)
+                'color-1', // var(--palette-peach)
+                'color-2', // var(--palette-yellow)
+                'color-3', // var(--palette-mint)
+                'color-4'  // var(--palette-blue)
+            ];
 
             let messages = JSON.parse(localStorage.getItem('muralMessages')) || [];
 
@@ -312,24 +349,43 @@
             function renderMessages() {
                 messagesListDiv.innerHTML = ''; // Limpa as mensagens existentes
                 if (messages.length === 0) {
-                    messagesListDiv.appendChild(noMessagesYet); // Adiciona de volta o texto "ainda não há mensagens"
-                    noMessagesYet.style.display = 'block'; // Garante que ele seja exibido
+                    noMessagesYet.style.display = 'block'; // Mostra o texto "ainda não há mensagens"
                 } else {
-                    noMessagesYet.style.display = 'none'; // Esconde o texto "ainda não há mensagens"
+                    noMessagesYet.style.display = 'none'; // Esconde o texto
                     // Ordena as mensagens por data, as mais recentes primeiro
                     const sortedMessages = [...messages].sort((a, b) => new Date(b.date) - new Date(a.date));
 
-                    sortedMessages.forEach(msg => {
+                    sortedMessages.forEach((msg, index) => {
                         const messageCard = document.createElement('div');
-                        messageCard.classList.add('message-card');
+                        // Adiciona a classe de cor alternada
+                        messageCard.classList.add('message-card', messageCardColors[index % messageCardColors.length]);
+                        
                         messageCard.innerHTML = `
+                            <button class="delete-message-btn" data-id="${msg.id}">&times;</button>
                             <p class="message-author">De: ${msg.author}</p>
                             <p class="message-text">${msg.text}</p>
                             <p class="message-date">Em: ${formatDate(msg.date)}</p>
                         `;
                         messagesListDiv.appendChild(messageCard);
                     });
+
+                    // Adiciona listeners para os botões de exclusão
+                    document.querySelectorAll('.delete-message-btn').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const messageId = this.dataset.id;
+                            if (confirm('Tem certeza que deseja excluir esta mensagem? Ela será removida apenas do seu navegador.')) {
+                                deleteMessage(messageId);
+                            }
+                        });
+                    });
                 }
+            }
+
+            // Função para excluir uma mensagem
+            function deleteMessage(idToDelete) {
+                messages = messages.filter(msg => msg.id !== idToDelete);
+                saveMessages();
+                renderMessages(); // Re-renderiza as mensagens após a exclusão
             }
 
             // Event listener para envio do formulário do mural
@@ -341,6 +397,7 @@
 
                 if (author && text) {
                     const newMessage = {
+                        id: Date.now().toString(), // ID único baseado no timestamp para exclusão
                         author: author,
                         text: text,
                         date: new Date().toISOString() // Armazena a data em formato ISO para facilitar a ordenação
