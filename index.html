@@ -103,7 +103,7 @@
             text-align: center;
             border-radius: 8px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(204,224,255,0.2); /* Sombra suave do azul claro */
+            box-shadow: 0 22px 4px rgba(204,224,255,0.2); /* Sombra suave do azul claro */
             position: relative; /* Para posicionar o botão do carrinho */
         }
 
@@ -447,6 +447,121 @@
             word-break: break-all;
         }
 
+        /* NOVO: Estilos para Mural de Recados */
+        .mural-section {
+            background-color: var(--color-section-background); /* Azul Claro */
+            padding: 30px 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(204,224,255,0.2);
+        }
+
+        .mural-section h2 {
+            text-align: center;
+            color: var(--color-primary-accent); /* Rosa Acento */
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+        }
+
+        .mural-form-container, .mural-messages-container {
+            background-color: var(--color-card-background); /* Branco puro */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .mural-form-container h3, .mural-messages-container h3 {
+            color: var(--color-text-dark);
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.3em;
+        }
+
+        .message-form .form-group {
+            margin-bottom: 15px;
+        }
+
+        .message-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--color-text-medium);
+        }
+
+        .message-form input[type="text"],
+        .message-form textarea {
+            width: calc(100% - 20px); /* Ajusta para o padding */
+            padding: 10px;
+            border: 1px solid var(--color-border-light); /* Azul Claro */
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+            color: var(--color-text-dark);
+            background-color: #fcfcfc;
+        }
+
+        .message-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-message-btn {
+            background-color: var(--color-primary-accent); /* Rosa Acento */
+            color: var(--color-text-light); /* Branco */
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            display: block;
+        }
+
+        .submit-message-btn:hover {
+            background-color: var(--color-primary-accent-hover); /* Rosa Acento Hover */
+        }
+
+        .messages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px; /* Espaçamento entre os cartões de mensagem */
+        }
+
+        .message-card {
+            background-color: var(--palette-pink); /* Rosa Claro para o fundo do cartão */
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            border: 1px solid var(--color-border-light); /* Azul Claro */
+        }
+
+        .message-card .message-author {
+            font-weight: 700;
+            color: var(--color-primary-accent); /* Rosa Acento */
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .message-card .message-text {
+            color: var(--color-text-dark);
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        .message-card .message-date {
+            font-size: 0.8em;
+            color: var(--color-text-medium);
+            text-align: right;
+            border-top: 1px dashed var(--color-border-light);
+            padding-top: 8px;
+            margin-top: 8px;
+        }
+
         /* Rodapé */
         footer {
             text-align: center;
@@ -512,6 +627,10 @@
             }
             #cart-items-list .item-quantity input {
                 width: 60px;
+            }
+             /* Ajustes Responsivos para a seção do Mural */
+            .messages-grid {
+                grid-template-columns: 1fr; /* Mensagens empilhadas em telas pequenas */
             }
         }
     </style>
@@ -906,6 +1025,34 @@
         </section>
     </main>
 
+    <!-- NOVO: Seção do Mural de Recados -->
+    <section id="mural" class="container mural-section">
+        <h2>�� Deixe seu Carinho para Clara e Marina! ��</h2>
+        <div class="mural-form-container">
+            <h3>Escreva sua Mensagem:</h3>
+            <form id="messageForm" class="message-form">
+                <div class="form-group">
+                    <label for="authorName">Seu Nome:</label>
+                    <input type="text" id="authorName" placeholder="Seu nome ou apelido" required>
+                </div>
+                <div class="form-group">
+                    <label for="messageText">Sua Mensagem:</label>
+                    <textarea id="messageText" placeholder="Parabéns e muitas felicidades!" required></textarea>
+                </div>
+                <button type="submit" class="submit-message-btn">Enviar Mensagem</button>
+            </form>
+        </div>
+
+        <div class="mural-messages-container">
+            <h3>Mensagens de Carinho:</h3>
+            <div id="messagesList" class="messages-grid">
+                <!-- As mensagens serão carregadas aqui pelo JavaScript -->
+                <p class="no-messages-yet" style="text-align: center; color: var(--color-text-medium); display: none;">Ainda não há mensagens. Seja o primeiro a deixar uma!</p>
+            </div>
+        </div>
+    </section>
+    <!-- FIM do NOVO: Seção do Mural de Recados -->
+
     <!-- Modal do Carrinho -->
     <div id="cartModal" class="cart-modal-overlay">
         <div class="cart-modal-content">
@@ -1147,6 +1294,13 @@
                 const sortOrder = sortSelect.value;
                 if (sortOrder === 'none') {
                     // Restaurar a ordem original
+                    // Nota: A ordem "original" será a ordem em que os elementos estão no HTML.
+                    // Para uma restauração perfeita, seria necessário clonar os elementos antes da primeira ordenação
+                    // ou mantê-los em um array imutável e renderizar a partir dele.
+                    // No momento, apenas re-adiciona na ordem atual no DOM após o reset.
+                    // Uma forma mais robusta seria:
+                    // giftItems.forEach(item => giftListContainer.appendChild(item));
+                    // Para o seu caso, a simples ordenação por none deve funcionar para o que já está no HTML.
                     giftItems.forEach(item => {
                         giftListContainer.appendChild(item);
                     });
@@ -1164,6 +1318,7 @@
                     }
                 });
 
+                // Re-apenda os itens ordenados ao container
                 giftItems.forEach(item => {
                     giftListContainer.appendChild(item);
                 });
@@ -1174,6 +1329,77 @@
                 sortSelect.addEventListener('change', sortGifts);
             }
 
+            // NOVO: Variáveis e funções para o Mural de Recados
+            const messageForm = document.getElementById('messageForm');
+            const authorNameInput = document.getElementById('authorName');
+            const messageTextInput = document.getElementById('messageText');
+            const messagesListDiv = document.getElementById('messagesList');
+            const noMessagesYet = messagesListDiv.querySelector('.no-messages-yet'); // Captura o elemento inicial "ainda não há mensagens"
+
+            let messages = JSON.parse(localStorage.getItem('muralMessages')) || [];
+
+            // Função para salvar mensagens no localStorage
+            function saveMessages() {
+                localStorage.setItem('muralMessages', JSON.stringify(messages));
+            }
+
+            // Função para formatar a data de exibição
+            function formatDate(dateString) {
+                const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                return new Date(dateString).toLocaleDateString('pt-BR', options);
+            }
+
+            // Função para renderizar todas as mensagens
+            function renderMessages() {
+                messagesListDiv.innerHTML = ''; // Limpa as mensagens existentes
+                if (messages.length === 0) {
+                    messagesListDiv.appendChild(noMessagesYet); // Adiciona de volta o texto "ainda não há mensagens"
+                    noMessagesYet.style.display = 'block'; // Garante que ele seja exibido
+                } else {
+                    noMessagesYet.style.display = 'none'; // Esconde o texto "ainda não há mensagens"
+                    // Ordena as mensagens por data, as mais recentes primeiro
+                    const sortedMessages = [...messages].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                    sortedMessages.forEach(msg => {
+                        const messageCard = document.createElement('div');
+                        messageCard.classList.add('message-card');
+                        messageCard.innerHTML = `
+                            <p class="message-author">De: ${msg.author}</p>
+                            <p class="message-text">${msg.text}</p>
+                            <p class="message-date">Em: ${formatDate(msg.date)}</p>
+                        `;
+                        messagesListDiv.appendChild(messageCard);
+                    });
+                }
+            }
+
+            // Event listener para envio do formulário do mural
+            messageForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Previne o envio padrão do formulário
+
+                const author = authorNameInput.value.trim();
+                const text = messageTextInput.value.trim();
+
+                if (author && text) {
+                    const newMessage = {
+                        author: author,
+                        text: text,
+                        date: new Date().toISOString() // Armazena a data em formato ISO para facilitar a ordenação
+                    };
+                    messages.push(newMessage);
+                    saveMessages();
+                    renderMessages(); // Renderiza todas as mensagens novamente, incluindo a nova
+                    messageForm.reset(); // Limpa o formulário
+                    alert('Sua mensagem foi enviada com sucesso! ❤️');
+                } else {
+                    alert('Por favor, preencha seu nome e a mensagem.');
+                }
+            });
+
+            // Renderização inicial das mensagens quando a página carrega
+            renderMessages();
+            // FIM do NOVO: Variáveis e funções para o Mural de Recados
+
             // --- Inicialização ---
             updateCartCount(); // Atualiza o contador de itens no carrinho ao carregar a página
             // Ajusta o display do botão "Ver Carrinho" com base na contagem inicial (se o CSS o esconde por padrão)
@@ -1183,3 +1409,4 @@
     </script>
 </body>
 </html>
+`
