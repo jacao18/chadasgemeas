@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Presença - Clara e Marina</title>
+
+    <!-- Linha para adicionar o Favicon (ícone de coração de copas) -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- Link para a fonte Poppins do Google Fonts para um visual moderno -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Firebase SDK - Adicione estes links -->
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
+
+    <style>
+        /* Definindo a paleta de cores como variáveis CSS */
+        :root {
+            --palette-pink: #FFCCCC; /* Rosa Claro */
+            --palette-peach: #FFDEAD; /* Pêssego */
+            --palette-yellow: #FFFFCC; /* Amarelo Claro */
+            --palette-mint: #CCFFE6; /* Verde Menta */
+            --palette-blue: #CCE0FF; /* Azul Claro */
+
+            /* Cores derivadas para acentos e texto */
+            --color-background-soft: var(--palette-mint); /* Fundo principal da página */
+            --color-section-background: var(--palette-blue); /* Fundo de seções como hero */
+            --color-card-background: #FFFFFF; /* Branco para cartões e modais */
+
+            --color-primary-accent: #FF99B3; /* Rosa mais forte para botões, preços, ânforas */
+            --color-primary-accent-hover: #FF809F; /* Rosa mais escuro para hover */
+            --color-secondary-accent: var(--palette-yellow); /* Fundo de controles de ordenação, instruções de pagamento */
+
+            --color-border-light: var(--palette-blue); /* Bordas e linhas finas */
+            --color-placeholder-image: var(--palette-peach); /* Cor para placeholders de imagem */
+
+            --color-text-dark: #333; /* Texto principal escuro para legibilidade */
+            --color-text-medium: #666; /* Texto secundário/sutil */
+            --color-text-light: #FDFDFD; /* Texto para fundos escuros (quase branco) */
+        }
+
+        /* Estilos básicos para o corpo e reset de margens/padding */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-background-soft); /* Verde Menta */
+            color: var(--color-text-dark); /* Cor de texto principal escura para legibilidade */
+            line-height: 1.6;
+        }
+
+        /* Container para centralizar o conteúdo */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        /* Estilo do Cabeçalho */
+        header {
+            background-color: var(--color-card-background); /* Branco puro */
+            padding: 20px 0 10px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(204,224,255,0.3); /* Sombra suave do azul claro */
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            color: var(--color-primary-accent); /* Rosa Acento */
+            margin: 0 0 15px 0;
+            font-size: 1.8em;
+        }
+
+        /* Estilo do Menu de Navegação */
+        nav ul {
+            list-style: none; /* Remove marcadores da lista */
+            padding: 0;
+            margin: 0;
+            display: flex; /* Itens em linha */
+            justify-content: center; /* Centraliza os itens */
+            gap: 25px; /* Espaçamento entre os itens do menu */
+            flex-wrap: wrap; /* Quebra linha se a tela for muito pequena */
+        }
+
+        nav ul li a {
+            text-decoration: none; /* Remove sublinhado */
+            color: var(--color-primary-accent); /* Rosa Acento */
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--palette-pink); /* Rosa Claríssimo */
+            color: var(--color-primary-accent-hover); /* Rosa Acento Hover */
+        }
+
+        /* Estilos para a Seção de Confirmação de Presença */
+        .rsvp-section {
+            background-color: var(--color-section-background); /* Azul Claro */
+            padding: 30px 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(204,224,255,0.2);
+            text-align: center;
+        }
+
+        .rsvp-section h2 {
+            color: var(--color-primary-accent); /* Rosa Acento */
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+
+        .rsvp-form-container {
+            background-color: var(--color-card-background); /* Branco puro */
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            max-width: 500px; /* Limita a largura do formulário */
+            margin: 0 auto; /* Centraliza o formulário */
+        }
+
+        .rsvp-form-container h3 {
+            color: var(--color-text-dark);
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .rsvp-form .form-group {
+            margin-bottom: 20px;
+            text-align: left; /* Alinha labels e inputs à esquerda */
+        }
+
+        .rsvp-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--color-text-medium);
+        }
+
+        .rsvp-form input[type="text"] {
+            width: calc(100% - 22px); /* Ajusta para o padding e borda */
+            padding: 10px;
+            border: 1px solid var(--color-border-light); /* Azul Claro */
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+            color: var(--color-text-dark);
+            background-color: #fcfcfc;
+        }
+
+        .confirm-btn {
+            background-color: var(--color-primary-accent); /* Rosa Acento */
+            color: var(--color-text-light); /* Branco */
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            display: block;
+            margin-top: 25px;
+        }
+
+        .confirm-btn:hover {
+            background-color: var(--color-primary-accent-hover); /* Rosa Acento Hover */
+        }
+
+        .confirmation-message {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: var(--palette-yellow); /* Amarelo Claro */
+            border: 1px solid var(--color-border-light);
+            border-radius: 8px;
+            color: var(--color-text-dark);
+            font-weight: 600;
+            display: none; /* Escondido por padrão */
+        }
+        .confirmation-message p {
+            margin: 0;
+        }
+
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            color: var(--color-text-medium);
+            font-size: 0.85em;
+            border-top: 1px solid var(--color-border-light); /* Borda azul clara */
+        }
+
+        /* Ajustes Responsivos para telas menores */
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px auto;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .rsvp-form-container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Chá das gêmeas</h1>
+            <h1>Clara e Marina</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Lista de Presentes</a></li>
+                    <li><a href="mural.html">Mural de Recados</a></li>
+                    <li><a href="confirmar_presenca.html">Confirmar Presença</a></li>
+                    <li><a href="#evento">Evento</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Seção de Confirmação de Presença -->
+        <section class="rsvp-section">
+            <h2>🎉 Confirme Sua Presença ��</h2>
+            <div class="rsvp-form-container">
+                <h3>Preencha os Dados:</h3>
+                <form id="rsvpForm" class="rsvp-form">
+                    <div class="form-group">
+                        <label for="fullName">Seu Nome Completo:</label>
+                        <input type="text" id="fullName" placeholder="Nome e Sobrenome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="guests">Acompanhantes:</label>
+                        <input type="text" id="guests" placeholder="Ex: +1 adulto, +2 crianças ou N/A (se não houver)">
+                        <small style="color: var(--color-text-medium); display: block; margin-top: 5px;">Por favor, informe o número de acompanhantes (adultos/crianças) ou "N/A" se for vir sozinho.</small>
+                    </div>
+                    <button type="submit" class="confirm-btn">Confirmar Presença</button>
+                </form>
+                <div id="confirmationMessage" class="confirmation-message">
+                    <p>✅ Presença confirmada com sucesso! Muito obrigado(a)!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Chá das gêmeas Clara e Marina. Desenvolvido com carinho.</p>
+    </footer>
+
+    <script type="module">
+        // Importa as funções necessárias do Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // SEU OBJETO firebaseConfig - SUBSTITUA POR AQUELE QUE VOCÊ COPIOU DO CONSOLE DO FIREBASE!
+        const firebaseConfig = {
+             apiKey: "SEU_API_KEY",
+             authDomain: "SEU_AUTH_DOMAIN",
+             projectId: "SEU_PROJECT_ID",
+             storageBucket: "SEU_STORAGE_BUCKET",
+             messagingSenderId: "SEU_MESSAGING_SENDER_ID",
+             appId: "SEU_APP_ID"
+        };
+
+        // Inicializa o Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app); // Obtém a instância do Firestore
+
+        const WHATSAPP_NUMBER = "55XXYYYYYYYYY"; // <<<<< MUITO IMPORTANTE: SUBSTITUA PELO SEU NÚMERO DE WHATSAPP REAL (55 + DDD + NÚMERO)
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const rsvpForm = document.getElementById('rsvpForm');
+            const fullNameInput = document.getElementById('fullName');
+            const guestsInput = document.getElementById('guests');
+            const confirmationMessageDiv = document.getElementById('confirmationMessage');
+
+            // Função para adicionar a confirmação ao Firestore
+            async function addRsvpToFirestore(fullName, guests) {
+                try {
+                    await addDoc(collection(db, "rsvps"), {
+                        fullName: fullName,
+                        guests: guests,
+                        timestamp: new Date() // Armazena a data e hora da confirmação
+                    });
+                    console.log("Presença confirmada e salva no Firestore!");
+                } catch (e) {
+                    console.error("Erro ao salvar confirmação: ", e);
+                    alert("Erro ao confirmar presença. Tente novamente!");
+                }
+            }
+
+            // Event listener para o envio do formulário de RSVP
+            rsvpForm.addEventListener('submit', async function(event) {
+                event.preventDefault(); // Previne o envio padrão do formulário
+
+                const fullName = fullNameInput.value.trim();
+                const guests = guestsInput.value.trim() || "N/A"; // Se acompanhantes vazio, coloca N/A
+
+                if (fullName) {
+                    // 1. Salva no Firebase Firestore
+                    await addRsvpToFirestore(fullName, guests);
+
+                    // 2. Envia mensagem via WhatsApp
+                    let whatsappMessage = `Confirmação de Presença - Chá das gêmeas Clara e Marina:\n\n`;
+                    whatsappMessage += `Nome: ${fullName}\n`;
+                    whatsappMessage += `Acompanhantes: ${guests}\n\n`;
+                    whatsappMessage += `Obrigado!`;
+
+                    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
+                    window.open(whatsappUrl, '_blank'); // Abre o WhatsApp em uma nova aba
+
+                    // 3. Exibe mensagem de confirmação no site
+                    rsvpForm.style.display = 'none'; // Esconde o formulário
+                    confirmationMessageDiv.style.display = 'block'; // Mostra a mensagem de sucesso
+
+                    // Opcional: Recarregar a página ou mostrar um botão para voltar ao formulário
+                    // setTimeout(() => {
+                    //     location.reload(); // Recarrega a página após 5 segundos
+                    // }, 5000);
+
+                } else {
+                    alert('Por favor, preencha seu nome completo.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
