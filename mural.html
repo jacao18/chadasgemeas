@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mural de Recados - Clara e Marina</title>
+
+    <!-- Linha para adicionar o Favicon (ícone de coração de copas) -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- Link para a fonte Poppins do Google Fonts para um visual moderno -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Definindo a paleta de cores como variáveis CSS */
+        :root {
+            --palette-pink: #FFCCCC; /* Rosa Claro */
+            --palette-peach: #FFDEAD; /* Pêssego */
+            --palette-yellow: #FFFFCC; /* Amarelo Claro */
+            --palette-mint: #CCFFE6; /* Verde Menta */
+            --palette-blue: #CCE0FF; /* Azul Claro */
+
+            /* Cores derivadas para acentos e texto */
+            --color-background-soft: var(--palette-mint); /* Fundo principal da página */
+            --color-section-background: var(--palette-blue); /* Fundo de seções como hero */
+            --color-card-background: #FFFFFF; /* Branco para cartões e modais */
+
+            --color-primary-accent: #FF99B3; /* Rosa mais forte para botões, preços, ânforas */
+            --color-primary-accent-hover: #FF809F; /* Rosa mais escuro para hover */
+            --color-secondary-accent: var(--palette-yellow); /* Fundo de controles de ordenação, instruções de pagamento */
+
+            --color-border-light: var(--palette-blue); /* Bordas e linhas finas */
+            --color-placeholder-image: var(--palette-peach); /* Cor para placeholders de imagem */
+
+            --color-text-dark: #333; /* Texto principal escuro para legibilidade */
+            --color-text-medium: #666; /* Texto secundário/sutil */
+            --color-text-light: #FDFDFD; /* Texto para fundos escuros (quase branco) */
+        }
+
+        /* Estilos básicos para o corpo e reset de margens/padding */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-background-soft); /* Verde Menta */
+            color: var(--color-text-dark); /* Cor de texto principal escura para legibilidade */
+            line-height: 1.6;
+        }
+
+        /* Container para centralizar o conteúdo */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        /* Estilo do Cabeçalho */
+        header {
+            background-color: var(--color-card-background); /* Branco puro */
+            padding: 20px 0 10px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(204,224,255,0.3); /* Sombra suave do azul claro */
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            color: var(--color-primary-accent); /* Rosa Acento */
+            margin: 0 0 15px 0;
+            font-size: 1.8em;
+        }
+
+        /* Estilo do Menu de Navegação */
+        nav ul {
+            list-style: none; /* Remove marcadores da lista */
+            padding: 0;
+            margin: 0;
+            display: flex; /* Itens em linha */
+            justify-content: center; /* Centraliza os itens */
+            gap: 25px; /* Espaçamento entre os itens do menu */
+            flex-wrap: wrap; /* Quebra linha se a tela for muito pequena */
+        }
+
+        nav ul li a {
+            text-decoration: none; /* Remove sublinhado */
+            color: var(--color-primary-accent); /* Rosa Acento */
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--palette-pink); /* Rosa Claríssimo */
+            color: var(--color-primary-accent-hover); /* Rosa Acento Hover */
+        }
+
+        /* Estilos para Mural de Recados */
+        .mural-section {
+            background-color: var(--color-section-background); /* Azul Claro */
+            padding: 30px 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(204,224,255,0.2);
+        }
+
+        .mural-section h2 {
+            text-align: center;
+            color: var(--color-primary-accent); /* Rosa Acento */
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+        }
+
+        .mural-form-container, .mural-messages-container {
+            background-color: var(--color-card-background); /* Branco puro */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .mural-form-container h3, .mural-messages-container h3 {
+            color: var(--color-text-dark);
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.3em;
+        }
+
+        .message-form .form-group {
+            margin-bottom: 15px;
+        }
+
+        .message-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--color-text-medium);
+        }
+
+        .message-form input[type="text"],
+        .message-form textarea {
+            width: calc(100% - 20px); /* Ajusta para o padding */
+            padding: 10px;
+            border: 1px solid var(--color-border-light); /* Azul Claro */
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+            color: var(--color-text-dark);
+            background-color: #fcfcfc;
+        }
+
+        .message-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-message-btn {
+            background-color: var(--color-primary-accent); /* Rosa Acento */
+            color: var(--color-text-light); /* Branco */
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            display: block;
+        }
+
+        .submit-message-btn:hover {
+            background-color: var(--color-primary-accent-hover); /* Rosa Acento Hover */
+        }
+
+        .messages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px; /* Espaçamento entre os cartões de mensagem */
+        }
+
+        .message-card {
+            background-color: var(--palette-pink); /* Rosa Claro para o fundo do cartão */
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            border: 1px solid var(--color-border-light); /* Azul Claro */
+        }
+
+        .message-card .message-author {
+            font-weight: 700;
+            color: var(--color-primary-accent); /* Rosa Acento */
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .message-card .message-text {
+            color: var(--color-text-dark);
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        .message-card .message-date {
+            font-size: 0.8em;
+            color: var(--color-text-medium);
+            text-align: right;
+            border-top: 1px dashed var(--color-border-light);
+            padding-top: 8px;
+            margin-top: 8px;
+        }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            color: var(--color-text-medium);
+            font-size: 0.85em;
+            border-top: 1px solid var(--color-border-light); /* Borda azul clara */
+        }
+
+        /* Ajustes Responsivos para telas menores */
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px auto;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+             /* Ajustes Responsivos para a seção do Mural */
+            .messages-grid {
+                grid-template-columns: 1fr; /* Mensagens empilhadas em telas pequenas */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Chá das gêmeas</h1>
+            <h1>Clara e Marina</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Lista de Presentes</a></li>
+                    <li><a href="mural.html">Mural de Recados</a></li>
+                    <li><a href="#presenca">Confirmar Presença</a></li>
+                    <li><a href="#evento">Evento</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Seção do Mural de Recados -->
+        <section id="mural" class="mural-section">
+            <h2>💞 Deixe seu Carinho para Clara e Marina! 💞</h2>
+            <div class="mural-form-container">
+                <h3>Escreva sua Mensagem:</h3>
+                <form id="messageForm" class="message-form">
+                    <div class="form-group">
+                        <label for="authorName">Seu Nome:</label>
+                        <input type="text" id="authorName" placeholder="Seu nome ou apelido" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="messageText">Sua Mensagem:</label>
+                        <textarea id="messageText" placeholder="Parabéns e muitas felicidades!" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-message-btn">Enviar Mensagem</button>
+                </form>
+            </div>
+
+            <div class="mural-messages-container">
+                <h3>Mensagens de Carinho:</h3>
+                <div id="messagesList" class="messages-grid">
+                    <!-- As mensagens serão carregadas aqui pelo JavaScript -->
+                    <p class="no-messages-yet" style="text-align: center; color: var(--color-text-medium); display: none;">Ainda não há mensagens. Seja o primeiro a deixar uma!</p>
+                </div>
+            </div>
+        </section>
+        <!-- FIM da Seção do Mural de Recados -->
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Chá das gêmeas Clara e Marina. Desenvolvido com carinho.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const messageForm = document.getElementById('messageForm');
+            const authorNameInput = document.getElementById('authorName');
+            const messageTextInput = document.getElementById('messageText');
+            const messagesListDiv = document.getElementById('messagesList');
+            const noMessagesYet = messagesListDiv.querySelector('.no-messages-yet'); // Captura o elemento inicial "ainda não há mensagens"
+
+            let messages = JSON.parse(localStorage.getItem('muralMessages')) || [];
+
+            // Função para salvar mensagens no localStorage
+            function saveMessages() {
+                localStorage.setItem('muralMessages', JSON.stringify(messages));
+            }
+
+            // Função para formatar a data de exibição
+            function formatDate(dateString) {
+                const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                return new Date(dateString).toLocaleDateString('pt-BR', options);
+            }
+
+            // Função para renderizar todas as mensagens
+            function renderMessages() {
+                messagesListDiv.innerHTML = ''; // Limpa as mensagens existentes
+                if (messages.length === 0) {
+                    messagesListDiv.appendChild(noMessagesYet); // Adiciona de volta o texto "ainda não há mensagens"
+                    noMessagesYet.style.display = 'block'; // Garante que ele seja exibido
+                } else {
+                    noMessagesYet.style.display = 'none'; // Esconde o texto "ainda não há mensagens"
+                    // Ordena as mensagens por data, as mais recentes primeiro
+                    const sortedMessages = [...messages].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                    sortedMessages.forEach(msg => {
+                        const messageCard = document.createElement('div');
+                        messageCard.classList.add('message-card');
+                        messageCard.innerHTML = `
+                            <p class="message-author">De: ${msg.author}</p>
+                            <p class="message-text">${msg.text}</p>
+                            <p class="message-date">Em: ${formatDate(msg.date)}</p>
+                        `;
+                        messagesListDiv.appendChild(messageCard);
+                    });
+                }
+            }
+
+            // Event listener para envio do formulário do mural
+            messageForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Previne o envio padrão do formulário
+
+                const author = authorNameInput.value.trim();
+                const text = messageTextInput.value.trim();
+
+                if (author && text) {
+                    const newMessage = {
+                        author: author,
+                        text: text,
+                        date: new Date().toISOString() // Armazena a data em formato ISO para facilitar a ordenação
+                    };
+                    messages.push(newMessage);
+                    saveMessages();
+                    renderMessages(); // Renderiza todas as mensagens novamente, incluindo a nova
+                    messageForm.reset(); // Limpa o formulário
+                    alert('Sua mensagem foi enviada com sucesso! ❤️');
+                } else {
+                    alert('Por favor, preencha seu nome e a mensagem.');
+                }
+            });
+
+            // Renderização inicial das mensagens quando a página carrega
+            renderMessages();
+        });
+    </script>
+</body>
+</html>
