@@ -12,6 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Firebase SDK - Adicione estes links -->
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
+
     <style>
         /* Definindo a paleta de cores como variáveis CSS */
         :root {
@@ -315,7 +320,25 @@
         <p>&copy; 2025 Chá das gêmeas Clara e Marina. Desenvolvido com carinho.</p>
     </footer>
 
-    <script>
+    <script type="module">
+        // Importa as funções necessárias do Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, orderBy, query, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // SEU OBJETO firebaseConfig - SUBSTITUA POR AQUELE QUE VOCÊ COPIOU DO CONSOLE DO FIREBASE!
+        const firebaseConfig = {
+             apiKey: "SUA_API_KEY",
+             authDomain: "SEU_AUTH_DOMAIN",
+             projectId: "SEU_PROJECT_ID",
+             storageBucket: "SEU_STORAGE_BUCKET",
+             messagingSenderId: "SEU_MESSAGING_SENDER_ID",
+             appId: "SEU_APP_ID"
+        };
+
+        // Inicializa o Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app); // Obtém a instância do Firestore
+
         document.addEventListener('DOMContentLoaded', function() {
             const messageForm = document.getElementById('messageForm');
             const authorNameInput = document.getElementById('authorName');
@@ -332,79 +355,101 @@
                 'color-4'  // var(--palette-blue)
             ];
 
-            let messages = JSON.parse(localStorage.getItem('muralMessages')) || [];
-
-            // Função para salvar mensagens no localStorage
-            function saveMessages() {
-                localStorage.setItem('muralMessages', JSON.stringify(messages));
-            }
-
             // Função para formatar a data de exibição
-            function formatDate(dateString) {
+            function formatDate(timestamp) {
+                // Firebase timestamp é um objeto com toDate()
+                const date = timestamp.toDate(); 
                 const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-                return new Date(dateString).toLocaleDateString('pt-BR', options);
+                return date.toLocaleDateString('pt-BR', options);
             }
 
-            // Função para renderizar todas as mensagens
-            function renderMessages() {
-                messagesListDiv.innerHTML = ''; // Limpa as mensagens existentes
-                if (messages.length === 0) {
-                    noMessagesYet.style.display = 'block'; // Mostra o texto "ainda não há mensagens"
-                } else {
-                    noMessagesYet.style.display = 'none'; // Esconde o texto
-                    // Ordena as mensagens por data, as mais recentes primeiro
-                    const sortedMessages = [...messages].sort((a, b) => new Date(b.date) - new Date(a.date));
+            // --- FUNÇÕES DO FIREBASE ---
 
-                    sortedMessages.forEach((msg, index) => {
-                        const messageCard = document.createElement('div');
-                        // Adiciona a classe de cor alternada
-                        messageCard.classList.add('message-card', messageCardColors[index % messageCardColors.length]);
-                        
-                        messageCard.innerHTML = `
-                            <button class="delete-message-btn" data-id="${msg.id}">&times;</button>
-                            <p class="message-author">De: ${msg.author}</p>
-                            <p class="message-text">${msg.text}</p>
-                            <p class="message-date">Em: ${formatDate(msg.date)}</p>
-                        `;
-                        messagesListDiv.appendChild(messageCard);
+            // 1. Adicionar mensagem ao Firestore
+            async function addMessageToFirestore(author, text) {
+                try {
+                    // Adiciona um novo documento à coleção 'messages'
+                    // O ID do documento é gerado automaticamente pelo Firestore
+                    await addDoc(collection(db, "messages"), {
+                        author: author,
+                        text: text,
+                        date: new Date() // Armazena um objeto Date nativo do JavaScript
                     });
-
-                    // Adiciona listeners para os botões de exclusão
-                    document.querySelectorAll('.delete-message-btn').forEach(button => {
-                        button.addEventListener('click', function() {
-                            const messageId = this.dataset.id;
-                            if (confirm('Tem certeza que deseja excluir esta mensagem? Ela será removida apenas do seu navegador.')) {
-                                deleteMessage(messageId);
-                            }
-                        });
-                    });
+                    console.log("Mensagem adicionada com sucesso!");
+                } catch (e) {
+                    console.error("Erro ao adicionar documento: ", e);
+                    alert("Erro ao enviar mensagem. Tente novamente!");
                 }
             }
 
-            // Função para excluir uma mensagem
-            function deleteMessage(idToDelete) {
-                messages = messages.filter(msg => msg.id !== idToDelete);
-                saveMessages();
-                renderMessages(); // Re-renderiza as mensagens após a exclusão
+            // 2. Escutar por mensagens em tempo real do Firestore e renderizá-las
+            function listenForMessages() {
+                // Cria uma consulta para a coleção 'messages', ordenada por data (mais recente primeiro)
+                const q = query(collection(db, "messages"), orderBy("date", "desc"));
+
+                // onSnapshot escuta em tempo real por mudanças na coleção
+                onSnapshot(q, (querySnapshot) => {
+                    messagesListDiv.innerHTML = ''; // Limpa o container antes de renderizar
+                    const messages = [];
+                    querySnapshot.forEach((doc) => {
+                        // Obtém os dados do documento e o ID
+                        messages.push({ id: doc.id, ...doc.data() });
+                    });
+
+                    if (messages.length === 0) {
+                        noMessagesYet.style.display = 'block'; // Mostra o texto "ainda não há mensagens"
+                    } else {
+                        noMessagesYet.style.display = 'none'; // Esconde o texto
+                        messages.forEach((msg, index) => {
+                            const messageCard = document.createElement('div');
+                            // Adiciona a classe de cor alternada
+                            messageCard.classList.add('message-card', messageCardColors[index % messageCardColors.length]);
+                            
+                            messageCard.innerHTML = `
+                                <button class="delete-message-btn" data-id="${msg.id}">&times;</button>
+                                <p class="message-author">De: ${msg.author}</p>
+                                <p class="message-text">${msg.text}</p>
+                                <p class="message-date">Em: ${formatDate(msg.date)}</p>
+                            `;
+                            messagesListDiv.appendChild(messageCard);
+                        });
+
+                        // Adiciona listeners para os botões de exclusão
+                        document.querySelectorAll('.delete-message-btn').forEach(button => {
+                            button.addEventListener('click', function() {
+                                const messageId = this.dataset.id;
+                                if (confirm('Tem certeza que deseja excluir esta mensagem? Ela será removida para todos.')) {
+                                    deleteMessageFromFirestore(messageId);
+                                }
+                            });
+                        });
+                    }
+                });
             }
 
+            // 3. Excluir mensagem do Firestore
+            async function deleteMessageFromFirestore(idToDelete) {
+                try {
+                    // Referencia o documento a ser excluído
+                    await deleteDoc(doc(db, "messages", idToDelete));
+                    console.log("Documento excluído com sucesso!");
+                } catch (e) {
+                    console.error("Erro ao excluir documento: ", e);
+                    alert("Erro ao excluir mensagem. Tente novamente!");
+                }
+            }
+            
+            // --- EVENT LISTENERS E INICIALIZAÇÃO ---
+
             // Event listener para envio do formulário do mural
-            messageForm.addEventListener('submit', function(event) {
+            messageForm.addEventListener('submit', async function(event) {
                 event.preventDefault(); // Previne o envio padrão do formulário
 
                 const author = authorNameInput.value.trim();
                 const text = messageTextInput.value.trim();
 
                 if (author && text) {
-                    const newMessage = {
-                        id: Date.now().toString(), // ID único baseado no timestamp para exclusão
-                        author: author,
-                        text: text,
-                        date: new Date().toISOString() // Armazena a data em formato ISO para facilitar a ordenação
-                    };
-                    messages.push(newMessage);
-                    saveMessages();
-                    renderMessages(); // Renderiza todas as mensagens novamente, incluindo a nova
+                    await addMessageToFirestore(author, text); // Chama a função Firebase
                     messageForm.reset(); // Limpa o formulário
                     alert('Sua mensagem foi enviada com sucesso! ❤️');
                 } else {
@@ -412,8 +457,8 @@
                 }
             });
 
-            // Renderização inicial das mensagens quando a página carrega
-            renderMessages();
+            // Inicia a escuta de mensagens quando a página carrega
+            listenForMessages();
         });
     </script>
 </body>
