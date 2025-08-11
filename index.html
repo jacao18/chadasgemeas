@@ -441,6 +441,79 @@
             word-break: break-all;
         }
 
+        /* --- NOVOS ESTILOS PARA A MODAL "ITEM ADICIONADO" --- */
+        .item-added-modal-overlay {
+            display: none;
+            position: fixed;
+            z-index: 1001; /* Maior que a modal do carrinho para ficar por cima */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .item-added-modal-content {
+            background-color: var(--color-card-background);
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px; /* Levemente menor que a modal do carrinho */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+            text-align: center;
+        }
+
+        .item-added-modal-content h2 {
+            color: var(--color-primary-accent);
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .item-added-modal-content .close-item-added-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+        }
+        .item-added-modal-content .close-item-added-button:hover {
+            color: black;
+        }
+
+        .item-added-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-action-button {
+            background-color: var(--color-primary-accent);
+            color: var(--color-text-light);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .modal-action-button:hover {
+            background-color: var(--color-primary-accent-hover);
+        }
+        /* --- FIM NOVOS ESTILOS PARA A MODAL "ITEM ADICIONADO" --- */
+
+
         /* Rodapé */
         footer {
             text-align: center;
@@ -491,7 +564,7 @@
             .hero-section {
                 padding-bottom: 70px;
             }
-            .cart-modal-content {
+            .cart-modal-content, .item-added-modal-content { /* Aplica para ambas as modals */
                 width: 95%;
             }
             #cart-items-list li {
@@ -939,6 +1012,19 @@
         </div>
     </div>
 
+    <!-- --- NOVA MODAL PARA FEEDBACK DE ADIÇÃO DE ITEM --- -->
+    <div id="itemAddedModal" class="item-added-modal-overlay">
+        <div class="item-added-modal-content">
+            <span class="close-item-added-button">&times;</span>
+            <h2 id="itemAddedMessage"></h2>
+            <div class="item-added-actions">
+                <button id="continueShoppingButton" class="modal-action-button">Continuar Comprando</button>
+                <button id="goToCartButton" class="modal-action-button">Ir para o Carrinho</button>
+            </div>
+        </div>
+    </div>
+    <!-- --- FIM NOVA MODAL --- -->
+
     <footer>
         <p>&copy; 2025 Chá das gêmeas Clara e Marina. Desenvolvido com carinho.</p>
     </footer>
@@ -951,18 +1037,27 @@
             const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
             const viewCartButton = document.getElementById('viewCartButton');
             const cartItemCountSpan = document.getElementById('cartItemCount');
+
+            // Elementos da modal do carrinho
             const cartModal = document.getElementById('cartModal');
             const closeModalButton = document.querySelector('.cart-modal-content .close-button');
-            const cartModalTitle = document.getElementById('cart-modal-title'); // Novo
+            const cartModalTitle = document.getElementById('cart-modal-title');
             const cartItemsList = document.getElementById('cart-items-list');
             const cartTotalSpan = document.getElementById('cart-total');
             const checkoutButton = document.getElementById('checkout-button');
+            const paymentDetailsDiv = document.getElementById('paymentDetails');
+            const finalAmountSpan = document.getElementById('finalAmount');
+            const pixKeyDisplay = document.getElementById('pixKeyDisplay');
+            const pixCopyButton = document.getElementById('pix-copy-button');
+            const backToCartButton = document.getElementById('backToCartButton');
 
-            const paymentDetailsDiv = document.getElementById('paymentDetails'); // Novo
-            const finalAmountSpan = document.getElementById('finalAmount'); // Novo
-            const pixKeyDisplay = document.getElementById('pixKeyDisplay'); // Novo
-            const pixCopyButton = document.getElementById('pix-copy-button'); // Novo
-            const backToCartButton = document.getElementById('backToCartButton'); // Novo
+            // --- NOVOS ELEMENTOS DA MODAL "ITEM ADICIONADO" ---
+            const itemAddedModal = document.getElementById('itemAddedModal');
+            const itemAddedMessage = document.getElementById('itemAddedMessage');
+            const continueShoppingButton = document.getElementById('continueShoppingButton');
+            const goToCartButton = document.getElementById('goToCartButton');
+            const closeItemAddedButton = document.querySelector('.item-added-modal-content .close-item-added-button');
+            // --- FIM NOVOS ELEMENTOS ---
 
             const PIX_KEY = "sua_chave_pix_aqui"; // <<<<< MUITO IMPORTANTE: SUBSTITUA PELA SUA CHAVE PIX REAL (CPF, EMAIL, CELULAR, CHAVE ALEATÓRIA)
 
@@ -976,9 +1071,6 @@
             function updateCartCount() {
                 const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
                 cartItemCountSpan.textContent = totalItems;
-                // Ajuste: Sempre mostre o botão do carrinho, mesmo que esteja vazio.
-                // Isso dá uma indicação de que o recurso existe.
-                // viewCartButton.style.display = totalItems > 0 ? 'inline-block' : 'none';
             }
 
             function renderCart() {
@@ -987,15 +1079,15 @@
 
                 if (cart.length === 0) {
                     cartItemsList.innerHTML = '<li style="text-align: center; color: #888;">Seu carrinho está vazio.</li>';
-                    checkoutButton.disabled = true; // Desabilita o botão se o carrinho estiver vazio
+                    checkoutButton.disabled = true;
                 } else {
-                    checkoutButton.disabled = false; // Habilita o botão se houver itens
+                    checkoutButton.disabled = false;
                     cart.forEach(item => {
                         const listItem = document.createElement('li');
                         listItem.innerHTML = `
                             <div class="item-info">
                                 <h4>${item.name}</h4>
-                                <p>R\$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')}</p>
+                                <p>R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')}</p>
                             </div>
                             <div class="item-quantity">
                                 <input type="number" min="1" value="${item.quantity}" data-id="${item.id}">
@@ -1006,7 +1098,7 @@
                         total += item.price * item.quantity;
                     });
                 }
-                cartTotalSpan.textContent = `Total: R\$ ${total.toFixed(2).replace('.', ',')}`;
+                cartTotalSpan.textContent = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
                 updateCartCount();
                 saveCart();
 
@@ -1026,9 +1118,13 @@
                 } else {
                     cart.push({ ...item, quantity: 1 });
                 }
-                updateCartCount(); // Atualiza apenas o contador no botão
+                updateCartCount();
                 saveCart();
-                alert(`${item.name} foi adicionado(a) ao carrinho!`); // Feedback para o usuário
+                
+                // --- NOVA LÓGICA: Exibir modal de item adicionado ---
+                itemAddedMessage.textContent = `${item.name} foi adicionado(a) ao seu carrinho!`;
+                itemAddedModal.style.display = 'flex'; // Exibe a nova modal
+                // --- FIM NOVA LÓGICA ---
             }
 
             function updateQuantity(id, newQuantity) {
@@ -1039,13 +1135,13 @@
                     } else {
                         cart[itemIndex].quantity = newQuantity;
                     }
-                    renderCart(); // Re-renderiza o carrinho para mostrar as mudanças
+                    renderCart();
                 }
             }
 
             function removeItem(id) {
                 cart = cart.filter(item => item.id !== id);
-                renderCart(); // Re-renderiza o carrinho para mostrar as mudanças
+                renderCart();
             }
 
             // --- Event Listeners ---
@@ -1065,16 +1161,16 @@
 
             // Botão "Ver Carrinho"
             viewCartButton.addEventListener('click', () => {
-                renderCart(); // Renderiza o carrinho ao abrir
-                cartModal.style.display = 'flex'; // Exibe a modal
+                renderCart();
+                cartModal.style.display = 'flex';
             });
 
-            // Botão "Fechar Modal"
+            // Botão "Fechar Modal" do carrinho
             closeModalButton.addEventListener('click', () => {
-                cartModal.style.display = 'none'; // Esconde a modal
+                cartModal.style.display = 'none';
             });
 
-            // Fechar modal clicando fora dela
+            // Fechar modal do carrinho clicando fora dela
             window.addEventListener('click', (event) => {
                 if (event.target === cartModal) {
                     cartModal.style.display = 'none';
@@ -1097,26 +1193,25 @@
                 }
             });
 
-            // Lógica para o botão "Finalizar Compra" (AGORA É O PRIMEIRO PASSO DO CHECKOUT)
+            // Lógica para o botão "Finalizar Compra"
             checkoutButton.addEventListener('click', () => {
                 if (cart.length === 0) {
-                    alert('Seu carrinho está vazio!');
+                    alert('Seu carrinho está vazio!'); // Mantém o alerta caso o botão esteja ativo por algum bug
                     return;
                 }
 
                 const totalValue = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
                 const formattedTotal = totalValue.toFixed(2).replace('.', ',');
 
-                // Atualiza os elementos da modal para mostrar as instruções de pagamento
                 cartModalTitle.textContent = "Finalizar Pedido";
-                cartItemsList.style.display = 'none'; // Esconde a lista de itens
-                cartTotalSpan.style.display = 'none'; // Esconde o total aqui, será mostrado nas instruções
-                checkoutButton.style.display = 'none'; // Esconde o botão "Finalizar Compra"
+                cartItemsList.style.display = 'none';
+                cartTotalSpan.style.display = 'none';
+                checkoutButton.style.display = 'none';
 
-                finalAmountSpan.textContent = `R\$ ${formattedTotal}`;
+                finalAmountSpan.textContent = `R$ ${formattedTotal}`;
                 pixKeyDisplay.textContent = PIX_KEY;
 
-                paymentDetailsDiv.style.display = 'block'; // Mostra as instruções de pagamento
+                paymentDetailsDiv.style.display = 'block';
             });
 
             // Botão "Copiar Chave PIX"
@@ -1132,8 +1227,31 @@
 
             // Botão "Voltar ao Carrinho"
             backToCartButton.addEventListener('click', () => {
-                renderCart(); // Volta para a visualização do carrinho
+                renderCart();
             });
+
+            // --- NOVOS LISTENERS PARA A MODAL "ITEM ADICIONADO" ---
+            continueShoppingButton.addEventListener('click', () => {
+                itemAddedModal.style.display = 'none'; // Apenas fecha esta modal
+            });
+
+            goToCartButton.addEventListener('click', () => {
+                itemAddedModal.style.display = 'none'; // Fecha esta modal
+                renderCart(); // Renderiza o carrinho para garantir que esteja atualizado
+                cartModal.style.display = 'flex'; // Abre a modal do carrinho
+            });
+
+            closeItemAddedButton.addEventListener('click', () => {
+                itemAddedModal.style.display = 'none'; // Fecha esta modal
+            });
+
+            // Fechar modal de item adicionado clicando fora dela
+            window.addEventListener('click', (event) => {
+                if (event.target === itemAddedModal) {
+                    itemAddedModal.style.display = 'none';
+                }
+            });
+            // --- FIM NOVOS LISTENERS ---
 
             // --- Funções de Ordenação (já existentes) ---
             function sortGifts() {
@@ -1146,7 +1264,7 @@
                     return;
                 }
 
-                const sortedItems = [...giftItems].sort((a, b) => { // Cria uma cópia para não alterar o array original
+                const sortedItems = [...giftItems].sort((a, b) => {
                     const priceA = parseFloat(a.dataset.price);
                     const priceB = parseFloat(b.dataset.price);
 
@@ -1169,7 +1287,7 @@
             }
 
             // --- Inicialização ---
-            updateCartCount(); // Atualiza o contador de itens no carrinho ao carregar a página
+            updateCartCount();
         });
     </script>
 </body>
