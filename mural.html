@@ -339,6 +339,23 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app); // Obtém a instância do Firestore
 
+        // --- NOVA LÓGICA: Gerar e Persistir ID do Usuário para Autoria de Mensagens ---
+        function getOrCreateCurrentUserId() {
+            let userId = localStorage.getItem('chaGemeasUserId'); // Tenta obter o ID do localStorage
+            if (!userId) {
+                // Se não houver, gera um novo ID único (UUID v4)
+                // É recomendado usar crypto.randomUUID() para IDs mais robustos
+                userId = crypto.randomUUID(); 
+                localStorage.setItem('chaGemeasUserId', userId); // Salva o novo ID no localStorage
+                console.log("Novo ID de usuário gerado e salvo:", userId);
+            } else {
+                console.log("Usando ID de usuário existente:", userId);
+            }
+            return userId;
+        }
+
+        const currentUserId = getOrCreateCurrentUserId(); // Obtém o ID do usuário para esta sessão
+
         document.addEventListener('DOMContentLoaded', function() {
             const messageForm = document.getElementById('messageForm');
             const authorNameInput = document.getElementById('authorName');
@@ -373,7 +390,8 @@
                     await addDoc(collection(db, "messages"), {
                         author: author,
                         text: text,
-                        date: new Date() // Armazena um objeto Date nativo do JavaScript
+                        date: new Date(), // Armazena um objeto Date nativo do JavaScript
+                        userId: currentUserId // <-- NOVO: Armazena o ID do usuário que postou a mensagem
                     });
                     console.log("Mensagem adicionada com sucesso!");
                 } catch (e) {
@@ -405,8 +423,11 @@
                             // Adiciona a classe de cor alternada
                             messageCard.classList.add('message-card', messageCardColors[index % messageCardColors.length]);
                             
+                            // <-- NOVO: Verifica se o ID do usuário da mensagem corresponde ao ID do usuário atual
+                            const canDelete = (msg.userId === currentUserId);
+
                             messageCard.innerHTML = `
-                                <button class="delete-message-btn" data-id="${msg.id}">&times;</button>
+                                ${canDelete ? `<button class="delete-message-btn" data-id="${msg.id}">&times;</button>` : ''}
                                 <p class="message-author">De: ${msg.author}</p>
                                 <p class="message-text">${msg.text}</p>
                                 <p class="message-date">Em: ${formatDate(msg.date)}</p>
@@ -414,7 +435,7 @@
                             messagesListDiv.appendChild(messageCard);
                         });
 
-                        // Adiciona listeners para os botões de exclusão
+                        // Adiciona listeners para os botões de exclusão visíveis (somente aqueles que foram renderizados)
                         document.querySelectorAll('.delete-message-btn').forEach(button => {
                             button.addEventListener('click', function() {
                                 const messageId = this.dataset.id;
