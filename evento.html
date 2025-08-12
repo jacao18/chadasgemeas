@@ -134,7 +134,7 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-            text-align: left;
+            text-align: center; /* CENTRALIZAÇÃO DO TEXTO */
         }
 
         .detail-item h3 {
@@ -144,11 +144,12 @@
             margin-bottom: 10px;
             display: flex;
             align-items: center;
+            justify-content: center; /* Centraliza ícone e título */
             gap: 8px;
         }
 
         .detail-item p {
-            font-size: 0.95em;
+            font-size: 1.1em; /* TAMANHO DA FONTE AUMENTADO */
             color: var(--color-text-medium);
             margin: 5px 0;
         }
@@ -168,12 +169,13 @@
             background-color: var(--color-primary-accent-hover);
         }
 
-        /* Novo estilo para o container do mapa */
+        /* Estilo para o container do mapa */
         .map-embed {
             margin: 30px auto; /* Espaçamento acima e abaixo do mapa */
             width: 100%;
-            max-width: 800px; /* Limita a largura máxima do mapa */
-            /* Isso é importante para a responsividade, mantém a proporção 16:9 */
+            /* Remover max-width se quiser que ele ocupe toda a largura do container */
+            /* max-width: 800px; */ /* Deixando comentado para ele ocupar a largura total do container */
+            
             position: relative;
             padding-bottom: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
             height: 0;
@@ -213,6 +215,9 @@
             .event-details {
                 grid-template-columns: 1fr;
             }
+            .detail-item h3 {
+                flex-direction: column; /* Coloca ícone e texto do título em coluna em telas pequenas */
+            }
         }
     </style>
 </head>
@@ -251,14 +256,12 @@
                     <p>Salão de Festas CDL Guaíba</p>
                     <p>Rua Sergipe, 55 - Parque 35, Guaíba - RS</p>
                     <p><a href="https://share.google/fxFYtJiiBpb99K9yX"  class="map-link">Ver no Google Maps</a></p>
+                </div>
             </div>
             
-            <!-- SEÇÃO DO MAPA - COLE O SEU IFRAME AQUI -->
+            <!-- SEÇÃO DO MAPA -->
             <div class="map-embed">
-                <!-- COLOQUE O CÓDIGO IFRAME DO GOOGLE MAPS QUE VOCÊ GEROU AQUI -->
-                <!-- EX: <iframe src="<iframe src="<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3451.518634751478!2d-51.32647232450278!3d-30.10796953422513!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95197f8c850c49c3%3A0x2026bbe21dec2b90!2sR.%20Sergipe%2C%2055%20-%20Parque%2035%2C%20Gua%C3%ADba%20-%20RS%2C%2092500-000!5e0!3m2!1spt-BR!2sbr!4v1755038961757!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
-                <iframe src="<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3451.518634751478!2d-51.32647232450278!3d-30.10796953422513!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95197f8c850c49c3%3A0x2026bbe21dec2b90!2sR.%20Sergipe%2C%2055%20-%20Parque%2035%2C%20Gua%C3%ADba%20-%20RS%2C%2092500-000!5e0!3m2!1spt-BR!2sbr!4v1755038961757!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>" width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                <!-- ^^^ Substitua o src acima pelo seu link real do mapa ^^^ -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3451.518634751478!2d-51.32647232450278!3d-30.10796953422513!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95197f8c850c49c3%3A0x2026bbe21dec2b90!2sR.%20Sergipe%2C%2055%20-%20Parque%2035%2C%20Gua%C3%ADba%20-%20RS%2C%2092500-000!5e0!3m2!1spt-BR!2sbr!4v1755039297874!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
 
             <p class="final-message">Esperamos compartilhar este momento especial com você!</p>
