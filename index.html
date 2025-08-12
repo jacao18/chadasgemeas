@@ -225,7 +225,7 @@
             margin: 5px 0;
         }
 
-        /* Estilo para o link "Presentear" */
+        /* Estilo para o link "Presentear" - CORRIGIDO */
         .presentear-link {
             background-color: var(--color-primary-accent); /* Rosa Acento */
             color: var(--color-text-light); /* Branco para texto de botão */
@@ -235,8 +235,8 @@
             cursor: pointer;
             font-size: 1em;
             transition: background-color 0.3s ease;
-            width: calc(100% - 30px); /* Ajustado para preencher o cartão */
-            margin: 15px 15px 15px 15px;
+            width: 80%; /* Tornando o botão menor */
+            margin: 15px auto; /* Centralizando o botão */
             display: block; /* Garante que o link ocupe todo o espaço do botão */
             text-decoration: none; /* Remove sublinhado padrão do link */
             text-align: center; /* Centraliza o texto */
@@ -695,8 +695,6 @@
         </section>
     </main>
 
-    <!-- Modals de Carrinho e Item Adicionado Removidas -->
-
     <footer>
         <p>&copy; 2025 Chá das gêmeas Clara e Marina. Desenvolvido com carinho.</p>
     </footer>
@@ -704,10 +702,8 @@
     <script type="module">
         // Importa o SDK do Firebase App
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        // getFunctions e httpsCallable removidos, pois não há mais chamadas de função nesta página.
 
-        // TODO: Substitua este objeto de configuração com as suas credenciais do Firebase!
-        // Vá em seu projeto Firebase -> Configurações do Projeto -> Seus Apps -> Selecione seu app web -> Configuração
+        // Inicialize o Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyAG0w9X-YaHQoaf8pKMCbPzZMXiNKjp6Ys", // Seu API Key do Firebase
             authDomain: "bd-cha-das-gemeas.firebaseapp.com",
@@ -723,20 +719,14 @@
             const giftListContainer = document.querySelector('.gift-list');
             const giftItems = Array.from(giftListContainer.querySelectorAll('.gift-item'));
 
-            // Funções de Carrinho e Listeners Removidos
-
-            // --- Funções de Ordenação (mantidas) ---
+            // --- Funções de Ordenação ---
             function sortGifts() {
                 const sortOrder = sortSelect.value;
                 if (sortOrder === 'none') {
-                    // Se "Padrão", reordena para a ordem original
-                    // (assumindo que a ordem original é a ordem do HTML)
-                    // Para garantir isso, seria ideal ter uma cópia da lista original
-                    // ou recriá-la, mas para fins de ordenação simples, basta manter
-                    // os itens na ordem atual se "none" for selecionado novamente.
-                    // Para um controle mais preciso, você pode armazenar a ordem inicial
-                    const originalOrder = Array.from(giftListContainer.children); // Captura a ordem atual
-                    originalOrder.forEach(item => giftListContainer.appendChild(item));
+                    // Reordena para a ordem original do HTML
+                    giftItems.forEach(item => {
+                        giftListContainer.appendChild(item);
+                    });
                     return;
                 }
 
@@ -759,8 +749,6 @@
             if (sortSelect) {
                 sortSelect.addEventListener('change', sortGifts);
             }
-
-            // Nenhuma inicialização de carrinho ou contador é necessária agora
         });
     </script>
 </body>
