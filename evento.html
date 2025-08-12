@@ -168,6 +168,29 @@
             background-color: var(--color-primary-accent-hover);
         }
 
+        /* Novo estilo para o container do mapa */
+        .map-embed {
+            margin: 30px auto; /* Espaçamento acima e abaixo do mapa */
+            width: 100%;
+            max-width: 800px; /* Limita a largura máxima do mapa */
+            /* Isso é importante para a responsividade, mantém a proporção 16:9 */
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .map-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
         .final-message {
             font-style: italic;
             font-weight: 600;
@@ -211,7 +234,7 @@
 
     <main class="container">
         <section class="event-section">
-            <h2>Sobre o evento</h2>
+            <h2>Nosso Chá de Bebê</h2>
             <p>Com muita alegria, convidamos você para celebrar a chegada das nossas pequenas!</p>
             
             <div class="event-details">
@@ -221,17 +244,23 @@
                 </div>
                 <div class="detail-item">
                     <h3>⏰ Horário</h3>
-                    <p>Das 13h às 18h</p>
+                    <p>Das 15h às 19h</p>
                 </div>
                 <div class="detail-item">
                     <h3>📍 Local</h3>
                     <p>Salão de Festas CDL Guaíba</p>
                     <p>Rua Sergipe, 55 - Parque 35, Guaíba - RS</p>
-                    <p><a href="https://www.google.com/maps/dir//R.+Sergipe,+55+-+Parque+35,+Gua%C3%ADba+-+RS,+92500-000/@-30.0729887,-51.3555984,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x95197f8c850c49c3:0x2026bbe21dec2b90!2m2!1d-51.3238974!2d-30.1079742?entry=ttu&g_ep=EgoyMDI1MDgxMS4wIKXMDSoASAFQAw%3D%3D"  class="map-link">Ver no Google Maps</a></p>
-                </div>
-              
+                    <p><a href="https://share.google/fxFYtJiiBpb99K9yX"  class="map-link">Ver no Google Maps</a></p>
             </div>
             
+            <!-- SEÇÃO DO MAPA - COLE O SEU IFRAME AQUI -->
+            <div class="map-embed">
+                <!-- COLOQUE O CÓDIGO IFRAME DO GOOGLE MAPS QUE VOCÊ GEROU AQUI -->
+                <!-- EX: <iframe src="<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3451.519460325711!2d-51.3239399!3d-30.107945899999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95197ff2fcc5370d%3A0x801554c910233d18!2sCDL%20Gua%C3%ADba!5e0!3m2!1sen!2sbr!4v1755038183194!5m2!1sen!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3679.5447721590747!2d-43.34440028882062!3d-22.75628599427993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x997931c8901b0f%3A0x6a2c2c0b7c1c2c2!2sRua%20Exemplo%2C%20123%20-%20Bairro%2C%20Cidade%20-%20Estado!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <!-- ^^^ Substitua o src acima pelo seu link real do mapa ^^^ -->
+            </div>
+
             <p class="final-message">Esperamos compartilhar este momento especial com você!</p>
         </section>
     </main>
