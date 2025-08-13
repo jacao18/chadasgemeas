@@ -117,8 +117,15 @@
         .presence-list-section h2 {
             color: var(--color-primary-accent); /* Rosa Acento */
             margin-top: 0;
-            margin-bottom: 25px;
+            margin-bottom: 5px; /* Ajustado para dar espaço ao contador */
             font-size: 1.8em;
+        }
+
+        #totalConfirmedCount { /* Estilo para o novo contador */
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: var(--color-primary-accent);
+            font-weight: 600;
         }
 
         .presence-grid {
@@ -203,6 +210,7 @@
     <main class="container">
         <section class="presence-list-section">
             <h2>👥 Confirmados para o Chá 👥</h2>
+            <div id="totalConfirmedCount"></div> <!-- Novo elemento para o contador -->
             <div id="presencesList" class="presence-grid">
                 <!-- As confirmações serão carregadas aqui pelo JavaScript -->
                 <p class="no-presences-yet" style="display: none;">Ainda não há confirmações de presença.</p>
@@ -236,6 +244,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const presencesListDiv = document.getElementById('presencesList');
             const noPresencesYet = presencesListDiv.querySelector('.no-presences-yet'); 
+            const totalConfirmedCountDiv = document.getElementById('totalConfirmedCount'); // Referência para o novo elemento
 
             // Função para formatar a data de exibição
             function formatDate(timestamp) {
@@ -256,6 +265,9 @@
                     querySnapshot.forEach((doc) => {
                         presences.push({ id: doc.id, ...doc.data() });
                     });
+
+                    // ATUALIZA O CONTADOR DE CONFIRMADOS
+                    totalConfirmedCountDiv.innerText = `Total de Confirmados: ${presences.length}`;
 
                     if (presences.length === 0) {
                         noPresencesYet.style.display = 'block'; // Mostra o texto "ainda não há confirmações"
