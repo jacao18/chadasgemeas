@@ -179,7 +179,7 @@
             background-color: var(--color-primary-accent-hover); /* Rosa Acento Hover */
         }
 
-        .confirmation-message {
+        .confirmation-message, .already-confirmed-message {
             margin-top: 25px;
             padding: 15px;
             background-color: var(--palette-yellow); /* Amarelo Claro */
@@ -189,7 +189,7 @@
             font-weight: 600;
             display: none; /* Escondido por padrão */
         }
-        .confirmation-message p {
+        .confirmation-message p, .already-confirmed-message p {
             margin: 0;
         }
 
@@ -232,6 +232,7 @@
                     <li><a href="mural.html">Mural de Recados</a></li>
                     <li><a href="confirmar_presenca.html">Confirmar Presença</a></li>
                     <li><a href="evento.html">Evento</a></li>
+                    <li><a href="lista-presenca.html">Lista de Presença</a></li> <!-- NOVO LINK -->
                 </ul>
             </nav>
         </div>
@@ -258,6 +259,9 @@
                 <div id="confirmationMessage" class="confirmation-message">
                     <p>✅ Presença confirmada com sucesso! Muito obrigado(a)!</p>
                 </div>
+                <div id="alreadyConfirmedMessage" class="already-confirmed-message">
+                    <p>😊 Sua presença já foi confirmada anteriormente. Muito obrigado(a)!</p>
+                </div>
             </div>
         </section>
     </main>
@@ -269,7 +273,7 @@
     <script type="module">
         // Importa as funções necessárias do Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
         // SEU OBJETO firebaseConfig - SUBSTITUA POR AQUELE QUE VOCÊ COPIOU DO CONSOLE DO FIREBASE!
         const firebaseConfig = {
@@ -285,26 +289,64 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app); // Obtém a instância do Firestore
 
-        const WHATSAPP_NUMBER = "5551982101092"; // <<<<< MUITO IMPORTANTE: SUBSTITUA PELO SEU NÚMERO DE WHATSAPP REAL (55 + DDD + NÚMERO)
+        // Função para obter ou criar um ID de usuário único no localStorage
+        function getOrCreateCurrentUserId() {
+            let userId = localStorage.getItem('chaGemeasRsvpUserId'); // ID específico para RSVP
+            if (!userId) {
+                userId = crypto.randomUUID(); 
+                localStorage.setItem('chaGemeasRsvpUserId', userId);
+                console.log("Novo ID de usuário para RSVP gerado e salvo:", userId);
+            } else {
+                console.log("Usando ID de usuário existente para RSVP:", userId);
+            }
+            return userId;
+        }
+
+        const currentUserId = getOrCreateCurrentUserId(); // Obtém o ID do usuário para esta sessão
 
         document.addEventListener('DOMContentLoaded', function() {
             const rsvpForm = document.getElementById('rsvpForm');
             const fullNameInput = document.getElementById('fullName');
             const guestsInput = document.getElementById('guests');
             const confirmationMessageDiv = document.getElementById('confirmationMessage');
+            const alreadyConfirmedMessageDiv = document.getElementById('alreadyConfirmedMessage');
+
+            // Função para verificar se a presença já foi confirmada
+            async function checkExistingRsvp() {
+                try {
+                    const rsvpDocRef = doc(db, "rsvps", currentUserId);
+                    const docSnap = await getDoc(rsvpDocRef);
+
+                    if (docSnap.exists()) {
+                        console.log("Presença já confirmada para este usuário.");
+                        rsvpForm.style.display = 'none'; // Esconde o formulário
+                        alreadyConfirmedMessageDiv.style.display = 'block'; // Mostra a mensagem de já confirmado
+                        return true;
+                    }
+                    return false;
+                } catch (e) {
+                    console.error("Erro ao verificar confirmação existente: ", e);
+                    // Em caso de erro, por segurança, permite o envio para evitar bloqueio indevido
+                    return false; 
+                }
+            }
 
             // Função para adicionar a confirmação ao Firestore
             async function addRsvpToFirestore(fullName, guests) {
                 try {
-                    await addDoc(collection(db, "rsvps"), {
+                    // Usa setDoc com o userId como ID do documento para garantir unicidade
+                    await setDoc(doc(db, "rsvps", currentUserId), {
+                        userId: currentUserId, // Guarda o userId também como um campo
                         fullName: fullName,
                         guests: guests,
                         timestamp: new Date() // Armazena a data e hora da confirmação
                     });
                     console.log("Presença confirmada e salva no Firestore!");
+                    return true;
                 } catch (e) {
                     console.error("Erro ao salvar confirmação: ", e);
-                    alert("Erro ao confirmar presença. Tente novamente!");
+                    alert("Erro ao confirmar presença. Tente novamente! Verifique o console para mais detalhes.");
+                    return false;
                 }
             }
 
@@ -316,31 +358,26 @@
                 const guests = guestsInput.value.trim() || "N/A"; // Se acompanhantes vazio, coloca N/A
 
                 if (fullName) {
-                    // 1. Salva no Firebase Firestore
-                    await addRsvpToFirestore(fullName, guests);
+                    // Verifica novamente antes de enviar (redundante com a verificação inicial, mas seguro)
+                    if (await checkExistingRsvp()) {
+                        return; // Já confirmou, não faz nada
+                    }
 
-                    // 2. Envia mensagem via WhatsApp
-                    let whatsappMessage = `Confirmação de Presença - Chá das gêmeas Clara e Marina:\n\n`;
-                    whatsappMessage += `Nome: ${fullName}\n`;
-                    whatsappMessage += `Acompanhantes: ${guests}\n\n`;
-                    whatsappMessage += `Obrigado!`;
+                    // Tenta salvar no Firebase Firestore
+                    const success = await addRsvpToFirestore(fullName, guests);
 
-                    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
-                    window.open(whatsappUrl, '_blank'); // Abre o WhatsApp em uma nova aba
-
-                    // 3. Exibe mensagem de confirmação no site
-                    rsvpForm.style.display = 'none'; // Esconde o formulário
-                    confirmationMessageDiv.style.display = 'block'; // Mostra a mensagem de sucesso
-
-                    // Opcional: Recarregar a página ou mostrar um botão para voltar ao formulário
-                    // setTimeout(() => {
-                    //     location.reload(); // Recarrega a página após 5 segundos
-                    // }, 5000);
-
+                    if (success) {
+                        // Esconde o formulário e mostra a mensagem de sucesso
+                        rsvpForm.style.display = 'none'; 
+                        confirmationMessageDiv.style.display = 'block'; 
+                    }
                 } else {
                     alert('Por favor, preencha seu nome completo.');
                 }
             });
+
+            // Chama a verificação inicial ao carregar a página
+            checkExistingRsvp();
         });
     </script>
 </body>
