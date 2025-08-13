@@ -1,1 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Presença - Clara e Marina</title>
 
+    <!-- Linha para adicionar o Favicon (ícone de coração de copas) -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- Link para a fonte Poppins do Google Fonts para um visual moderno -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Firebase SDK -->
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
+
+    <style>
+        /* Definindo a paleta de cores como variáveis CSS */
+        :root {
+            --palette-pink: #FFCCCC; /* Rosa Claro */
+            --palette-peach: #FFDEAD; /* Pêssego */
+            --palette-yellow: #FFFFCC; /* Amarelo Claro */
+            --palette-mint: #CCFFE6; /* Verde Menta */
+            --palette-blue: #CCE0FF; /* Azul Claro */
+
+            /* Cores derivadas para acentos e texto */
+            --color-background-soft: var(--palette-mint); /* Fundo principal da página */
+            --color-section-background: var(--palette-blue); /* Fundo de seções como hero */
+            --color-card-background: #FFFFFF; /* Branco para cartões e modais */
+
+            --color-primary-accent: #FF99B3; /* Rosa mais forte para botões, preços, ânforas */
+            --color-primary-accent-hover: #FF809F; /* Rosa mais escuro para hover */
+            --color-secondary-accent: var(--palette-yellow); /* Fundo de controles de ordenação, instruções de pagamento */
+
+            --color-border-light: var(--palette-blue); /* Bordas e linhas finas */
+            --color-placeholder-image: var(--palette-peach); /* Cor para placeholders de imagem */
+
+            --color-text-dark: #333; /* Texto principal escuro para legibilidade */
+            --color-text-medium: #666; /* Texto secundário/sutil */
+            --color-text-light: #FDFDFD; /* Texto para fundos escuros (quase branco) */
+        }
+
+        /* Estilos básicos para o corpo e reset de margens/padding */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-background-soft); /* Verde Menta */
+            color: var(--color-text-dark); /* Cor de texto principal escura para legibilidade */
+            line-height: 1.6;
+        }
+
+        /* Container para centralizar o conteúdo */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        /* Estilo do Cabeçalho */
+        header {
+            background-color: var(--color-card-background); /* Branco puro */
+            padding: 20px 0 10px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(204,224,255,0.3); /* Sombra suave do azul claro */
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            color: var(--color-primary-accent); /* Rosa Acento */
+            margin: 0 0 15px 0;
+            font-size: 1.8em;
+        }
+
+        /* Estilo do Menu de Navegação */
+        nav ul {
+            list-style: none; /* Remove marcadores da lista */
+            padding: 0;
+            margin: 0;
+            display: flex; /* Itens em linha */
+            justify-content: center; /* Centraliza os itens */
+            gap: 25px; /* Espaçamento entre os itens do menu */
+            flex-wrap: wrap; /* Quebra linha se a tela for muito pequena */
+            background-color: var(--palette-peach); /* Fundo pêssego para o menu */
+            padding: 10px 0; /* Adiciona um pouco de padding para o fundo pêssego aparecer */
+            border-radius: 8px; /* Opcional: Adiciona bordas arredondadas ao menu */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Opcional: Adiciona uma sombra suave */
+        }
+
+        nav ul li a {
+            text-decoration: none; /* Remove sublinhado */
+            color: var(--color-primary-accent); /* Rosa Acento */
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--palette-pink); /* Rosa Claríssimo */
+            color: var(--color-primary-accent-hover); /* Rosa Acento Hover */
+        }
+
+        /* Estilos para a Lista de Presença */
+        .presence-list-section {
+            background-color: var(--color-section-background); /* Azul Claro */
+            padding: 30px 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(204,224,255,0.2);
+            text-align: center;
+        }
+
+        .presence-list-section h2 {
+            color: var(--color-primary-accent); /* Rosa Acento */
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+
+        .presence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .presence-card {
+            background-color: var(--color-card-background); /* Branco puro */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            text-align: left;
+            border: 1px solid var(--color-border-light);
+        }
+
+        .presence-card h3 {
+            color: var(--color-text-dark);
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 1.2em;
+        }
+
+        .presence-card p {
+            color: var(--color-text-medium);
+            font-size: 0.95em;
+            margin: 5px 0;
+        }
+
+        .no-presences-yet {
+            color: var(--color-text-medium);
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            color: var(--color-text-medium);
+            font-size: 0.85em;
+            border-top: 1px solid var(--color-border-light); /* Borda azul clara */
+        }
+
+        /* Ajustes Responsivos para telas menores */
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px auto;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .presence-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Chá das gêmeas</h1>
+            <h1>Clara e Marina</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Lista de Presentes</a></li>
+                    <li><a href="mural.html">Mural de Recados</a></li>
+                    <li><a href="confirmar_presenca.html">Confirmar Presença</a></li>
+                    <li><a href="evento.html">Evento</a></li>
+                    <li><a href="lista-presenca.html">Lista de Presença</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="presence-list-section">
+            <h2>👥 Confirmados para o Chá 👥</h2>
+            <div id="presencesList" class="presence-grid">
+                <!-- As confirmações serão carregadas aqui pelo JavaScript -->
+                <p class="no-presences-yet" style="display: none;">Ainda não há confirmações de presença.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Chá das gêmeas Clara e Marina. Desenvolvido com carinho.</p>
+    </footer>
+
+    <script type="module">
+        // Importa as funções necessárias do Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, collection, onSnapshot, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // SEU OBJETO firebaseConfig - SUBSTITUA POR AQUELE QUE VOCÊ COPIOU DO CONSOLE DO FIREBASE!
+        const firebaseConfig = {
+          apiKey: "AIzaSyAG0w9X-YaHQoaf8pKMCbPzZMXiNKjp6Ys",
+          authDomain: "bd-cha-das-gemeas.firebaseapp.com",
+          projectId: "bd-cha-das-gemeas",
+          storageBucket: "bd-cha-das-gemeas.firebasestorage.app",
+          messagingSenderId: "315225196297",
+          appId: "1:315225196297:web:d4e4fb508de590c32135d8"
+        };
+
+        // Inicializa o Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app); // Obtém a instância do Firestore
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const presencesListDiv = document.getElementById('presencesList');
+            const noPresencesYet = presencesListDiv.querySelector('.no-presences-yet'); 
+
+            // Função para formatar a data de exibição
+            function formatDate(timestamp) {
+                const date = timestamp.toDate(); 
+                const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                return date.toLocaleDateString('pt-BR', options);
+            }
+
+            // Escutar por confirmações de presença em tempo real do Firestore e renderizá-las
+            function listenForPresences() {
+                // Cria uma consulta para a coleção 'rsvps', ordenada por timestamp (mais recente primeiro)
+                const q = query(collection(db, "rsvps"), orderBy("timestamp", "desc"));
+
+                // onSnapshot escuta em tempo real por mudanças na coleção
+                onSnapshot(q, (querySnapshot) => {
+                    presencesListDiv.innerHTML = ''; // Limpa o container antes de renderizar
+                    const presences = [];
+                    querySnapshot.forEach((doc) => {
+                        presences.push({ id: doc.id, ...doc.data() });
+                    });
+
+                    if (presences.length === 0) {
+                        noPresencesYet.style.display = 'block'; // Mostra o texto "ainda não há confirmações"
+                    } else {
+                        noPresencesYet.style.display = 'none'; // Esconde o texto
+                        presences.forEach((presence) => {
+                            const presenceCard = document.createElement('div');
+                            presenceCard.classList.add('presence-card');
+                            
+                            presenceCard.innerHTML = `
+                                <h3>${presence.fullName}</h3>
+                                <p>Acompanhantes: ${presence.guests}</p>
+                                <p>Confirmado em: ${formatDate(presence.timestamp)}</p>
+                            `;
+                            presencesListDiv.appendChild(presenceCard);
+                        });
+                    }
+                });
+            }
+
+            // Inicia a escuta de mensagens quando a página carrega
+            listenForPresences();
+        });
+    </script>
+</body>
+</html>
