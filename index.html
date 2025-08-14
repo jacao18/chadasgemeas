@@ -61,11 +61,12 @@
 
         /* Estilo do Cabeçalho */
         header {
-            /* Removido background-color: var(--color-card-background); para que a imagem apareça */
             background-image: url('fundo.jpg'); /* Caminho para sua imagem */
             background-size: cover; /* Faz a imagem cobrir toda a área do header */
             background-position: center center; /* Centraliza a imagem */
             background-repeat: no-repeat; /* Evita que a imagem se repita */
+            /* Se a imagem for escura, ajuste a cor do h1 e links para melhor contraste */
+            /* Exemplo: color: var(--color-text-light); ou text-shadow */
             padding: 20px 0 10px 0;
             text-align: center;
             box-shadow: 0 2px 4px rgba(204,224,255,0.3); /* Sombra suave do azul claro */
@@ -76,7 +77,6 @@
             color: var(--color-primary-accent); /* Rosa Acento */
             margin: 0 0 15px 0;
             font-size: 1.8em;
-            /* Se a imagem de fundo for escura, considere mudar a cor do texto para var(--color-text-light) */
         }
 
         /* Estilo do Menu de Navegação */
@@ -88,7 +88,7 @@
             justify-content: center; /* Centraliza os itens */
             gap: 25px; /* Espaçamento entre os itens do menu */
             flex-wrap: wrap; /* Quebra linha se a tela for muito pequena */
-            background-color: transparent; /* Alterado para transparente para mostrar a imagem de fundo do header */
+            background-color: var(--palette-peach); /* Fundo pêssego para o menu - VOLTOU A SER PÊSSEGO */
             padding: 10px 0; /* Adiciona um pouco de padding para o fundo pêssego aparecer */
             border-radius: 8px; /* Opcional: Adiciona bordas arredondadas ao menu */
             box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Opcional: Adiciona uma sombra suave */
