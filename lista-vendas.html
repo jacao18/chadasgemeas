@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Vendas PicPay</title>
+    <!-- Inclua seu CSS e Favicon aqui -->
+</head>
+<body>
+    <header>
+        <!-- Seu cabeçalho com menu de navegação aqui -->
+    </header>
+
+    <main class="container">
+        <section class="sales-list-section">
+            <h2>💰 Vendas PicPay Empresas 💰</h2>
+            <div id="salesList">
+                <!-- As vendas serão carregadas aqui pelo JavaScript -->
+                <p id="loadingMessage">Carregando vendas...</p>
+                <p id="errorMessage" style="color: red; display: none;">Erro ao carregar vendas. Tente novamente mais tarde.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Seu rodapé aqui -->
+    </footer>
+
+    <script type="module">
+        document.addEventListener('DOMContentLoaded', async function() {
+            const salesListDiv = document.getElementById('salesList');
+            const loadingMessage = document.getElementById('loadingMessage');
+            const errorMessage = document.getElementById('errorMessage');
+
+            // URL da sua Cloud Function (você a obterá após o deploy)
+            const cloudFunctionUrl = 'https://SEU_REGION-SEU_PROJETO_ID.cloudfunctions.net/getPicPaySales';
+
+            try {
+                const response = await fetch(cloudFunctionUrl); // Se sua CF tiver autenticação, adicione headers aqui
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const sales = await response.json();
+
+                loadingMessage.style.display = 'none'; // Esconde a mensagem de carregamento
+
+                if (sales.length === 0) {
+                    salesListDiv.innerHTML = '<p>Nenhuma venda encontrada.</p>';
+                } else {
+                    salesListDiv.innerHTML = ''; // Limpa o container
+                    sales.forEach(sale => {
+                        const saleCard = document.createElement('div');
+                        saleCard.classList.add('sale-card'); // Adicione estilos para 'sale-card' no seu CSS
+                        saleCard.innerHTML = `
+                            <h3>Venda #${sale.id.substring(0, 8)}</h3>
+                            <p>Valor: R$ ${sale.valor ? sale.valor.toFixed(2).replace('.', ',') : 'N/A'}</p>
+                            <p>Status: ${sale.status}</p>
+                            <p>Descrição: ${sale.descricao || 'N/A'}</p>
+                            <p>Data: ${new Date(sale.data).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                        `;
+                        salesListDiv.appendChild(saleCard);
+                    });
+                }
+
+            } catch (error) {
+                console.error('Erro ao buscar vendas:', error);
+                loadingMessage.style.display = 'none';
+                errorMessage.style.display = 'block'; // Mostra a mensagem de erro
+            }
+        });
+    </script>
+</body>
+</html>
