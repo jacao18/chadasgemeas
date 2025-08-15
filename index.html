@@ -61,16 +61,16 @@
 
         /* Estilo do Cabeçalho */
         header {
-            background-image: url('fundo.jpg'); /* Caminho para sua imagem */
+            background-image: url('fundo.jpg'); /* Imagem Padrão para Desktop */
             background-size: cover; /* Faz a imagem cobrir toda a área do header */
             background-position: center center; /* Centraliza a imagem */
             background-repeat: no-repeat; /* Evita que a imagem se repita */
-            /* Se a imagem for escura, ajuste a cor do h1 e links para melhor contraste */
-            /* Exemplo: color: var(--color-text-light); ou text-shadow */
             padding: 20px 0 10px 0;
             text-align: center;
             box-shadow: 0 2px 4px rgba(204,224,255,0.3); /* Sombra suave do azul claro */
             margin-bottom: 20px;
+            /* Altura mínima para o header, para evitar que o conteúdo se sobreponha se a imagem não carregar */
+            min-height: 150px; /* Ajuste este valor conforme a necessidade do seu design desktop */
         }
 
         header h1 {
@@ -267,6 +267,23 @@
 
         /* Ajustes Responsivos para telas menores */
         @media (max-width: 768px) {
+            /* === MODIFICAÇÃO PARA A IMAGEM DO HEADER MOBILE === */
+            header {
+                background-image: url('capa_mobile.png'); /* Sua nova imagem para mobile */
+                /* Ajuste 'cover' ou 'contain' e 'background-position'
+                   conforme a proporção da sua capa_mobile.png.
+                   Se a imagem for "muito comprida", 'contain' pode mostrar a imagem inteira,
+                   mas deixará espaço vazio. 'cover' preencherá, mas pode cortar a imagem.
+                   Você pode experimentar com 'background-size: 100% auto;' também. */
+                background-size: cover;
+                background-position: center center;
+                /* Você pode querer uma altura diferente para o header no mobile
+                   para acomodar melhor a imagem mobile e o conteúdo */
+                min-height: 120px; /* Exemplo: ajuste esta altura conforme o necessário */
+                padding: 15px 0 5px 0; /* Ajuste o padding para mobile se necessário */
+            }
+            /* ================================================= */
+
             .sort-controls {
                 width: calc(100% - 40px);
                 display: block;
@@ -297,7 +314,6 @@
                 gap: 10px;
             }
 
-            /* Removido o estilo do botão "Ver Carrinho" que não existe mais */
             .hero-section {
                 padding-bottom: 30px; /* Reduzido o padding já que o botão foi removido */
             }
