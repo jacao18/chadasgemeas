@@ -254,7 +254,7 @@
         <section class="rsvp-section">
             <img src="eco.jpg" alt="Ilustração de bebê em tema ecológico" class="profile-pic">
             <h2>🎉 Confirme sua presença 🎉</h2>
-            <p>Confirme sua presença até o dia 12 de Setembro</p>
+            <p>Confirme sua presença até o dia 15 de Setembro</p>
             <div class="rsvp-form-container">
                 <h3>Preencha os dados:</h3>
                 <form id="rsvpForm" class="rsvp-form">
@@ -273,7 +273,11 @@
                     <p>✅ Presença confirmada com sucesso! Muito obrigado(a)!</p>
                 </div>
                 <div id="alreadyConfirmedMessage" class="already-confirmed-message">
-                    <p>😊 Sua presença já foi confirmada anteriormente. Muito obrigado(a)!</p>
+                    <p>🎉🎉 Sua presença já foi confirmada anteriormente. Muito obrigado(a)!</p>
+                </div>
+                <!-- NOVO: Mensagem de data limite excedida -->
+                <div id="deadlinePassedMessage" class="already-confirmed-message" style="display: none;">
+                    <p>❌ Não é mais possível confirmar a presença pelo site. Por favor notifique diretamente os papais.</p>
                 </div>
             </div>
         </section>
@@ -323,6 +327,19 @@
             const guestsInput = document.getElementById('guests');
             const confirmationMessageDiv = document.getElementById('confirmationMessage');
             const alreadyConfirmedMessageDiv = document.getElementById('alreadyConfirmedMessage');
+            const deadlinePassedMessageDiv = document.getElementById('deadlinePassedMessage'); // NOVO: Referência ao novo div
+
+            // Define a data limite para a confirmação (15 de Setembro de 2025)
+            // Os meses em JavaScript são baseados em zero (0 para Janeiro, 8 para Setembro)
+            const cutoffDate = new Date(2025, 8, 15); 
+            const currentDate = new Date(); // Pega a data e hora atual
+
+            // 1. VERIFICAÇÃO DA DATA LIMITE
+            if (currentDate >= cutoffDate) {
+                rsvpForm.style.display = 'none'; // Esconde o formulário
+                deadlinePassedMessageDiv.style.display = 'block'; // Mostra a mensagem de data limite excedida
+                return; // Impede que o restante do script (e o formulário) seja processado
+            }
 
             // Função para verificar se a presença já foi confirmada
             async function checkExistingRsvp() {
